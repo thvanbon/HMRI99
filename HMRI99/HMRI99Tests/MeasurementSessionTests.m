@@ -25,7 +25,7 @@
 - (void) setUp
 {
     [super setUp];
-    sut=[[MeasurementSession alloc] initWithProjectName:@"CARG.13.01"
+    sut=[[MeasurementSession alloc] initWithName:@"CARG.13.01"
                                                    date:[NSDate dateWithTimeIntervalSinceReferenceDate:1]
                                                location:@"Zaandam"
                                                engineer:@"Alfred Brooks"];
@@ -41,9 +41,9 @@
     assertThat(sut,notNilValue());
 }
 
-- (void) testThatMeasurementSessionHasProjectName
+- (void) testThatMeasurementSessionHasName
 {
-    assertThat([sut projectName], is(equalTo(@"CARG.13.01")));
+    assertThat([sut name], is(equalTo(@"CARG.13.01")));
 }
 
 - (void) testThatMeasurementSessionHasDate
@@ -68,14 +68,15 @@
 
 - (void) testThatListOfMeasurementsIsInitiallyEmpty
 {
-    assertThat([NSNumber numberWithInt:[[sut measurements] count]], is(equalTo([NSNumber numberWithInt:0])));
+    assertThat([NSNumber numberWithInt:[[sut measurements] count]], is(equalTo(@0)));
 }
 
 - (void) testThatMeasurementCanBeAddedToListOfMeasurements
 {
     Measurement * myMeasurement=[[Measurement alloc] init];
     [sut addMeasurement:myMeasurement];
-    assertThat([NSNumber numberWithInt:[[sut measurements] count]], is(equalTo([NSNumber numberWithInt:1])));
+    assertThat([NSNumber numberWithInt:[[sut measurements] count]], is(equalTo(@1)));
+
 }
 
 @end

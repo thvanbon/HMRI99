@@ -1,16 +1,16 @@
 #import "MeasurementSession.h"
 
 @implementation MeasurementSession
-@synthesize projectName,date,location, engineer, measurements;
+@synthesize name,date,location, engineer, measurements;
 
-- (id)initWithProjectName:(NSString*)newProjectName
+- (id)initWithName:(NSString*)newName
                      date:(NSDate *)newDate
                  location:(NSString *)newLocation
                  engineer:(NSString *)newEngineer
 {
     self = [super init];
     if (self) {
-        projectName=[newProjectName copy];
+        name=[newName copy];
         date=[newDate copy];
         location=[newLocation copy];
         engineer=[newEngineer copy];

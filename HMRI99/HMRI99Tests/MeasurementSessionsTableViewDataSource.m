@@ -5,17 +5,28 @@
     NSArray * MeasurementSessions;
 }
 
-//@synthesize MeasurementSessions;
 - (NSInteger)tableView:(UITableView *)tableView
  numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    NSParameterAssert(section == 0);
+    return [MeasurementSessions count];
 }
+
+NSString * measurementSessionCellReuseIdentifier=@"MeasurementSession";
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return nil;
+    NSParameterAssert([indexPath section] == 0);
+    NSParameterAssert([MeasurementSessions count] > [indexPath row]);
+    
+    UITableViewCell *measurementSessionCell =[tableView dequeueReusableCellWithIdentifier: measurementSessionCellReuseIdentifier];
+    if (!measurementSessionCell) {
+        measurementSessionCell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault
+                                           reuseIdentifier: measurementSessionCellReuseIdentifier];
+    }
+    measurementSessionCell.textLabel.text=[[MeasurementSessions objectAtIndex:[indexPath row]] name];
+    return measurementSessionCell;
 }
 
 - (void) setMeasurementSessions:(NSArray *) newMeasurementSessions
