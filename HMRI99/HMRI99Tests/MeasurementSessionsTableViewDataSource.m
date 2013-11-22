@@ -23,7 +23,7 @@ NSString * measurementSessionCellReuseIdentifier=@"MeasurementSession";
     UITableViewCell *measurementSessionCell =[tableView dequeueReusableCellWithIdentifier: measurementSessionCellReuseIdentifier];
     if (!measurementSessionCell) {
         measurementSessionCell = [[UITableViewCell alloc] initWithStyle: UITableViewCellStyleDefault
-                                           reuseIdentifier: measurementSessionCellReuseIdentifier];
+                                                        reuseIdentifier: measurementSessionCellReuseIdentifier];
     }
     measurementSessionCell.textLabel.text=[[MeasurementSessions objectAtIndex:[indexPath row]] name];
     return measurementSessionCell;

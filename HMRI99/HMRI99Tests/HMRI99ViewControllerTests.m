@@ -3,7 +3,7 @@
 
 #import <objc/runtime.h>
 #import "MeasurementSessionsTableViewDataSource.h"
-#import "EmptyTableViewDelegate.h"
+//#import "MeasurementSessionsTableViewDelegate.h"
 
     // Test support
 #import <SenTestingKit/SenTestingKit.h>
@@ -23,6 +23,7 @@
 {
     HMRI99ViewController * sut;
     UITableView *tableView;
+    id <UITableViewDataSource, UITableViewDelegate> dataSource;
 }
 - (void) setUp
 {
@@ -30,13 +31,17 @@
     sut=[[HMRI99ViewController alloc] init];
     tableView = [[UITableView alloc] init];
     sut.tableView = tableView;
+    dataSource=[[MeasurementSessionsTableViewDataSource alloc] init];
+    sut.dataSource=dataSource;
 }
 
 - (void) tearDown
 {
     sut=nil;
-    [super tearDown];
     tableView=nil;
+    dataSource=nil;
+    //delegate=nil;
+    [super tearDown];
 }
 
 - (void) testViewControllerHasATableView
@@ -48,24 +53,17 @@
 - (void)testViewControllerHasADataSourceProperty { objc_property_t dataSourceProperty =class_getProperty([sut class], "dataSource");
     STAssertTrue(dataSourceProperty != NULL, @"HMRI99ViewController needs a data source");
 }
-- (void)testViewControllerHasATableViewDelegateProperty { objc_property_t delegateProperty =class_getProperty([sut class], "tableViewDelegate");
-    STAssertTrue(delegateProperty != NULL, @"HMRI99ViewController needs a table view delegate");
-}
 
 - (void) testViewControllerConnectsDataSourceInViewDidLoad
 {
-    id <UITableViewDataSource> dataSource =[[MeasurementSessionsTableViewDataSource alloc] init];
-    sut.dataSource=dataSource;
     [sut viewDidLoad];
     assertThat([tableView dataSource],is(equalTo(dataSource)));
 }
 
 - (void) testViewControllerConnectsDelegateInViewDidLoad
 {
-    id <UITableViewDelegate> delegate =[[EmptyTableViewDelegate alloc] init];
-    sut.tableViewDelegate=delegate;
     [sut viewDidLoad];
-    assertThat([tableView delegate],is(equalTo(delegate)));
+    assertThat([tableView delegate],is(equalTo(dataSource)));
 }
-                                          
+
 @end

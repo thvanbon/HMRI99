@@ -5,7 +5,7 @@
 @end
 
 @implementation HMRI99ViewController
-@synthesize tableView, dataSource, tableViewDelegate;
+@synthesize tableView, dataSource;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.tableView.delegate=self.tableViewDelegate;
+    self.tableView.delegate=self.dataSource;
     self.tableView.dataSource=self.dataSource;
 }
 
