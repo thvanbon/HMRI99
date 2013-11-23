@@ -4,6 +4,7 @@
 
 @end
 
+
 @implementation HMRI99ViewController
 @synthesize tableView, dataSource;
 
@@ -21,6 +22,21 @@
     [super viewDidLoad];
     self.tableView.delegate=self.dataSource;
     self.tableView.dataSource=self.dataSource;
+}
+
+-(void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidSelectTopicNotification:)
+                                                 name: @"measurementSessionsTableDidSelectMeasurementSessionNotification"
+                                               object:nil];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"measurementSessionsTableDidSelectMeasurementSessionNotification" object:nil];
 }
 
 - (void)didReceiveMemoryWarning

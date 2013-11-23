@@ -19,11 +19,24 @@
 @interface HMRI99ViewControllerTests : SenTestCase
 @end
 
+static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotificationKey";
+
+@implementation HMRI99ViewController (TestNotificationDelivery)
+
+- (void)userDidSelectTopicNotification: (NSNotification *)note
+{
+    objc_setAssociatedObject(self, notificationKey, note, OBJC_ASSOCIATION_RETAIN);
+}
+
+@end
+
+
 @implementation HMRI99ViewControllerTests
 {
     HMRI99ViewController * sut;
     UITableView *tableView;
     id <UITableViewDataSource, UITableViewDelegate> dataSource;
+    NSNotification * receivedNotification;
 }
 - (void) setUp
 {
@@ -33,6 +46,7 @@
     sut.tableView = tableView;
     dataSource=[[MeasurementSessionsTableViewDataSource alloc] init];
     sut.dataSource=dataSource;
+    objc_removeAssociatedObjects(sut);
 }
 
 - (void) tearDown
@@ -40,7 +54,8 @@
     sut=nil;
     tableView=nil;
     dataSource=nil;
-    //delegate=nil;
+    receivedNotification=nil;
+//    objc_removeAssociatedObjects(sut);
     [super tearDown];
 }
 
@@ -64,6 +79,30 @@
 {
     [sut viewDidLoad];
     assertThat([tableView delegate],is(equalTo(dataSource)));
+}
+
+- (void)testDefaultStateOfViewControllerDoesNotReceiveNotifications {
+    [[NSNotificationCenter defaultCenter] postNotificationName: measurementSessionsTableDidSelectMeasurementSessionNotification object: nil
+                                                      userInfo: nil];
+    assertThat(objc_getAssociatedObject(sut, notificationKey),is(nilValue()));
+}
+
+- (void)testViewControllerReceivesTableSelectionNotificationAfterViewDidAppear
+{
+    [sut viewDidAppear: NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName: measurementSessionsTableDidSelectMeasurementSessionNotification object: nil userInfo: nil];
+    
+    assertThat(objc_getAssociatedObject(sut, notificationKey),is(notNilValue()));
+}
+
+- (void)testViewControllerDoesNotReceiveTableSelectNotificationAfterViewWillDisappear
+{
+    [sut viewDidAppear: NO];
+    [sut viewWillDisappear: NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName: measurementSessionsTableDidSelectMeasurementSessionNotification
+                                                        object: nil
+                                                      userInfo: nil];
+    assertThat(objc_getAssociatedObject(sut, notificationKey), is(nilValue()));
 }
 
 @end
