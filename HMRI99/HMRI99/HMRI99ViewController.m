@@ -1,8 +1,7 @@
 #import "HMRI99ViewController.h"
-
-@interface HMRI99ViewController ()
-
-@end
+#import "MeasurementSession.h"
+#import "MeasurementsTableViewDataSource.h"
+#import <objc/runtime.h>
 
 
 @implementation HMRI99ViewController
@@ -22,13 +21,17 @@
     [super viewDidLoad];
     self.tableView.delegate=self.dataSource;
     self.tableView.dataSource=self.dataSource;
+    objc_property_t tableViewProperty = class_getProperty([dataSource class], "tableView");
+    if (tableViewProperty) {
+        [dataSource setValue: tableView forKey: @"tableView"];
+    }
 }
 
 -(void)viewDidAppear:(BOOL)animated
 {
     [super viewDidAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(userDidSelectTopicNotification:)
+                                             selector:@selector(userDidSelectMeasurementSessionNotification:)
                                                  name: @"measurementSessionsTableDidSelectMeasurementSessionNotification"
                                                object:nil];
 }
@@ -43,6 +46,17 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)userDidSelectMeasurementSessionNotification:(NSNotification *)note
+{
+    MeasurementSession * selectedMeasurementSession=(MeasurementSession*) [note object];
+    HMRI99ViewController * nextViewController = [[HMRI99ViewController alloc] init];
+    MeasurementsTableViewDataSource * measurementsDataSource=[[MeasurementsTableViewDataSource alloc]init];
+    measurementsDataSource.MeasurementSession=selectedMeasurementSession;
+    nextViewController.dataSource=measurementsDataSource;
+    [[self navigationController] pushViewController: nextViewController
+                                           animated: YES];
 }
 
 @end

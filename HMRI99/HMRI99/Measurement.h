@@ -4,8 +4,6 @@
 @interface Measurement : NSObject
 
 @property NSString * ID;
-
-
 @property float soundPressureLevel;
 @property float soundPowerLevel;
 @property NoiseSource * noiseSource;

@@ -40,6 +40,10 @@
 		76B9ADC3183BFF8800A1D668 /* HMRI99ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC1183BFF8800A1D668 /* HMRI99ViewController.m */; };
 		76B9ADC4183BFF8800A1D668 /* HMRI99ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76B9ADC2183BFF8800A1D668 /* HMRI99ViewController.xib */; };
 		76B9ADC6183BFFDB00A1D668 /* HMRI99ViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC5183BFFDB00A1D668 /* HMRI99ViewControllerTests.m */; };
+		76FB86A41842399B009270CB /* MeasurementsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FB86A31842399B009270CB /* MeasurementsTableViewDataSource.m */; };
+		76FB86A618424BD2009270CB /* MeasurementsTableViewDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FB86A518424BD2009270CB /* MeasurementsTableViewDataSourceTests.m */; };
+		76FB86AA18425C6E009270CB /* MeasurementSummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FB86A918425C6E009270CB /* MeasurementSummaryCell.m */; };
+		76FB86AC18425DBB009270CB /* MeasurementSummaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76FB86AB18425DBA009270CB /* MeasurementSummaryCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +103,13 @@
 		76B9ADC5183BFFDB00A1D668 /* HMRI99ViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMRI99ViewControllerTests.m; sourceTree = "<group>"; };
 		76B9ADC7183D3A0300A1D668 /* MeasurementSessionsTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeasurementSessionsTableViewDataSource.h; path = HMRI99Tests/MeasurementSessionsTableViewDataSource.h; sourceTree = SOURCE_ROOT; };
 		76B9ADC8183D3A0300A1D668 /* MeasurementSessionsTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeasurementSessionsTableViewDataSource.m; path = HMRI99Tests/MeasurementSessionsTableViewDataSource.m; sourceTree = SOURCE_ROOT; };
+		76FB86A018421E07009270CB /* BrowseOverflowViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowseOverflowViewControllerTests.m; sourceTree = "<group>"; };
+		76FB86A21842399B009270CB /* MeasurementsTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementsTableViewDataSource.h; sourceTree = "<group>"; };
+		76FB86A31842399B009270CB /* MeasurementsTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementsTableViewDataSource.m; sourceTree = "<group>"; };
+		76FB86A518424BD2009270CB /* MeasurementsTableViewDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementsTableViewDataSourceTests.m; sourceTree = "<group>"; };
+		76FB86A818425C6E009270CB /* MeasurementSummaryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeasurementSummaryCell.h; path = ../MeasurementSummaryCell.h; sourceTree = "<group>"; };
+		76FB86A918425C6E009270CB /* MeasurementSummaryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeasurementSummaryCell.m; path = ../MeasurementSummaryCell.m; sourceTree = "<group>"; };
+		76FB86AB18425DBA009270CB /* MeasurementSummaryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeasurementSummaryCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +171,9 @@
 		76172DDF1839634A000B798F /* HMRI99 */ = {
 			isa = PBXGroup;
 			children = (
+				76FB86A818425C6E009270CB /* MeasurementSummaryCell.h */,
+				76FB86A918425C6E009270CB /* MeasurementSummaryCell.m */,
+				76FB86AB18425DBA009270CB /* MeasurementSummaryCell.xib */,
 				76B9ADBD183AD9F700A1D668 /* NoiseSource.h */,
 				76B9ADBE183AD9F700A1D668 /* NoiseSource.m */,
 				76B9ADB8183A8A5600A1D668 /* MeasurementII3.h */,
@@ -178,6 +192,8 @@
 				76B9ADC1183BFF8800A1D668 /* HMRI99ViewController.m */,
 				76B9ADC2183BFF8800A1D668 /* HMRI99ViewController.xib */,
 				76B9ADC7183D3A0300A1D668 /* MeasurementSessionsTableViewDataSource.h */,
+				76FB86A21842399B009270CB /* MeasurementsTableViewDataSource.h */,
+				76FB86A31842399B009270CB /* MeasurementsTableViewDataSource.m */,
 				76B9ADC8183D3A0300A1D668 /* MeasurementSessionsTableViewDataSource.m */,
 				76172DF41839634A000B798F /* DetailViewController.h */,
 				76172DF51839634A000B798F /* DetailViewController.m */,
@@ -205,6 +221,8 @@
 		76172E091839634A000B798F /* HMRI99Tests */ = {
 			isa = PBXGroup;
 			children = (
+				76FB86A518424BD2009270CB /* MeasurementsTableViewDataSourceTests.m */,
+				76FB86A018421E07009270CB /* BrowseOverflowViewControllerTests.m */,
 				76B07257183D3D09003E86CB /* MeasurementSessionsTableViewDatasourceTests.m */,
 				76B9ADC5183BFFDB00A1D668 /* HMRI99ViewControllerTests.m */,
 				76B9ADBB183AD96E00A1D668 /* NoiseSourceTests.m */,
@@ -304,6 +322,7 @@
 				76172DF91839634A000B798F /* MasterViewController.xib in Resources */,
 				76172DFC1839634A000B798F /* DetailViewController.xib in Resources */,
 				76B9ADC4183BFF8800A1D668 /* HMRI99ViewController.xib in Resources */,
+				76FB86AC18425DBB009270CB /* MeasurementSummaryCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -349,6 +368,8 @@
 				76B9ADBF183AD9F700A1D668 /* NoiseSource.m in Sources */,
 				76B9ADC3183BFF8800A1D668 /* HMRI99ViewController.m in Sources */,
 				76B07256183D3CC4003E86CB /* MeasurementSessionsTableViewDataSource.m in Sources */,
+				76FB86A41842399B009270CB /* MeasurementsTableViewDataSource.m in Sources */,
+				76FB86AA18425C6E009270CB /* MeasurementSummaryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -363,6 +384,7 @@
 				76B9ADBC183AD96E00A1D668 /* NoiseSourceTests.m in Sources */,
 				76B9ADC6183BFFDB00A1D668 /* HMRI99ViewControllerTests.m in Sources */,
 				76B07258183D3D09003E86CB /* MeasurementSessionsTableViewDatasourceTests.m in Sources */,
+				76FB86A618424BD2009270CB /* MeasurementsTableViewDataSourceTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
