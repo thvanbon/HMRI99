@@ -1,14 +1,7 @@
-//
-//  AppDelegate.m
-//  HMRI99
-//
-//  Created by Thijs van Bon on 11/17/13.
-//  Copyright (c) 2013 Thijs van Bon. All rights reserved.
-//
-
 #import "AppDelegate.h"
+#import "HMRI99ViewController.h"
+#import "MeasurementSessionsTableViewDataSource.h"
 
-#import "MasterViewController.h"
 
 @implementation AppDelegate
 
@@ -17,10 +10,16 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 
-    MasterViewController *masterViewController = [[MasterViewController alloc] initWithNibName:@"MasterViewController" bundle:nil];
-    self.navigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
+    
+    
+    HMRI99ViewController *firstViewController = [[HMRI99ViewController alloc] initWithNibName:@"HMRI99ViewController" bundle:nil];
+    
+    MeasurementSessionsTableViewDataSource * dataSource=[[MeasurementSessionsTableViewDataSource alloc] init];
+    firstViewController.dataSource=dataSource;
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:firstViewController];
     self.window.rootViewController = self.navigationController;
     [self.window makeKeyAndVisible];
+
     return YES;
 }
 
@@ -50,5 +49,6 @@
 {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
 
 @end

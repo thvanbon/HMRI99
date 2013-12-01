@@ -25,6 +25,9 @@
     if (tableViewProperty) {
         [dataSource setValue: tableView forKey: @"tableView"];
     }
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    self.navigationItem.rightBarButtonItem = addButton;
+    
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -57,6 +60,11 @@
     nextViewController.dataSource=measurementsDataSource;
     [[self navigationController] pushViewController: nextViewController
                                            animated: YES];
+}
+
+- (void) insertNewObject: (id)sender
+{
+    
 }
 
 @end
