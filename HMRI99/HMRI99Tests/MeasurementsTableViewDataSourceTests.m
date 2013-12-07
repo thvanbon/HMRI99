@@ -1,6 +1,6 @@
     // Class under test
 #import "MeasurementsTableViewDataSource.h"
-#import "MeasurementSession.h"
+#import "Session.h"
 #import "Measurement.h"
 #import "MeasurementSummaryCell.h"
 
@@ -23,7 +23,7 @@
 @implementation MeasurementsTableViewDataSourceTests
 {
     MeasurementsTableViewDataSource * sut;
-    MeasurementSession * measurementSession;
+    Session * session;
     Measurement * measurement1;
     Measurement * measurement2;
     NSIndexPath * firstCell;
@@ -33,44 +33,51 @@
 {
     [super setUp];
     sut= [[MeasurementsTableViewDataSource alloc] init];
-    measurementSession =[[MeasurementSession alloc] initWithName: @"CARG.13.01"
+    session =[[Session alloc] initWithName: @"CARG.13.01"
                                                            date:[NSDate date]
                                                        location:@"Zaandam"
                                                        engineer:@"HKu"];
     measurement1=[[Measurement alloc] initWithID:@"R1"];
     measurement2=[[Measurement alloc] initWithID:@"R2"];
-    sut.measurementSession=measurementSession;
+    sut.session=session;
     firstCell = [NSIndexPath indexPathForRow: 0 inSection: 0];
 }
 
 - (void) tearDown
 {
     sut=nil;
-    measurementSession=nil;
+    session=nil;
     measurement1=nil;
     measurement2=nil;
     firstCell=nil;
     [super tearDown];
 }
 
-- (void)testMeasurementSessionWithNoMeasurementsLeadsToOneRowInTheTableStatingNoMeasurementsYet
+//- (void) testMeasurementSummaryCellShouldBeConnected
+//{
+//    assertThat([sut summaryCell], is(notNilValue()));
+//}
+
+- (void)testSessionWithNoMeasurementsLeadsToOneRowInTheTableStatingNoMeasurementsYet
 {
     assertThatInt([sut tableView: nil numberOfRowsInSection: 0], is(equalTo(@1)));
 }
 
-- (void)testMeasurementSessionWithMeasurementsResultsInOneRowPerMeasurementInTheTable
+- (void)testSessionWithMeasurementsResultsInOneRowPerMeasurementInTheTable
 {
     
-    [measurementSession addMeasurement: measurement1];
-    [measurementSession addMeasurement: measurement2];
+    [session addMeasurement: measurement1];
+    [session addMeasurement: measurement2];
     assertThatInt([sut tableView: nil numberOfRowsInSection: 0], is(equalTo(@2)));
 }
 
 - (void)testCellIDIsTheSameAsTheMeasurementID
 {
-    [measurementSession addMeasurement: measurement1];
+    [session addMeasurement: measurement1];
     MeasurementSummaryCell *cell = (MeasurementSummaryCell *)[sut tableView: nil cellForRowAtIndexPath: firstCell] ;
     assertThat(cell.iDLabel.text, is(equalTo(@"R1")));
 }
+
+
 
 @end

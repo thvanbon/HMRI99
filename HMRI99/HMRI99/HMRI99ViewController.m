@@ -1,6 +1,7 @@
 #import "HMRI99ViewController.h"
-#import "MeasurementSession.h"
+#import "Session.h"
 #import "MeasurementsTableViewDataSource.h"
+#import "SessionsTableViewDataSource.h"
 #import <objc/runtime.h>
 
 
@@ -31,18 +32,29 @@
 }
 
 -(void)viewDidAppear:(BOOL)animated
-{
+{    
     [super viewDidAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(userDidSelectMeasurementSessionNotification:)
-                                                 name: @"measurementSessionsTableDidSelectMeasurementSessionNotification"
+                                             selector:@selector(userDidSelectSessionNotification:)
+                                                 name: @"sessionsTableDidSelectSessionNotification"
+                                               object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(userDidAddSessionNotification:)
+                                                 name: @"sessionsTableDidAddSessionNotification"
                                                object:nil];
 }
+
+//added while troubleshooting switching to second vc. Might need later. Works, but not tested yet.
+//- (void) viewWillAppear:(BOOL)animated {
+//    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:animated];
+//    [super viewWillAppear:animated];
+//}
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"measurementSessionsTableDidSelectMeasurementSessionNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sessionsTableDidSelectSessionNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sessionsTableDidAddSessionNotification" object:nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -51,12 +63,12 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)userDidSelectMeasurementSessionNotification:(NSNotification *)note
+- (void)userDidSelectSessionNotification:(NSNotification *)note
 {
-    MeasurementSession * selectedMeasurementSession=(MeasurementSession*) [note object];
+    Session * selectedSession=(Session*) [note object];
     HMRI99ViewController * nextViewController = [[HMRI99ViewController alloc] init];
     MeasurementsTableViewDataSource * measurementsDataSource=[[MeasurementsTableViewDataSource alloc]init];
-    measurementsDataSource.MeasurementSession=selectedMeasurementSession;
+    measurementsDataSource.session=selectedSession;
     nextViewController.dataSource=measurementsDataSource;
     [[self navigationController] pushViewController: nextViewController
                                            animated: YES];
@@ -64,7 +76,16 @@
 
 - (void) insertNewObject: (id)sender
 {
-    
+    if ([self.tableView.delegate respondsToSelector:@selector(addSession)])
+    {
+        [(id) self.tableView.delegate addSession];
+    }
+}
+
+- (void) userDidAddSessionNotification:(NSNotification *)note
+{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
 }
 
 @end

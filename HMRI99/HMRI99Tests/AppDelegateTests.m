@@ -3,7 +3,7 @@
 
     // Collaborators
 #import "HMRI99ViewController.h"
-#import "MeasurementSessionsTableViewDataSource.h"
+#import "SessionsTableViewDataSource.h"
 
     // Test support
 #import <UIKit/UIKit.h>
@@ -69,11 +69,11 @@
     assertThatBool([visibleViewController isKindOfClass: [HMRI99ViewController class]], is(equalToBool(YES)));
 }
 
-- (void)testFirstViewControllerHasAMeasurementSessionTableViewDataSource
+- (void)testFirstViewControllerHasASessionTableViewDataSource
 {
     [sut application: nil didFinishLaunchingWithOptions: nil];
     HMRI99ViewController *viewController = (HMRI99ViewController *) sut.navigationController.topViewController;
-    assertThatBool([viewController.dataSource isKindOfClass: [MeasurementSessionsTableViewDataSource class]], is(equalToBool(YES)));
+    assertThatBool([viewController.dataSource isKindOfClass: [SessionsTableViewDataSource class]], is(equalToBool(YES)));
 }
 
 

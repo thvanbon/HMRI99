@@ -2,7 +2,7 @@
 #import "HMRI99ViewController.h"
 
 #import <objc/runtime.h>
-#import "MeasurementSessionsTableViewDataSource.h"
+#import "SessionsTableViewDataSource.h"
 #import "MeasurementsTableViewDataSource.h"
 
     // Test support
@@ -11,9 +11,8 @@
 #define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
 
-// Uncomment the next two lines to use OCMockito for mock objects:
-//#define MOCKITO_SHORTHAND
-//#import <OCMockitoIOS/OCMockitoIOS.h>
+#define MOCKITO_SHORTHAND
+#import <OCMockitoIOS/OCMockitoIOS.h>
 
 
 @interface HMRI99ViewControllerTests : SenTestCase
@@ -23,7 +22,12 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
 
 @implementation HMRI99ViewController (TestNotificationDelivery)
 
-- (void)hMRI99ControllerTests_userDidSelectMeasurementSessionNotification: (NSNotification *)note
+- (void)hMRI99ControllerTests_userDidSelectSessionNotification: (NSNotification *)note
+{
+    objc_setAssociatedObject(self, notificationKey, note, OBJC_ASSOCIATION_RETAIN);
+}
+
+- (void)hMRI99ControllerTests_userDidAddSessionNotification: (NSNotification *)note
 {
     objc_setAssociatedObject(self, notificationKey, note, OBJC_ASSOCIATION_RETAIN);
 }
@@ -35,7 +39,8 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     UITableView *tableView;
     id <UITableViewDataSource, UITableViewDelegate> dataSource;
     NSNotification * receivedNotification;
-    SEL realUserDidSelectMeasurementSession, testUserDidSelectMeasurementSession;
+    SEL realUserDidSelectSession, testUserDidSelectSession;
+    SEL realUserDidAddSession, testUserDidAddSession;
     UINavigationController *navController;
 }
 
@@ -49,10 +54,12 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     sut=[[HMRI99ViewController alloc] init];
     tableView = [[UITableView alloc] init];
     sut.tableView = tableView;
-    dataSource=[[MeasurementSessionsTableViewDataSource alloc] init];
+    dataSource=[[SessionsTableViewDataSource alloc] init];
     sut.dataSource=dataSource;
-    realUserDidSelectMeasurementSession = @selector(userDidSelectMeasurementSessionNotification:);
-    testUserDidSelectMeasurementSession = @selector(hMRI99ControllerTests_userDidSelectMeasurementSessionNotification:);
+    realUserDidSelectSession = @selector(userDidSelectSessionNotification:);
+    testUserDidSelectSession = @selector(hMRI99ControllerTests_userDidSelectSessionNotification:);
+    realUserDidAddSession = @selector(userDidAddSessionNotification:);
+    testUserDidAddSession = @selector(hMRI99ControllerTests_userDidAddSessionNotification:);
     navController = [[UINavigationController alloc] initWithRootViewController: sut];
     objc_removeAssociatedObjects(sut);
 }
@@ -64,7 +71,10 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     tableView=nil;
     dataSource=nil;
     receivedNotification=nil;
-    
+    realUserDidSelectSession=nil;
+    testUserDidSelectSession=nil;
+    realUserDidAddSession=nil;
+    testUserDidAddSession=nil;
     navController=nil;
     [super tearDown];
 }
@@ -105,76 +115,80 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
 //    assertThatInt(myButton.style, is(equalToInt(4)));
 //}
 
-- (void)testDefaultStateOfViewControllerDoesNotReceiveNotifications {
-    [HMRI99ViewControllerTests swapInstanceMethodsForClass: [HMRI99ViewController class]
-     selector: realUserDidSelectMeasurementSession
-     andSelector: testUserDidSelectMeasurementSession];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName: measurementSessionsTableDidSelectMeasurementSessionNotification object: nil
+- (void) testInsertNewObjectMethodIsCalledWhenRightBarButtonIsTapped
+{
+    [sut viewDidLoad];
+    UIBarButtonItem *myButton=[[sut navigationItem] rightBarButtonItem];
+    assertThat(NSStringFromSelector([myButton action]), is(equalTo(@"insertNewObject:")));
+}
+
+- (void) testAddNewMeasurementIsCalledWhenInsertNewObjectIsCalled
+{
+    SessionsTableViewDataSource * mockDataSource=mock([SessionsTableViewDataSource class]);
+    sut.dataSource=mockDataSource;
+    navController = [[UINavigationController alloc] initWithRootViewController: sut];
+    [sut viewDidLoad];
+    [sut insertNewObject:nil];
+    [verify(mockDataSource) addSession];
+}
+
+- (void)testDefaultStateOfViewControllerDoesNotReceiveNotificationsForSelecting {
+    [self swapInstanceMethods];
+    [[NSNotificationCenter defaultCenter] postNotificationName: sessionsTableDidSelectSessionNotification object: nil
                                                       userInfo: nil];
     assertThat(objc_getAssociatedObject(sut, notificationKey),is(nilValue()));
-    [HMRI99ViewControllerTests swapInstanceMethodsForClass: [HMRI99ViewController class]
-                                                  selector: realUserDidSelectMeasurementSession
-                                               andSelector: testUserDidSelectMeasurementSession];
+    [self swapInstanceMethods];
 }
 
 - (void)testViewControllerReceivesTableSelectionNotificationAfterViewDidAppear
 {
-    [HMRI99ViewControllerTests swapInstanceMethodsForClass: [HMRI99ViewController class]
-                                                  selector: realUserDidSelectMeasurementSession
-                                               andSelector: testUserDidSelectMeasurementSession];
+    [self swapInstanceMethods];
     [sut viewDidAppear: NO];
-    [[NSNotificationCenter defaultCenter] postNotificationName: measurementSessionsTableDidSelectMeasurementSessionNotification object: nil userInfo: nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName: sessionsTableDidSelectSessionNotification object: nil userInfo: nil];
     
     assertThat(objc_getAssociatedObject(sut, notificationKey),is(notNilValue()));
-    [HMRI99ViewControllerTests swapInstanceMethodsForClass: [HMRI99ViewController class]
-                                                  selector: realUserDidSelectMeasurementSession
-                                               andSelector: testUserDidSelectMeasurementSession];
+    [self swapInstanceMethods];
 }
 
 - (void)testViewControllerDoesNotReceiveTableSelectNotificationAfterViewWillDisappear
 {
-    [HMRI99ViewControllerTests swapInstanceMethodsForClass: [HMRI99ViewController class]
-                                                  selector: realUserDidSelectMeasurementSession
-                                               andSelector: testUserDidSelectMeasurementSession];
+    [self swapInstanceMethods];
     [sut viewDidAppear: NO];
     [sut viewWillDisappear: NO];
-    [[NSNotificationCenter defaultCenter] postNotificationName: measurementSessionsTableDidSelectMeasurementSessionNotification
+    [[NSNotificationCenter defaultCenter] postNotificationName: sessionsTableDidSelectSessionNotification
                                                         object: nil
                                                       userInfo: nil];
     assertThat(objc_getAssociatedObject(sut, notificationKey), is(nilValue()));
-    [HMRI99ViewControllerTests swapInstanceMethodsForClass: [HMRI99ViewController class]
-                                                  selector: realUserDidSelectMeasurementSession
-                                               andSelector: testUserDidSelectMeasurementSession];
+    [self swapInstanceMethods];
 }
 
-- (void)testSelectingMeasurementSessionDeselectsHMRI99ViewControllerAsTopViewController
+- (void)testSelectingSessionDeselectsHMRI99ViewControllerAsTopViewController
 {
-    [sut userDidSelectMeasurementSessionNotification:nil];   
+    [sut userDidSelectSessionNotification:nil];   
     UIViewController *currentTopVC = [navController topViewController];
     STAssertFalse([currentTopVC isEqual: sut], @"New view controller should be pushed onto the stack");
 }
 
-- (void)testSelectingMeasurementSessionShouldSelectDifferentHMRI99ViewControllerAsTopViewController
+- (void)testSelectingSessionShouldSelectDifferentHMRI99ViewControllerAsTopViewController
 {
-    [sut userDidSelectMeasurementSessionNotification:nil];
+    [sut userDidSelectSessionNotification:nil];
     UIViewController *currentTopVC = [navController topViewController];
     STAssertTrue([currentTopVC isKindOfClass:[HMRI99ViewController class]], @"New view controller should be of class HMRI99ViewController");
 }
 
-- (void)testNewViewControllerHasAMeasurementListDataSourceForTheSelectedMeasurementSession
+- (void)testNewViewControllerHasAMeasurementListDataSourceForTheSelectedSession
 {
-    MeasurementSession *CargillMeasurementSession = [[MeasurementSession alloc] initWithName:@"CARG.13.01"
+    Session *cargillSession = [[Session alloc] initWithName:@"CARG.13.01"
                                                                                  date:[NSDate date]
                                                                              location:@"Zaandam"
                                                                              engineer:@"HKu"];
-    NSNotification *CargillMeasurementSessionSelectedNotification = [NSNotification notificationWithName: measurementSessionsTableDidSelectMeasurementSessionNotification
-                                      object: CargillMeasurementSession];
-    [sut userDidSelectMeasurementSessionNotification: CargillMeasurementSessionSelectedNotification];
+    NSNotification *cargillSessionSelectedNotification = [NSNotification notificationWithName: sessionsTableDidSelectSessionNotification
+                                      object: cargillSession];
+    [sut userDidSelectSessionNotification: cargillSessionSelectedNotification];
     HMRI99ViewController *nextViewController = (HMRI99ViewController *)navController.topViewController;
     STAssertTrue([nextViewController.dataSource isKindOfClass: [MeasurementsTableViewDataSource class]], @"Selecting a Measurement Session should push a list of Measurements");
     STAssertEqualObjects([(MeasurementsTableViewDataSource *)
-                          nextViewController.dataSource measurementSession], CargillMeasurementSession,
+                          nextViewController.dataSource session], cargillSession,
                          @"The Measurements to display should come from the selected Measurement Session");
 }
 
@@ -185,5 +199,69 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     [sut viewDidLoad];
     STAssertEqualObjects(measurementsTableViewDataSource.tableView, tableView, @"Back-link to table view should be set in data source");
 }
+
+
+#pragma mark Notifications for adding
+- (void)testDefaultStateOfViewControllerDoesNotReceiveNotificationsForAdding {
+    [self swapInstanceMethods];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName: sessionsTableDidAddSessionNotification object: nil
+                                                      userInfo: nil];
+    assertThat(objc_getAssociatedObject(sut, notificationKey),is(nilValue()));
+    [self swapInstanceMethods];
+}
+
+- (void)testViewControllerReceivesTableAddedNotificationAfterViewDidAppear
+{
+    [self swapInstanceMethods];
+    [sut viewDidAppear: NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName: sessionsTableDidAddSessionNotification object: nil userInfo: nil];
+    
+    assertThat(objc_getAssociatedObject(sut, notificationKey),is(notNilValue()));
+    [self swapInstanceMethods];
+}
+
+- (void)testViewControllerDoesNotReceiveTableAddedNotificationAfterViewWillDisappear
+{
+    [self swapInstanceMethods];
+    [sut viewDidAppear: NO];
+    [sut viewWillDisappear: NO];
+    [[NSNotificationCenter defaultCenter] postNotificationName: sessionsTableDidAddSessionNotification
+                                                        object: nil
+                                                      userInfo: nil];
+    assertThat(objc_getAssociatedObject(sut, notificationKey), is(nilValue()));
+    [self swapInstanceMethods];
+}
+
+//- (void)testReceivingTableAddedNotificationAddsRowToTableView
+//{
+//    [sut viewDidAppear: NO];
+//    [dataSource addSession];
+//    
+////    int numberOfRows2=[[sut tableView] numberOfRowsInSection:0];
+////    
+////    NSLog(@"+++++++++++%d and %d",numberOfRows1,numberOfRows2);
+//    assertThat([NSNumber numberWithInt:[[sut tableView] numberOfRowsInSection:0]], is(@5));
+//    
+//    // why is addSession not recognized?
+//    //userDidAddSessionNotification already implemented
+//}
+
+
+
+
+
+#pragma mark Helper methods
+- (void)swapInstanceMethods
+{
+    [HMRI99ViewControllerTests swapInstanceMethodsForClass: [HMRI99ViewController class]
+                                                  selector: realUserDidSelectSession
+                                               andSelector: testUserDidSelectSession];
+    [HMRI99ViewControllerTests swapInstanceMethodsForClass: [HMRI99ViewController class]
+                                                  selector: realUserDidAddSession
+                                               andSelector: testUserDidAddSession];
+}
+
+
 
 @end

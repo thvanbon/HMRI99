@@ -1,6 +1,6 @@
 #import "AppDelegate.h"
 #import "HMRI99ViewController.h"
-#import "MeasurementSessionsTableViewDataSource.h"
+#import "SessionsTableViewDataSource.h"
 
 
 @implementation AppDelegate
@@ -14,7 +14,7 @@
     
     HMRI99ViewController *firstViewController = [[HMRI99ViewController alloc] initWithNibName:@"HMRI99ViewController" bundle:nil];
     
-    MeasurementSessionsTableViewDataSource * dataSource=[[MeasurementSessionsTableViewDataSource alloc] init];
+    SessionsTableViewDataSource * dataSource=[[SessionsTableViewDataSource alloc] init];
     firstViewController.dataSource=dataSource;
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:firstViewController];
     self.window.rootViewController = self.navigationController;

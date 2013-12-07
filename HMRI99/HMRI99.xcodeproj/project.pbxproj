@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		760D8966184B9C480007B0B1 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 760D8965184B9C480007B0B1 /* OCMockitoIOS.framework */; };
 		76172DDA18396349000B798F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172DD918396349000B798F /* UIKit.framework */; };
 		76172DDC18396349000B798F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172DDB18396349000B798F /* Foundation.framework */; };
 		76172DDE18396349000B798F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172DDD18396349000B798F /* CoreGraphics.framework */; };
@@ -24,12 +25,14 @@
 		76172E051839634A000B798F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172DD918396349000B798F /* UIKit.framework */; };
 		76172E061839634A000B798F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172DDB18396349000B798F /* Foundation.framework */; };
 		76172E0E1839634A000B798F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 76172E0C1839634A000B798F /* InfoPlist.strings */; };
-		76172E1B183966A2000B798F /* MeasurementSessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76172E1A183966A2000B798F /* MeasurementSessionTests.m */; };
+		76172E1B183966A2000B798F /* SessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76172E1A183966A2000B798F /* SessionTests.m */; };
 		76172E1D183966E6000B798F /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172E1C183966E6000B798F /* OCHamcrestIOS.framework */; };
-		76172E2018396753000B798F /* MeasurementSession.m in Sources */ = {isa = PBXBuildFile; fileRef = 76172E1F18396753000B798F /* MeasurementSession.m */; };
+		76172E2018396753000B798F /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 76172E1F18396753000B798F /* Session.m */; };
 		767D5DBD1843E68C00ED7DC4 /* AppDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */; };
-		76B07256183D3CC4003E86CB /* MeasurementSessionsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC8183D3A0300A1D668 /* MeasurementSessionsTableViewDataSource.m */; };
-		76B07258183D3D09003E86CB /* MeasurementSessionsTableViewDatasourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B07257183D3D09003E86CB /* MeasurementSessionsTableViewDatasourceTests.m */; };
+		768C02B218512F8100BC879C /* SessionSummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 768C02B118512F8100BC879C /* SessionSummaryCell.m */; };
+		768C02B41851305D00BC879C /* SessionSummaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 768C02B31851305D00BC879C /* SessionSummaryCell.xib */; };
+		76B07256183D3CC4003E86CB /* SessionsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC8183D3A0300A1D668 /* SessionsTableViewDataSource.m */; };
+		76B07258183D3D09003E86CB /* SessionsTableViewDatasourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B07257183D3D09003E86CB /* SessionsTableViewDatasourceTests.m */; };
 		76B9ADAA1839752D00A1D668 /* MeasurementTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADA91839752D00A1D668 /* MeasurementTests.m */; };
 		76B9ADB01839757A00A1D668 /* Measurement.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADAF1839757A00A1D668 /* Measurement.m */; };
 		76B9ADB21839865100A1D668 /* MeasurementII2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADB11839865100A1D668 /* MeasurementII2Tests.m */; };
@@ -58,6 +61,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		760D8965184B9C480007B0B1 /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMockitoIOS.framework; sourceTree = "<group>"; };
 		76172DD618396349000B798F /* HMRI99.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HMRI99.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76172DD918396349000B798F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		76172DDB18396349000B798F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -81,12 +85,15 @@
 		76172E031839634A000B798F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		76172E0B1839634A000B798F /* HMRI99Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HMRI99Tests-Info.plist"; sourceTree = "<group>"; };
 		76172E0D1839634A000B798F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		76172E1A183966A2000B798F /* MeasurementSessionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSessionTests.m; sourceTree = "<group>"; };
+		76172E1A183966A2000B798F /* SessionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionTests.m; sourceTree = "<group>"; };
 		76172E1C183966E6000B798F /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCHamcrestIOS.framework; sourceTree = "<group>"; };
-		76172E1E18396753000B798F /* MeasurementSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementSession.h; sourceTree = "<group>"; };
-		76172E1F18396753000B798F /* MeasurementSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSession.m; sourceTree = "<group>"; };
+		76172E1E18396753000B798F /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
+		76172E1F18396753000B798F /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
 		767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegateTests.m; sourceTree = "<group>"; };
-		76B07257183D3D09003E86CB /* MeasurementSessionsTableViewDatasourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementSessionsTableViewDatasourceTests.m; sourceTree = "<group>"; };
+		768C02B018512F8100BC879C /* SessionSummaryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionSummaryCell.h; sourceTree = "<group>"; };
+		768C02B118512F8100BC879C /* SessionSummaryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionSummaryCell.m; sourceTree = "<group>"; };
+		768C02B31851305D00BC879C /* SessionSummaryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionSummaryCell.xib; sourceTree = "<group>"; };
+		76B07257183D3D09003E86CB /* SessionsTableViewDatasourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionsTableViewDatasourceTests.m; sourceTree = "<group>"; };
 		76B9ADA91839752D00A1D668 /* MeasurementTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementTests.m; sourceTree = "<group>"; };
 		76B9ADAE1839757A00A1D668 /* Measurement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measurement.h; sourceTree = "<group>"; };
 		76B9ADAF1839757A00A1D668 /* Measurement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Measurement.m; sourceTree = "<group>"; };
@@ -103,8 +110,8 @@
 		76B9ADC1183BFF8800A1D668 /* HMRI99ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMRI99ViewController.m; sourceTree = "<group>"; };
 		76B9ADC2183BFF8800A1D668 /* HMRI99ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HMRI99ViewController.xib; sourceTree = "<group>"; };
 		76B9ADC5183BFFDB00A1D668 /* HMRI99ViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMRI99ViewControllerTests.m; sourceTree = "<group>"; };
-		76B9ADC7183D3A0300A1D668 /* MeasurementSessionsTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeasurementSessionsTableViewDataSource.h; path = HMRI99Tests/MeasurementSessionsTableViewDataSource.h; sourceTree = SOURCE_ROOT; };
-		76B9ADC8183D3A0300A1D668 /* MeasurementSessionsTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeasurementSessionsTableViewDataSource.m; path = HMRI99Tests/MeasurementSessionsTableViewDataSource.m; sourceTree = SOURCE_ROOT; };
+		76B9ADC7183D3A0300A1D668 /* SessionsTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SessionsTableViewDataSource.h; path = HMRI99Tests/SessionsTableViewDataSource.h; sourceTree = SOURCE_ROOT; };
+		76B9ADC8183D3A0300A1D668 /* SessionsTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SessionsTableViewDataSource.m; path = HMRI99Tests/SessionsTableViewDataSource.m; sourceTree = SOURCE_ROOT; };
 		76FB86A21842399B009270CB /* MeasurementsTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementsTableViewDataSource.h; sourceTree = "<group>"; };
 		76FB86A31842399B009270CB /* MeasurementsTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementsTableViewDataSource.m; sourceTree = "<group>"; };
 		76FB86A518424BD2009270CB /* MeasurementsTableViewDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementsTableViewDataSourceTests.m; sourceTree = "<group>"; };
@@ -132,6 +139,7 @@
 				76172E051839634A000B798F /* UIKit.framework in Frameworks */,
 				76172E061839634A000B798F /* Foundation.framework in Frameworks */,
 				76172E1D183966E6000B798F /* OCHamcrestIOS.framework in Frameworks */,
+				760D8966184B9C480007B0B1 /* OCMockitoIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +168,7 @@
 		76172DD818396349000B798F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				760D8965184B9C480007B0B1 /* OCMockitoIOS.framework */,
 				76172E1C183966E6000B798F /* OCHamcrestIOS.framework */,
 				76172DD918396349000B798F /* UIKit.framework */,
 				76172DDB18396349000B798F /* Foundation.framework */,
@@ -172,6 +181,9 @@
 		76172DDF1839634A000B798F /* HMRI99 */ = {
 			isa = PBXGroup;
 			children = (
+				768C02B018512F8100BC879C /* SessionSummaryCell.h */,
+				768C02B31851305D00BC879C /* SessionSummaryCell.xib */,
+				768C02B118512F8100BC879C /* SessionSummaryCell.m */,
 				76FB86A818425C6E009270CB /* MeasurementSummaryCell.h */,
 				76FB86A918425C6E009270CB /* MeasurementSummaryCell.m */,
 				76FB86AB18425DBA009270CB /* MeasurementSummaryCell.xib */,
@@ -183,8 +195,8 @@
 				76B9ADB4183986A000A1D668 /* MeasurementII2.m */,
 				76B9ADAE1839757A00A1D668 /* Measurement.h */,
 				76B9ADAF1839757A00A1D668 /* Measurement.m */,
-				76172E1E18396753000B798F /* MeasurementSession.h */,
-				76172E1F18396753000B798F /* MeasurementSession.m */,
+				76172E1E18396753000B798F /* Session.h */,
+				76172E1F18396753000B798F /* Session.m */,
 				76172DE81839634A000B798F /* AppDelegate.h */,
 				76172DE91839634A000B798F /* AppDelegate.m */,
 				76172DF11839634A000B798F /* MasterViewController.h */,
@@ -192,10 +204,10 @@
 				76B9ADC0183BFF8800A1D668 /* HMRI99ViewController.h */,
 				76B9ADC1183BFF8800A1D668 /* HMRI99ViewController.m */,
 				76B9ADC2183BFF8800A1D668 /* HMRI99ViewController.xib */,
-				76B9ADC7183D3A0300A1D668 /* MeasurementSessionsTableViewDataSource.h */,
+				76B9ADC7183D3A0300A1D668 /* SessionsTableViewDataSource.h */,
 				76FB86A21842399B009270CB /* MeasurementsTableViewDataSource.h */,
 				76FB86A31842399B009270CB /* MeasurementsTableViewDataSource.m */,
-				76B9ADC8183D3A0300A1D668 /* MeasurementSessionsTableViewDataSource.m */,
+				76B9ADC8183D3A0300A1D668 /* SessionsTableViewDataSource.m */,
 				76172DF41839634A000B798F /* DetailViewController.h */,
 				76172DF51839634A000B798F /* DetailViewController.m */,
 				76172DF71839634A000B798F /* MasterViewController.xib */,
@@ -224,13 +236,13 @@
 			children = (
 				767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */,
 				76FB86A518424BD2009270CB /* MeasurementsTableViewDataSourceTests.m */,
-				76B07257183D3D09003E86CB /* MeasurementSessionsTableViewDatasourceTests.m */,
+				76B07257183D3D09003E86CB /* SessionsTableViewDatasourceTests.m */,
 				76B9ADC5183BFFDB00A1D668 /* HMRI99ViewControllerTests.m */,
 				76B9ADBB183AD96E00A1D668 /* NoiseSourceTests.m */,
 				76B9ADB6183A8A2D00A1D668 /* MeasurementII3Tests.m */,
 				76B9ADB11839865100A1D668 /* MeasurementII2Tests.m */,
 				76B9ADA91839752D00A1D668 /* MeasurementTests.m */,
-				76172E1A183966A2000B798F /* MeasurementSessionTests.m */,
+				76172E1A183966A2000B798F /* SessionTests.m */,
 				76172E0A1839634A000B798F /* Supporting Files */,
 			);
 			path = HMRI99Tests;
@@ -324,6 +336,7 @@
 				76172DFC1839634A000B798F /* DetailViewController.xib in Resources */,
 				76B9ADC4183BFF8800A1D668 /* HMRI99ViewController.xib in Resources */,
 				76FB86AC18425DBB009270CB /* MeasurementSummaryCell.xib in Resources */,
+				768C02B41851305D00BC879C /* SessionSummaryCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,15 +375,16 @@
 				76172DEA1839634A000B798F /* AppDelegate.m in Sources */,
 				76172DF31839634A000B798F /* MasterViewController.m in Sources */,
 				76172DF61839634A000B798F /* DetailViewController.m in Sources */,
-				76172E2018396753000B798F /* MeasurementSession.m in Sources */,
+				76172E2018396753000B798F /* Session.m in Sources */,
 				76B9ADB01839757A00A1D668 /* Measurement.m in Sources */,
 				76B9ADB5183986A000A1D668 /* MeasurementII2.m in Sources */,
 				76B9ADBA183A8A5600A1D668 /* MeasurementII3.m in Sources */,
 				76B9ADBF183AD9F700A1D668 /* NoiseSource.m in Sources */,
 				76B9ADC3183BFF8800A1D668 /* HMRI99ViewController.m in Sources */,
-				76B07256183D3CC4003E86CB /* MeasurementSessionsTableViewDataSource.m in Sources */,
+				76B07256183D3CC4003E86CB /* SessionsTableViewDataSource.m in Sources */,
 				76FB86A41842399B009270CB /* MeasurementsTableViewDataSource.m in Sources */,
 				76FB86AA18425C6E009270CB /* MeasurementSummaryCell.m in Sources */,
+				768C02B218512F8100BC879C /* SessionSummaryCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -378,13 +392,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76172E1B183966A2000B798F /* MeasurementSessionTests.m in Sources */,
+				76172E1B183966A2000B798F /* SessionTests.m in Sources */,
 				76B9ADAA1839752D00A1D668 /* MeasurementTests.m in Sources */,
 				76B9ADB21839865100A1D668 /* MeasurementII2Tests.m in Sources */,
 				76B9ADB7183A8A2D00A1D668 /* MeasurementII3Tests.m in Sources */,
 				76B9ADBC183AD96E00A1D668 /* NoiseSourceTests.m in Sources */,
 				76B9ADC6183BFFDB00A1D668 /* HMRI99ViewControllerTests.m in Sources */,
-				76B07258183D3D09003E86CB /* MeasurementSessionsTableViewDatasourceTests.m in Sources */,
+				76B07258183D3D09003E86CB /* SessionsTableViewDatasourceTests.m in Sources */,
 				76FB86A618424BD2009270CB /* MeasurementsTableViewDataSourceTests.m in Sources */,
 				767D5DBD1843E68C00ED7DC4 /* AppDelegateTests.m in Sources */,
 			);
