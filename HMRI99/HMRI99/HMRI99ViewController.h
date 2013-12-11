@@ -4,4 +4,8 @@
 @property (strong) NSObject <UITableViewDataSource, UITableViewDelegate> * dataSource;
 - (void)userDidSelectSessionNotification:(NSNotification *)note;
 - (void) insertNewObject: (id)sender;
+- (void) userDidAddSessionNotification:(NSNotification *)note;
+
+-(void) textDidChange: (id) sender;
+
 @end

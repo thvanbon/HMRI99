@@ -37,7 +37,7 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
 {
     HMRI99ViewController * sut;
     UITableView *tableView;
-    id <UITableViewDataSource, UITableViewDelegate> dataSource;
+    SessionsTableViewDataSource <UITableViewDataSource, UITableViewDelegate> *dataSource;
     NSNotification * receivedNotification;
     SEL realUserDidSelectSession, testUserDidSelectSession;
     SEL realUserDidAddSession, testUserDidAddSession;
@@ -134,8 +134,7 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
 
 - (void)testDefaultStateOfViewControllerDoesNotReceiveNotificationsForSelecting {
     [self swapInstanceMethods];
-    [[NSNotificationCenter defaultCenter] postNotificationName: sessionsTableDidSelectSessionNotification object: nil
-                                                      userInfo: nil];
+    [self postSessionSelectedNotification];
     assertThat(objc_getAssociatedObject(sut, notificationKey),is(nilValue()));
     [self swapInstanceMethods];
 }
@@ -144,8 +143,7 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
 {
     [self swapInstanceMethods];
     [sut viewDidAppear: NO];
-    [[NSNotificationCenter defaultCenter] postNotificationName: sessionsTableDidSelectSessionNotification object: nil userInfo: nil];
-    
+    [self postSessionSelectedNotification]; 
     assertThat(objc_getAssociatedObject(sut, notificationKey),is(notNilValue()));
     [self swapInstanceMethods];
 }
@@ -155,9 +153,7 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     [self swapInstanceMethods];
     [sut viewDidAppear: NO];
     [sut viewWillDisappear: NO];
-    [[NSNotificationCenter defaultCenter] postNotificationName: sessionsTableDidSelectSessionNotification
-                                                        object: nil
-                                                      userInfo: nil];
+    [self postSessionSelectedNotification];
     assertThat(objc_getAssociatedObject(sut, notificationKey), is(nilValue()));
     [self swapInstanceMethods];
 }
@@ -204,9 +200,7 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
 #pragma mark Notifications for adding
 - (void)testDefaultStateOfViewControllerDoesNotReceiveNotificationsForAdding {
     [self swapInstanceMethods];
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName: sessionsTableDidAddSessionNotification object: nil
-                                                      userInfo: nil];
+    [self postSessionAddedNotification];
     assertThat(objc_getAssociatedObject(sut, notificationKey),is(nilValue()));
     [self swapInstanceMethods];
 }
@@ -215,8 +209,7 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
 {
     [self swapInstanceMethods];
     [sut viewDidAppear: NO];
-    [[NSNotificationCenter defaultCenter] postNotificationName: sessionsTableDidAddSessionNotification object: nil userInfo: nil];
-    
+    [self postSessionAddedNotification];
     assertThat(objc_getAssociatedObject(sut, notificationKey),is(notNilValue()));
     [self swapInstanceMethods];
 }
@@ -226,30 +219,36 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     [self swapInstanceMethods];
     [sut viewDidAppear: NO];
     [sut viewWillDisappear: NO];
-    [[NSNotificationCenter defaultCenter] postNotificationName: sessionsTableDidAddSessionNotification
-                                                        object: nil
-                                                      userInfo: nil];
+    [self postSessionAddedNotification];
     assertThat(objc_getAssociatedObject(sut, notificationKey), is(nilValue()));
     [self swapInstanceMethods];
 }
 
-//- (void)testReceivingTableAddedNotificationAddsRowToTableView
+- (void)testReceivingTableAddedNotificationAddsRowToTableView
+{
+    [sut viewDidAppear: NO];
+    int numberOfRowsInSectionZero=[sut.dataSource tableView:[sut tableView] numberOfRowsInSection:0];
+    [dataSource addSession];
+    assertThat([NSNumber numberWithInt:[sut.dataSource tableView:[sut tableView] numberOfRowsInSection:0]], is(equalTo([NSNumber numberWithInt:numberOfRowsInSectionZero+1])));
+}
+
+- (void)testReceivingTableAddedNotificationHasAMeasurementListDataSourceForTheAddedSession
+{
+    Session *newSession=[[Session alloc]initWithName:@"new Session" date:[NSDate date] location:@"" engineer:@""];
+    NSNotification *sessionAddedNotification = [NSNotification notificationWithName: sessionsTableDidAddSessionNotification object: newSession];
+    
+    [sut userDidAddSessionNotification: sessionAddedNotification];
+    HMRI99ViewController *nextViewController = (HMRI99ViewController *)navController.topViewController;
+    STAssertTrue([nextViewController.dataSource isKindOfClass: [MeasurementsTableViewDataSource class]], @"Adding a Session should open Session and show measurements table");
+}
+
+//- (void)testKeyboardIsResignedWhenClickedOutsideTextFieldInTableView
 //{
 //    [sut viewDidAppear: NO];
+//    int numberOfRowsInSectionZero=[sut.dataSource tableView:[sut tableView] numberOfRowsInSection:0];
 //    [dataSource addSession];
-//    
-////    int numberOfRows2=[[sut tableView] numberOfRowsInSection:0];
-////    
-////    NSLog(@"+++++++++++%d and %d",numberOfRows1,numberOfRows2);
-//    assertThat([NSNumber numberWithInt:[[sut tableView] numberOfRowsInSection:0]], is(@5));
-//    
-//    // why is addSession not recognized?
-//    //userDidAddSessionNotification already implemented
+//    assertThat([NSNumber numberWithInt:[sut.dataSource tableView:[sut tableView] numberOfRowsInSection:0]], is(equalTo([NSNumber numberWithInt:numberOfRowsInSectionZero+1])));
 //}
-
-
-
-
 
 #pragma mark Helper methods
 - (void)swapInstanceMethods
@@ -260,6 +259,19 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     [HMRI99ViewControllerTests swapInstanceMethodsForClass: [HMRI99ViewController class]
                                                   selector: realUserDidAddSession
                                                andSelector: testUserDidAddSession];
+}
+
+- (void)postSessionSelectedNotification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName: sessionsTableDidSelectSessionNotification
+                                                        object: nil
+                                                      userInfo: nil];
+}
+- (void)postSessionAddedNotification
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName: sessionsTableDidAddSessionNotification
+                                                        object: nil
+                                                      userInfo: nil];
 }
 
 

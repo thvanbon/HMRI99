@@ -29,6 +29,9 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     
+    
+    
+
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -42,19 +45,33 @@
                                              selector:@selector(userDidAddSessionNotification:)
                                                  name: @"sessionsTableDidAddSessionNotification"
                                                object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(textDidChange:)
+                                                 name:UITextFieldTextDidChangeNotification
+                                               object: nil];
+    
+    
+    
 }
 
 //added while troubleshooting switching to second vc. Might need later. Works, but not tested yet.
-//- (void) viewWillAppear:(BOOL)animated {
-//    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:animated];
-//    [super viewWillAppear:animated];
-//}
+- (void) viewWillAppear:(BOOL)animated {
+    [tableView deselectRowAtIndexPath:[tableView indexPathForSelectedRow] animated:animated];
+    [super viewWillAppear:animated];
+}
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sessionsTableDidSelectSessionNotification" object:nil];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sessionsTableDidAddSessionNotification" object:nil];
+    
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self                                                 name:UITextFieldTextDidChangeNotification
+                                               object: nil];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning
@@ -66,6 +83,7 @@
 - (void)userDidSelectSessionNotification:(NSNotification *)note
 {
     Session * selectedSession=(Session*) [note object];
+    
     HMRI99ViewController * nextViewController = [[HMRI99ViewController alloc] init];
     MeasurementsTableViewDataSource * measurementsDataSource=[[MeasurementsTableViewDataSource alloc]init];
     measurementsDataSource.session=selectedSession;
@@ -86,6 +104,21 @@
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    Session * selectedSession=(Session*) [note object];
+
+    HMRI99ViewController * nextViewController = [[HMRI99ViewController alloc] init];
+    MeasurementsTableViewDataSource * measurementsDataSource=[[MeasurementsTableViewDataSource alloc]init];
+    measurementsDataSource.session=selectedSession;
+    nextViewController.dataSource=measurementsDataSource;
+    [[self navigationController] pushViewController: nextViewController
+                                           animated: YES];
+
+}
+
+-(void) textDidChange: (id) sender
+{
+    UITextField * myTextField= (UITextField *) [sender object];
+    NSLog(@"text did change, textfield %@", myTextField.text);
 }
 
 @end

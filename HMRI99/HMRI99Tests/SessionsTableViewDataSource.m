@@ -1,5 +1,5 @@
 #import "SessionsTableViewDataSource.h"
-#import "SessionSummaryCell.h"
+#import "SessionSummaryStaticCell.h"
 
 NSString * sessionsTableDidSelectSessionNotification=@"sessionsTableDidSelectSessionNotification";
 NSString * sessionsTableDidAddSessionNotification=@"sessionsTableDidAddSessionNotification";
@@ -18,7 +18,7 @@ NSString * sessionsTableDidAddSessionNotification=@"sessionsTableDidAddSessionNo
 
 NSString * sessionCellReuseIdentifier=@"Session";
 
-- (SessionSummaryCell *)tableView:(UITableView *)tableView
+- (SessionSummaryStaticCell *)tableView:(UITableView *)tableView
             cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSParameterAssert([indexPath section] == 0);
@@ -29,20 +29,21 @@ NSString * sessionCellReuseIdentifier=@"Session";
         //Session * session = [sessions objectAtIndex: indexPath.row];
         summaryCell =[tableView dequeueReusableCellWithIdentifier: sessionCellReuseIdentifier];
         if (!summaryCell) {
-            [[NSBundle bundleForClass: [self class]] loadNibNamed: @"SessionSummaryCell"
+            [[NSBundle bundleForClass: [self class]] loadNibNamed: @"SessionSummaryStaticCell"
                                                             owner: self options: nil];
         }
         
-        summaryCell.nameTextField.text=[[self sessionForIndexPath:indexPath] name];
+        summaryCell.nameLabel.text=[[self sessionForIndexPath:indexPath] name];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"dd-mm-yyyy"];
+        [formatter setDateFormat:@"dd-MM-yyyy"];
         
         //Optionally for time zone converstions
         [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
         
         NSString *stringFromDate = [formatter stringFromDate:[[self sessionForIndexPath:indexPath] date]];
-        summaryCell.dateTextField.text=stringFromDate;
-        summaryCell.engineerTextField.text=[[self sessionForIndexPath:indexPath] engineer];
+        summaryCell.dateLabel.text=stringFromDate;
+        summaryCell.locationLabel.text=[[self sessionForIndexPath:indexPath] location];
+        summaryCell.engineerLabel.text=[[self sessionForIndexPath:indexPath] engineer];
     }
     return summaryCell;
 }
@@ -60,7 +61,7 @@ NSString * sessionCellReuseIdentifier=@"Session";
     } else{
         [sessions insertObject:newSession atIndex:0];
     }
-    [[NSNotificationCenter defaultCenter] postNotificationName:sessionsTableDidAddSessionNotification object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:sessionsTableDidAddSessionNotification object:newSession];
 }
 
 - (Session*) sessionForIndexPath:(NSIndexPath *)myIndexPath
@@ -75,7 +76,7 @@ NSString * sessionCellReuseIdentifier=@"Session";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 113.0f;
+    return 135.0f;
 }
 
 @end

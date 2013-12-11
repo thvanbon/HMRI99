@@ -1,14 +1,15 @@
 #import <Foundation/Foundation.h>
 #import "Session.h"
 
-@class SessionSummaryCell;
+@class SessionSummaryStaticCell;
 
 extern NSString *sessionsTableDidSelectSessionNotification;
 extern NSString *sessionsTableDidAddSessionNotification;
 
 @interface SessionsTableViewDataSource : NSObject <UITableViewDataSource,UITableViewDelegate>
 
-@property (weak) IBOutlet SessionSummaryCell * summaryCell;
+@property (weak) IBOutlet SessionSummaryStaticCell * summaryCell;
+
 - (void) setSessions:(NSArray *) newSessions;
 - (void) addSession;
 - (Session*) sessionForIndexPath:(NSIndexPath *)myIndexPath;
