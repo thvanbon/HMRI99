@@ -5,6 +5,7 @@
 
 extern NSString *sessionsTableDidSelectSessionNotification;
 extern NSString *sessionsTableDidAddSessionNotification;
+extern NSString *sessionsTableDidPressAccessoryDetailButtonNotification;
 
 @interface SessionsTableViewDataSource : NSObject <UITableViewDataSource,UITableViewDelegate>
 

@@ -1,5 +1,5 @@
 #import "AppDelegate.h"
-#import "HMRI99ViewController.h"
+#import "SessionsViewController.h"
 #import "SessionsTableViewDataSource.h"
 
 
@@ -12,7 +12,7 @@
 
     
     
-    HMRI99ViewController *firstViewController = [[HMRI99ViewController alloc] initWithNibName:@"HMRI99ViewController" bundle:nil];
+    SessionsViewController *firstViewController = [[SessionsViewController alloc] initWithNibName:@"SessionsViewController" bundle:nil];
     
     SessionsTableViewDataSource * dataSource=[[SessionsTableViewDataSource alloc] init];
     firstViewController.dataSource=dataSource;

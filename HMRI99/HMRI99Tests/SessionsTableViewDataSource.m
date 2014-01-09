@@ -3,6 +3,7 @@
 
 NSString * sessionsTableDidSelectSessionNotification=@"sessionsTableDidSelectSessionNotification";
 NSString * sessionsTableDidAddSessionNotification=@"sessionsTableDidAddSessionNotification";
+NSString *sessionsTableDidPressAccessoryDetailButtonNotification=@"sessionsTableDidPressAccessoryDetailButtonNotification";
 
 @implementation SessionsTableViewDataSource
 
@@ -44,6 +45,7 @@ NSString * sessionCellReuseIdentifier=@"Session";
         summaryCell.dateLabel.text=stringFromDate;
         summaryCell.locationLabel.text=[[self sessionForIndexPath:indexPath] location];
         summaryCell.engineerLabel.text=[[self sessionForIndexPath:indexPath] engineer];
+        [summaryCell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
     }
     return summaryCell;
 }
@@ -55,7 +57,7 @@ NSString * sessionCellReuseIdentifier=@"Session";
 
 -(void)addSession
 {
-    Session *newSession=[[Session alloc]initWithName:@"new Session" date:[NSDate date] location:@"" engineer:@""];
+    Session *newSession=[[Session alloc]init];
     if ([sessions count]==0) {
         [self setSessions:[NSMutableArray arrayWithObject:newSession]];
     } else{
@@ -77,6 +79,11 @@ NSString * sessionCellReuseIdentifier=@"Session";
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 135.0f;
+}
+
+-(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
+{
+    [[NSNotificationCenter defaultCenter] postNotificationName:sessionsTableDidPressAccessoryDetailButtonNotification object:[self sessionForIndexPath:indexPath]];
 }
 
 @end

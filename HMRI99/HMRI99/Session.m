@@ -19,6 +19,19 @@
     return self;
 }
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        name=[[NSString alloc] init];
+        date=[[NSDate alloc] init];
+        location=[[NSString alloc] init];
+        engineer=[[NSString alloc] init];
+        measurements=[[NSMutableArray alloc] init];
+    }
+    return self;
+}
+
 -(void)addMeasurement:(Measurement *)myMeasurement
 {
     [self.measurements insertObject:myMeasurement atIndex:0];

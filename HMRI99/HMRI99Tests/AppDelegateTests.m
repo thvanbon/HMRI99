@@ -2,7 +2,7 @@
 #import "AppDelegate.h"
 
     // Collaborators
-#import "HMRI99ViewController.h"
+#import "SessionsViewController.h"
 #import "SessionsTableViewDataSource.h"
 
     // Test support
@@ -66,13 +66,13 @@
 {
     [sut application: nil didFinishLaunchingWithOptions: nil];
     id visibleViewController = sut.navigationController.topViewController;
-    assertThatBool([visibleViewController isKindOfClass: [HMRI99ViewController class]], is(equalToBool(YES)));
+    assertThatBool([visibleViewController isKindOfClass: [SessionsViewController class]], is(equalToBool(YES)));
 }
 
 - (void)testFirstViewControllerHasASessionTableViewDataSource
 {
     [sut application: nil didFinishLaunchingWithOptions: nil];
-    HMRI99ViewController *viewController = (HMRI99ViewController *) sut.navigationController.topViewController;
+    SessionsViewController *viewController = (SessionsViewController *) sut.navigationController.topViewController;
     assertThatBool([viewController.dataSource isKindOfClass: [SessionsTableViewDataSource class]], is(equalToBool(YES)));
 }
 

@@ -12,4 +12,13 @@
     return self;
 }
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        name=[[NSString alloc] init];
+    }
+    return self;
+}
+
 @end

@@ -3,7 +3,7 @@
 
     // Collaborators
 #import "Session.h"
-#import "SessionSummaryStaticCell.h"
+#import "SessionSummaryCell.h"
 
     // Test support
 #import <SenTestingKit/SenTestingKit.h>
@@ -23,7 +23,7 @@
     NSMutableArray * sessions;
     NSNotification * receivedNotification;
     NSIndexPath * firstIndexPath;
-    SessionSummaryStaticCell *firstCell;
+    SessionSummaryCell *firstCell;
 }
 
 - (void) setUp
@@ -38,7 +38,7 @@
     sessions=[NSMutableArray arrayWithObject:sampleSession];
     [sut setSessions:sessions];
     firstIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    firstCell = (SessionSummaryStaticCell *)[sut tableView: nil cellForRowAtIndexPath: firstIndexPath];
+    firstCell = (SessionSummaryCell *)[sut tableView: nil cellForRowAtIndexPath: firstIndexPath];
     
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(didReceiveNotification:)
@@ -48,6 +48,10 @@
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(didReceiveNotification:)
                                                  name: sessionsTableDidAddSessionNotification
+                                               object: nil];
+    [[NSNotificationCenter defaultCenter] addObserver: self
+                                             selector: @selector(didReceiveNotification:)
+                                                 name: sessionsTableDidPressAccessoryDetailButtonNotification
                                                object: nil];
 }
 
@@ -139,33 +143,28 @@
     assertThat([receivedNotification name], is(equalTo(sessionsTableDidAddSessionNotification)));
 }
 
-- (void)testCellHasSessionNameLabel
-{
-    assertThat(firstCell.nameLabel.text, is(equalTo(@"CARG.13.01")));
-}
-
-- (void)testCellHasSessionDateLabel
-{
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"dd-MM-yyyy"];
-        NSString *stringFromDate = [formatter stringFromDate:myDate];
-        assertThat(firstCell.dateLabel.text, is(equalTo(stringFromDate)));
-}
-
-- (void)testCellHasSessionLocationLabel
-{
-    assertThat(firstCell.locationLabel.text, is(equalTo(@"Zaandam")));
-}
-
-- (void)testCellHasSessionEngineerLabel
-{
-    assertThat(firstCell.engineerLabel.text, is(equalTo(@"HKa")));
-}
-
 - (void)testHeightOfASessionRowIsAtLeastTheSameAsTheHeightOfTheCell
 {
     NSInteger height = [sut tableView: nil heightForRowAtIndexPath: firstIndexPath];
     assertThatFloat(height,is(greaterThanOrEqualTo([NSNumber numberWithFloat:firstCell.frame.size.height])));
+}
+
+- (void)testRowHasAccessoryDetailButton
+{
+    UITableViewCell * cell=(UITableViewCell*)[sut tableView:nil cellForRowAtIndexPath:firstIndexPath];
+    assertThatInt([cell accessoryType], is(equalToInt(UITableViewCellAccessoryDetailDisclosureButton)));
+}
+
+-(void)testDataSourceSendsNotificationWhenAccessoryDetailButtonIsPressed
+{
+    [sut tableView:nil accessoryButtonTappedForRowWithIndexPath:firstIndexPath];
+    assertThat([receivedNotification name], is(equalTo(sessionsTableDidPressAccessoryDetailButtonNotification)));
+}
+
+-(void)testDataSourceSendsNotificationWithSessionWhenAccessoryDetailButtonIsPressed
+{
+    [sut tableView:nil accessoryButtonTappedForRowWithIndexPath:firstIndexPath];
+    assertThat([[receivedNotification object] name], is(equalTo(@"CARG.13.01")));
 }
 
 #pragma mark helper methods

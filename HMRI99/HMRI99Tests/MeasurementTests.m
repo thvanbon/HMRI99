@@ -39,6 +39,12 @@
     assertThat([sut ID], is(equalTo(@"R4")));
 }
 
+- (void) testMeasurementHasMeasurementType
+{
+    [sut setType:@"II.2"];
+    assertThat([sut type], is(equalTo(@"II.2")));
+}
+
 - (void) testMeasurementHasSoundPressureLevel
 {
     [sut setSoundPressureLevel:86.3];
@@ -57,5 +63,136 @@
     [sut setNoiseSource:myNoiseSource];
     assertThat([[sut noiseSource] name], is(equalTo(@"pump")));
 }
+
+- (void) testThatCalculateSoundPowerLevelReturnsZeroWhenTypeIsNotSet
+{
+    [sut setType:nil];
+    [sut calculateSoundPowerLevel];
+    assertThatFloat([sut soundPowerLevel],is(equalToFloat(0.0f)));
+}
+
+                    
+#pragma mark II.2
+
+- (void) testMeasurementHasDistance
+{
+    [sut setDistance:7.3];
+    assertThat([NSNumber numberWithFloat:[sut distance]], is(equalToFloat(7.3)));
+}
+
+- (void) testMeasurementHasHemiSphereCorrection
+{
+    [sut setHemiSphereCorrection:2];
+    assertThat([NSNumber numberWithFloat:[sut hemiSphereCorrection]], is(equalToFloat(2)));
+}
+
+- (void) testThatExceptionIsRaisedWhenHemiSphereCorrectionIsSetTo1
+{
+    STAssertThrows([sut setHemiSphereCorrection:1],
+                   @"We expected an exception to be raised when hemisphere correction is not 0 or 2");
+}
+
+- (void) testThatExceptionIsRaisedWhenHemiSphereCorrectionIsSetToMinus1
+{
+    STAssertThrows([sut setHemiSphereCorrection:-1],
+                   @"We expected an exception to be raised when hemisphere correction is not 0 or 2");
+}
+
+- (void) testCalculateSWLForSPL50AndDistance10Gives81
+{
+    [sut setType:@"II.2"];
+    [self calculateSWLForSPL:50 distance:10 hemiSphereCorrection:0];
+    assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(81.0,0.05)));
+}
+
+- (void) testCalculateSWLForSPL40AndDistance5Gives81
+{
+    [sut setType:@"II.2"];
+    [self calculateSWLForSPL:40 distance:5 hemiSphereCorrection:0];
+    assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(65.0,0.05)));
+}
+
+- (void) testCalculateSWLForSPL50AndDistance10AndHemiSphereCorrection2Gives79
+{
+    [sut setType:@"II.2"];    
+    [self calculateSWLForSPL:50 distance:10 hemiSphereCorrection:2];
+    assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(79.0,0.05)));
+}
+
+- (void)calculateSWLForSPL: (float)SPL distance:(float) distance hemiSphereCorrection:(float) hemiSphereCorrection
+{
+    [sut setDistance:distance];
+    [sut setSoundPressureLevel:SPL];
+    [sut setHemiSphereCorrection:hemiSphereCorrection];
+    [sut calculateSoundPowerLevel];
+}
+
+#pragma mark II.3
+
+- (void) testMeasurementHasSurfaceArea
+{
+    [sut setSurfaceArea:21.5];
+    assertThat([NSNumber numberWithFloat:[sut surfaceArea]], is(equalToFloat(21.5)));
+}
+
+- (void) testMeasurementHasNearFieldCorrection
+{
+    [sut setNearFieldCorrection:-2];
+    assertThat([NSNumber numberWithFloat:[sut nearFieldCorrection]], is(equalToFloat(-2)));
+}
+
+- (void) testThatExceptionIsRaisedWhenNearFieldCorrectionIsSetToNonNegativeValue
+{
+    STAssertThrows([sut setNearFieldCorrection:2],
+                   @"We expected an exception to be raised when near field correction is set to positive value");
+}
+
+- (void) testThatExceptionIsRaisedWhenNearFieldCorrectionIsBelowMinusThree
+{
+    STAssertThrows([sut setNearFieldCorrection:-4],
+                   @"We expected an exception to be raised when near field correction is below -3");
+}
+
+- (void) testThatExceptionIsRaisedWhenNearFieldCorrectionIsNotInteger
+{
+    STAssertThrows([sut setNearFieldCorrection:-2.2],
+                   @"We expected an exception to be raised when near field correction is not integer");
+}
+
+- (void) testMeasurementHasDirectivityIndex
+{
+    [sut setDirectivityIndex:1];
+    assertThat([NSNumber numberWithFloat:[sut directivityIndex]], is(equalToFloat(1)));
+}
+
+- (void) testThatCalculateSoundPowerLevelReturnsZeroWhenSurfaceAreaIsZero
+{
+    [sut setSurfaceArea:0];
+    [sut calculateSoundPowerLevel];
+    assertThatFloat([sut soundPowerLevel],is(equalToFloat(0.0f)));
+}
+
+- (void) testCalculateSWLForSPL50AndSurface10AndNearFieldMinus1Gives59
+{
+    [sut setType:@"II.3"];
+    [self calculateSWLForSPL:50 surfaceArea:10 nearFieldCorrection:-1];
+    assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(59.0,0.05)));
+}
+
+- (void) testCalculateSWLForSPL50AndSurface100AndNearFieldMinus1Gives69
+{
+    [sut setType:@"II.3"];
+    [self calculateSWLForSPL:50 surfaceArea:100 nearFieldCorrection:-1];
+    assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(69.0,0.05)));
+}
+
+- (void)calculateSWLForSPL: (float)SPL surfaceArea:(float) surfaceArea nearFieldCorrection:(float) nearFieldCorrection
+{
+    [sut setSurfaceArea:surfaceArea];
+    [sut setSoundPressureLevel:SPL];
+    [sut setNearFieldCorrection:nearFieldCorrection];
+    [sut calculateSoundPowerLevel];
+}
+                    
                
 @end

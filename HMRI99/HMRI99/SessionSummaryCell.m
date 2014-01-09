@@ -2,26 +2,22 @@
 
 @implementation SessionSummaryCell
 
-@synthesize nameLabel;
-@synthesize dateLabel;
-@synthesize engineerLabel;
+@synthesize nameTextField, dateTextField, locationTextField, engineerTextField;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        self.nameLabel = [[UILabel alloc] init];
-        self.dateLabel = [[UILabel alloc] init];
-        self.engineerLabel = [[UILabel alloc] init];
         self.nameTextField = [[UITextField alloc] init];
         self.dateTextField = [[UITextField alloc] init];
+        self.locationTextField = [[UITextField alloc] init];
         self.engineerTextField = [[UITextField alloc] init];
         
-        self.nameLabel.text=@"Project Name";
-        self.dateLabel.text=@"Date";
-        self.engineerLabel.text=@"Engineer";
-        
+        self.nameTextField.placeholder=@"Project Name";
+        self.dateTextField.placeholder=@"Date";
+        self.locationTextField.placeholder=@"Location";
+        self.engineerTextField.placeholder=@"Engineer";        
     }
     return self;
 }
