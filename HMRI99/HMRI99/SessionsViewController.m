@@ -8,10 +8,9 @@
 #import <objc/runtime.h>
 
 
-
-
 @implementation SessionsViewController
 @synthesize tableView, dataSource;
+
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,6 +30,7 @@
     if (tableViewProperty) {
         [dataSource setValue: tableView forKey: @"tableView"];
     }
+    
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     self.navigationItem.title=@"Measurement Sessions";
@@ -89,6 +89,8 @@
     MeasurementsViewController * nextVC = [[MeasurementsViewController alloc] init];
     MeasurementsTableViewDataSource * measurementsDataSource=[[MeasurementsTableViewDataSource alloc]init];
     measurementsDataSource.session=selectedSession;
+    SessionsTableViewDataSource *myDataSource= (SessionsTableViewDataSource*)[self dataSource];
+    measurementsDataSource.managedObjectContext=myDataSource.managedObjectContext;
     nextVC.dataSource=measurementsDataSource;
     [[self navigationController] pushViewController: nextVC
                                            animated: YES];
@@ -107,16 +109,11 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
     Session * selectedSession=(Session*) [note object];
-
-//    MeasurementsViewController * nextVC2 = [[MeasurementsViewController alloc] init];
-//    MeasurementsTableViewDataSource * measurementsDataSource=[[MeasurementsTableViewDataSource alloc]init];
-//    measurementsDataSource.session=selectedSession;
-//    nextVC2.dataSource=measurementsDataSource;
-//    [[self navigationController] pushViewController: nextVC2
-//                                           animated: YES];
     SessionDetailsViewController * nextVC = [[SessionDetailsViewController alloc] init];
     SessionDetailsDataSource * sessionDetailsDataSource=[[SessionDetailsDataSource alloc]init];
     sessionDetailsDataSource.session=selectedSession;
+    SessionsTableViewDataSource *sessionsDataSource=(SessionsTableViewDataSource*) self.dataSource;
+    sessionDetailsDataSource.managedObjectContext= sessionsDataSource.managedObjectContext;
     nextVC.dataSource=sessionDetailsDataSource;
     [[self navigationController] pushViewController: nextVC animated: YES];
 
@@ -129,6 +126,8 @@
     SessionDetailsViewController * nextVC = [[SessionDetailsViewController alloc] init];
     SessionDetailsDataSource * sessionDetailsDataSource=[[SessionDetailsDataSource alloc]init];
     sessionDetailsDataSource.session=selectedSession;
+    SessionsTableViewDataSource *sessionsDataSource=(SessionsTableViewDataSource*) self.dataSource;    
+    sessionDetailsDataSource.managedObjectContext= sessionsDataSource.managedObjectContext;
     nextVC.dataSource=sessionDetailsDataSource;
     [[self navigationController] pushViewController: nextVC animated: YES];
 }

@@ -84,6 +84,8 @@
     MeasurementDetailViewController * nextViewController = [[MeasurementDetailViewController alloc] init];
     MeasurementDetailTableViewDataSource * measurementDetailDataSource=[[MeasurementDetailTableViewDataSource alloc]init];
     measurementDetailDataSource.measurement=selectedMeasurement;
+    MeasurementsTableViewDataSource *measurementsDataSource=(MeasurementsTableViewDataSource*) self.dataSource;
+    measurementDetailDataSource.managedObjectContext= measurementsDataSource.managedObjectContext;
     nextViewController.dataSource=measurementDetailDataSource;
     [[self navigationController] pushViewController: nextViewController
                                            animated: YES];
@@ -107,6 +109,8 @@
     MeasurementDetailTableViewDataSource * measurementDetailDataSource=[[MeasurementDetailTableViewDataSource alloc] init];
     measurementDetailDataSource.measurement=selectedMeasurement;
     //measurementDetailDataSource.tableView=[nextViewController tableView];
+    MeasurementsTableViewDataSource *measurementsDataSource=(MeasurementsTableViewDataSource*) self.dataSource;
+    measurementDetailDataSource.managedObjectContext= measurementsDataSource.managedObjectContext;
     nextViewController.dataSource=measurementDetailDataSource;
     [[self navigationController] pushViewController: nextViewController
                                            animated: YES];

@@ -13,10 +13,12 @@ extern NSString * measurementsTableDidAddMeasurementNotification;
 @property (strong) Session * session;
 @property (weak) IBOutlet MeasurementSummaryStaticCell *summaryCell;
 @property (weak) IBOutlet SessionSummaryCell *sessionSummaryCell;
+@property (nonatomic,strong) NSManagedObjectContext *managedObjectContext;
+
 
 @property (weak) UITableView *tableView;
 //- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView;
 
-- (void) setMeasurements: (NSMutableArray *)measurements;
+//- (void) setMeasurements: (NSMutableOrderedSet *)measurements;
 - (void) addMeasurement;
 @end

@@ -3,7 +3,7 @@
 @implementation SessionDetailsDataSource
 
 @synthesize session;
-
+@synthesize managedObjectContext;
 - (id)init
 {
     self = [super init];
@@ -41,7 +41,7 @@
             textField.delegate = self;
             
             textField.clearButtonMode = UITextFieldViewModeWhileEditing;
-            cell.textLabel.backgroundColor = [UIColor clearColor];            
+            cell.textLabel.backgroundColor = [UIColor clearColor];
             [cell.contentView addSubview:textField];
             [formatter setDateFormat:@"dd-MM-yyyy"];
             switch ([indexPath row]) {
@@ -102,6 +102,10 @@
         default:
             break;
     }
+    NSError *error=nil;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Error: %@",error);
+    }
 }
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
@@ -118,4 +122,5 @@
                                                     name:UITextFieldTextDidChangeNotification
                                                   object:textField];
 }
+
 @end

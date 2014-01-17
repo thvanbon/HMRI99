@@ -6,4 +6,5 @@
 }
 @property (strong) Session * session;
 @property (weak) UITableView *tableView;
+@property (nonatomic,strong) NSManagedObjectContext *managedObjectContext;
 @end

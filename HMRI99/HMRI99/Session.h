@@ -1,15 +1,16 @@
 #import <Foundation/Foundation.h>
 @class Measurement;
-@interface Session : NSObject
+@interface Session : NSManagedObject
 @property NSString * name;
 @property NSDate * date;
 @property NSString * location;
 @property NSString * engineer;
-@property NSMutableArray * measurements;
+@property NSDate * creationDate;
+@property NSSet * measurements;
 - (id)initWithName:(NSString*)newProjectName
                      date:(NSDate *)newDate
                  location:(NSString *)newLocation
                  engineer:(NSString*)newEngineer;
 
--(void)addMeasurement:(Measurement *)myMeasurement;
+//-(void)addMeasurement:(Measurement *)myMeasurement;
 @end

@@ -1,13 +1,13 @@
 #import "NoiseSource.h"
 
 @implementation NoiseSource
-@synthesize name, operatingConditions;
+@dynamic name, operatingConditions;
 
 - (id)initWithName:(NSString *)myName
 {
     self = [super init];
     if (self) {
-        name=myName;
+        self.name=myName;
     }
     return self;
 }
@@ -16,7 +16,7 @@
 {
     self = [super init];
     if (self) {
-        name=[[NSString alloc] init];
+        self.name=[[NSString alloc] init];
     }
     return self;
 }

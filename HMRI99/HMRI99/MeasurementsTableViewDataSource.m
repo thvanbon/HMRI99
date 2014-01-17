@@ -11,38 +11,42 @@
 @synthesize summaryCell;
 @synthesize tableView;
 @synthesize sessionSummaryCell;
+@synthesize managedObjectContext;
+
 
 NSString * measurementsTableDidSelectMeasurementNotification=@"measurementsTableDidSelectMeasurementNotification";
 
 NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDidAddMeasurementNotification";
 
 - (NSInteger)tableView:(UITableView *)atableView numberOfRowsInSection:(NSInteger)section {
-//    switch (section) {
-//        case 0:
-//            return 1;
-//            break;
-//        case 1:
+
+////    switch (section) {
+////        case 0:
+////            return 1;
+////            break;
+////        case 1:
             return [[session measurements] count];
-//            break;
-//        case 2:
-//            //        {
-//            //            if ([[session measurements] count]>0)
-//            //            {
-//            //                return 0;
-//            //            }
-//            //            else
-//            //            {
-//            //                return 1;
-//            //            }
-//            //            //return [[session measurements] count]?0:1;
-//            //            break;
-//            //        }
-//            return 1;
-//        default:
-//            return 0;
-//            break;
-//    }
+////            break;
+////        case 2:
+////            //        {
+////            //            if ([[session measurements] count]>0)
+////            //            {
+////            //                return 0;
+////            //            }
+////            //            else
+////            //            {
+////            //                return 1;
+////            //            }
+////            //            //return [[session measurements] count]?0:1;
+////            //            break;
+////            //        }
+////            return 1;
+////        default:
+////            return 0;
+////            break;
+////    }
 }
+
 
 //- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 //{
@@ -83,13 +87,14 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
 //        {
             if ([session.measurements count])
             {
-                Measurement * measurement = [session.measurements objectAtIndex: indexPath.row];
+                NSArray *measurements = [self sortMeasurements];
+                Measurement * measurement = [measurements objectAtIndex:indexPath.row];
                 summaryCell = [tableView dequeueReusableCellWithIdentifier: @"measurement"];
                 if (!summaryCell) {
                     [[NSBundle bundleForClass: [self class]] loadNibNamed: @"MeasurementSummaryStaticCell"
                                                                     owner: self options: nil];
                 }
-                summaryCell.iDLabel.text = measurement.ID;
+                summaryCell.iDLabel.text = measurement.identification;
                 summaryCell.measurementTypeLabel.text=measurement.type;
                 summaryCell.nameLabel.text=measurement.noiseSource.name;
                 float Lp=measurement.soundPressureLevel;
@@ -135,21 +140,32 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
     return cell;
 }
 
-- (void) setMeasurements: (NSMutableArray *)measurements
-{
-    [session setMeasurements:measurements];
-}
+//- (void) setMeasurements: (NSMutableOrderedSet *)measurements
+//{
+//    [session setMeasurements:measurements];
+//}
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [[self tableView] endEditing:YES];
-    [[NSNotificationCenter defaultCenter] postNotificationName:measurementsTableDidSelectMeasurementNotification object:[[session measurements] objectAtIndex:[indexPath row]]];
+    [[NSNotificationCenter defaultCenter] postNotificationName:measurementsTableDidSelectMeasurementNotification object:[[self sortMeasurements ] objectAtIndex:[indexPath row]]];
 }
 
 - (void)addMeasurement
 {
-    Measurement *newMeasurement=[[Measurement alloc] init];
-    [session addMeasurement:newMeasurement];
+//    Measurement *newMeasurement=[[Measurement alloc] init];
+    Measurement *newMeasurement=(Measurement*)[NSEntityDescription
+                                         insertNewObjectForEntityForName:@"Measurement"
+                                         inManagedObjectContext:[self managedObjectContext]];
+    NoiseSource *newNoiseSource=(NoiseSource*)[NSEntityDescription
+                                               insertNewObjectForEntityForName:@"NoiseSource"
+                                               inManagedObjectContext:[self managedObjectContext]];
+   // newMeasurement.managedObjectContext=[self managedObjectContext];
+    //[session addMeasurement:newMeasurement];
+    
+    newMeasurement.creationDate=[NSDate date];
+    newMeasurement.session=session;
+    newMeasurement.noiseSource=newNoiseSource;
     [[NSNotificationCenter defaultCenter] postNotificationName:measurementsTableDidAddMeasurementNotification object:newMeasurement];
 }
 
@@ -214,4 +230,15 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
 //    
 //    
 //}
+
+- (NSArray *)sortMeasurements
+{
+    NSArray *measurements= [session.measurements allObjects];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"creationDate" ascending:NO];
+    measurements = [measurements sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+    return measurements;
+}
+
+
+
 @end

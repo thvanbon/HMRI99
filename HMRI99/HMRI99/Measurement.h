@@ -1,12 +1,13 @@
 #import <Foundation/Foundation.h>
 
 #import "NoiseSource.h"
-@interface Measurement : NSObject
+@interface Measurement : NSManagedObject
 
-@property NSString * ID;
+@property NSString * identification;
+@property NSDate * creationDate;
 @property float soundPressureLevel;
 @property float soundPowerLevel;
-@property NoiseSource * noiseSource;
+@property (nonatomic, retain) NoiseSource * noiseSource;
 @property NSString * type;
 
 @property float distance;
@@ -15,7 +16,8 @@
 @property float surfaceArea;
 @property float nearFieldCorrection;
 @property float directivityIndex;
-
+@property (nonatomic, retain) NSManagedObject *session;
+//@property NSManagedObjectContext * managedObjectContext;
 
 - (id)initWithID:(NSString*)newID;
 -(void)calculateSoundPowerLevel;
@@ -23,3 +25,4 @@
 -(void)calculateSoundPowerLevelII3;
 
 @end
+ 

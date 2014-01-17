@@ -28,6 +28,8 @@
 		76172E1B183966A2000B798F /* SessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76172E1A183966A2000B798F /* SessionTests.m */; };
 		76172E1D183966E6000B798F /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172E1C183966E6000B798F /* OCHamcrestIOS.framework */; };
 		76172E2018396753000B798F /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 76172E1F18396753000B798F /* Session.m */; };
+		761A0CE61881A714004F0965 /* HMRI99Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 761A0CE41881A714004F0965 /* HMRI99Model.xcdatamodeld */; };
+		761A0CEB1881ECA2004F0965 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 761A0CEA1881ECA2004F0965 /* CoreData.framework */; };
 		762B34DE185531F1008FD7A3 /* SessionSummaryStaticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34DD185531F1008FD7A3 /* SessionSummaryStaticCell.m */; };
 		762B34E01855329E008FD7A3 /* SessionSummaryStaticCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34DF1855329E008FD7A3 /* SessionSummaryStaticCellTests.m */; };
 		762B34E218553371008FD7A3 /* SessionSummaryStaticCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 762B34E118553371008FD7A3 /* SessionSummaryStaticCell.xib */; };
@@ -49,6 +51,7 @@
 		76334E8318736FAA00DFF15F /* SessionDetailsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76334E8218736FAA00DFF15F /* SessionDetailsViewControllerTests.m */; };
 		76334E851873730F00DFF15F /* SessionDetailsDatasourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76334E841873730F00DFF15F /* SessionDetailsDatasourceTests.m */; };
 		767D5DBD1843E68C00ED7DC4 /* AppDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */; };
+		76808BE71889DC370075F1BE /* todo in Resources */ = {isa = PBXBuildFile; fileRef = 76808BE61889DC370075F1BE /* todo */; };
 		768C02B218512F8100BC879C /* SessionSummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 768C02B118512F8100BC879C /* SessionSummaryCell.m */; };
 		768C02B41851305D00BC879C /* SessionSummaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 768C02B31851305D00BC879C /* SessionSummaryCell.xib */; };
 		76B07256183D3CC4003E86CB /* SessionsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC8183D3A0300A1D668 /* SessionsTableViewDataSource.m */; };
@@ -109,6 +112,8 @@
 		76172E1C183966E6000B798F /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		76172E1E18396753000B798F /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		76172E1F18396753000B798F /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
+		761A0CE51881A714004F0965 /* HMRI99Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HMRI99Model.xcdatamodel; sourceTree = "<group>"; };
+		761A0CEA1881ECA2004F0965 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		762B34DC185531F1008FD7A3 /* SessionSummaryStaticCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionSummaryStaticCell.h; sourceTree = "<group>"; };
 		762B34DD185531F1008FD7A3 /* SessionSummaryStaticCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionSummaryStaticCell.m; sourceTree = "<group>"; };
 		762B34DF1855329E008FD7A3 /* SessionSummaryStaticCellTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionSummaryStaticCellTests.m; sourceTree = "<group>"; };
@@ -131,12 +136,13 @@
 		762B354418638CA8008FD7A3 /* MeasurementDetailTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementDetailTableViewDataSource.m; sourceTree = "<group>"; };
 		76334E7A187369F200DFF15F /* SessionDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionDetailsViewController.h; sourceTree = "<group>"; };
 		76334E7B187369F200DFF15F /* SessionDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionDetailsViewController.m; sourceTree = "<group>"; };
-		76334E7D18736BAA00DFF15F /* SessionDetailsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SessionDetailsDataSource.h; path = HMRI99/SessionDetailsDataSource.h; sourceTree = "<group>"; };
-		76334E7E18736BAA00DFF15F /* SessionDetailsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SessionDetailsDataSource.m; path = HMRI99/SessionDetailsDataSource.m; sourceTree = "<group>"; };
+		76334E7D18736BAA00DFF15F /* SessionDetailsDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionDetailsDataSource.h; sourceTree = "<group>"; };
+		76334E7E18736BAA00DFF15F /* SessionDetailsDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionDetailsDataSource.m; sourceTree = "<group>"; };
 		76334E8018736C2500DFF15F /* SessionDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionDetailsViewController.xib; sourceTree = "<group>"; };
 		76334E8218736FAA00DFF15F /* SessionDetailsViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionDetailsViewControllerTests.m; sourceTree = "<group>"; };
 		76334E841873730F00DFF15F /* SessionDetailsDatasourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionDetailsDatasourceTests.m; sourceTree = "<group>"; };
 		767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegateTests.m; sourceTree = "<group>"; };
+		76808BE61889DC370075F1BE /* todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todo; sourceTree = "<group>"; };
 		768C02B018512F8100BC879C /* SessionSummaryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionSummaryCell.h; sourceTree = "<group>"; };
 		768C02B118512F8100BC879C /* SessionSummaryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionSummaryCell.m; sourceTree = "<group>"; };
 		768C02B31851305D00BC879C /* SessionSummaryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionSummaryCell.xib; sourceTree = "<group>"; };
@@ -172,6 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				761A0CEB1881ECA2004F0965 /* CoreData.framework in Frameworks */,
 				76172DDA18396349000B798F /* UIKit.framework in Frameworks */,
 				76172DDC18396349000B798F /* Foundation.framework in Frameworks */,
 				76172DDE18396349000B798F /* CoreGraphics.framework in Frameworks */,
@@ -196,8 +203,7 @@
 		76172DCD18396349000B798F = {
 			isa = PBXGroup;
 			children = (
-				76334E7D18736BAA00DFF15F /* SessionDetailsDataSource.h */,
-				76334E7E18736BAA00DFF15F /* SessionDetailsDataSource.m */,
+				761A0CEA1881ECA2004F0965 /* CoreData.framework */,
 				76172DDF1839634A000B798F /* HMRI99 */,
 				76172E091839634A000B798F /* HMRI99Tests */,
 				76172DD818396349000B798F /* Frameworks */,
@@ -230,6 +236,10 @@
 		76172DDF1839634A000B798F /* HMRI99 */ = {
 			isa = PBXGroup;
 			children = (
+				76808BE61889DC370075F1BE /* todo */,
+				761A0CE41881A714004F0965 /* HMRI99Model.xcdatamodeld */,
+				76334E7D18736BAA00DFF15F /* SessionDetailsDataSource.h */,
+				76334E7E18736BAA00DFF15F /* SessionDetailsDataSource.m */,
 				76334E7A187369F200DFF15F /* SessionDetailsViewController.h */,
 				76334E7B187369F200DFF15F /* SessionDetailsViewController.m */,
 				76334E8018736C2500DFF15F /* SessionDetailsViewController.xib */,
@@ -417,6 +427,7 @@
 				762B34ED185E26B3008FD7A3 /* MeasurementSummaryStaticCell.xib in Resources */,
 				762B34F5185E545B008FD7A3 /* MeasurementDetailViewController.xib in Resources */,
 				76334E8118736C2500DFF15F /* SessionDetailsViewController.xib in Resources */,
+				76808BE71889DC370075F1BE /* todo in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -444,10 +455,6 @@
 			shellPath = /bin/sh;
 			shellScript = "export CODESIGN_ALLOCATE=/Library/JailCoder/codesign_allocate\nif [ \"${PLATFORM_NAME}\" == \"iphoneos\" ]; then\n/Library/JailCoder/Entitlements/Entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\ncodesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nfi";
 		};
-/* End PBXShellScriptBuildPhase section */
-
-
-/* Begin PBXShellScriptBuildPhase section */
 		76172E001839634A000B798F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -489,6 +496,7 @@
 				762B354518638CA9008FD7A3 /* MeasurementDetailTableViewDataSource.m in Sources */,
 				76334E7C187369F200DFF15F /* SessionDetailsViewController.m in Sources */,
 				76334E7F18736BAA00DFF15F /* SessionDetailsDataSource.m in Sources */,
+				761A0CE61881A714004F0965 /* HMRI99Model.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -707,6 +715,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		761A0CE41881A714004F0965 /* HMRI99Model.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				761A0CE51881A714004F0965 /* HMRI99Model.xcdatamodel */,
+			);
+			currentVersion = 761A0CE51881A714004F0965 /* HMRI99Model.xcdatamodel */;
+			path = HMRI99Model.xcdatamodeld;
+			sourceTree = SOURCE_ROOT;
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 76172DCE18396349000B798F /* Project object */;
 }

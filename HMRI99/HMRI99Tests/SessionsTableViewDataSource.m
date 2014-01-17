@@ -3,7 +3,7 @@
 
 NSString * sessionsTableDidSelectSessionNotification=@"sessionsTableDidSelectSessionNotification";
 NSString * sessionsTableDidAddSessionNotification=@"sessionsTableDidAddSessionNotification";
-NSString *sessionsTableDidPressAccessoryDetailButtonNotification=@"sessionsTableDidPressAccessoryDetailButtonNotification";
+NSString * sessionsTableDidPressAccessoryDetailButtonNotification=@"sessionsTableDidPressAccessoryDetailButtonNotification";
 
 @implementation SessionsTableViewDataSource
 
@@ -11,22 +11,34 @@ NSString *sessionsTableDidPressAccessoryDetailButtonNotification=@"sessionsTable
     NSMutableArray * sessions;
 }
 @synthesize summaryCell;
+@synthesize managedObjectContext;
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSParameterAssert(section == 0);
-    return [sessions count];
+    NSError *error=nil;
+    if (![self.fetchedResultsController performFetch:&error]) {
+        NSLog(@"error: %@", error);
+        abort();
+    }
+    
+    id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
+    return [sectionInfo numberOfObjects];
+
+   // return [sessions count];
 }
 
 NSString * sessionCellReuseIdentifier=@"Session";
 
-- (SessionSummaryStaticCell *)tableView:(UITableView *)tableView
-            cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (SessionSummaryStaticCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSParameterAssert([indexPath section] == 0);
-    NSParameterAssert([sessions count] > [indexPath row]);
+ //   NSParameterAssert([sessions count] > [indexPath row]);
+    Session *session = [self sessionForIndexPath:indexPath];
     
-    if ([sessions count])
-    {
+    
+//    if ([sessions count])
+//    {
         //Session * session = [sessions objectAtIndex: indexPath.row];
         summaryCell =[tableView dequeueReusableCellWithIdentifier: sessionCellReuseIdentifier];
         if (!summaryCell) {
@@ -34,19 +46,19 @@ NSString * sessionCellReuseIdentifier=@"Session";
                                                             owner: self options: nil];
         }
         
-        summaryCell.nameLabel.text=[[self sessionForIndexPath:indexPath] name];
+        summaryCell.nameLabel.text=[session name];
         NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
         [formatter setDateFormat:@"dd-MM-yyyy"];
         
         //Optionally for time zone converstions
         [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
         
-        NSString *stringFromDate = [formatter stringFromDate:[[self sessionForIndexPath:indexPath] date]];
+        NSString *stringFromDate = [formatter stringFromDate:[session date]];
         summaryCell.dateLabel.text=stringFromDate;
-        summaryCell.locationLabel.text=[[self sessionForIndexPath:indexPath] location];
-        summaryCell.engineerLabel.text=[[self sessionForIndexPath:indexPath] engineer];
+        summaryCell.locationLabel.text=[session location];
+        summaryCell.engineerLabel.text=[session engineer];
         [summaryCell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
-    }
+//    }
     return summaryCell;
 }
 
@@ -57,18 +69,27 @@ NSString * sessionCellReuseIdentifier=@"Session";
 
 -(void)addSession
 {
-    Session *newSession=[[Session alloc]init];
-    if ([sessions count]==0) {
-        [self setSessions:[NSMutableArray arrayWithObject:newSession]];
-    } else{
-        [sessions insertObject:newSession atIndex:0];
+//    Session *newSession=[[Session alloc]init];
+    Session *newSession=(Session*)[NSEntityDescription insertNewObjectForEntityForName:@"Session"
+                                                                inManagedObjectContext:[self managedObjectContext]];
+    newSession.creationDate=[NSDate date];
+    NSError *error=nil;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Error: %@",error);
     }
+//    
+//    if ([sessions count]==0) {
+//        [self setSessions:[NSMutableArray arrayWithObject:newSession]];
+//    } else{
+//        [sessions insertObject:newSession atIndex:0];
+//    }
     [[NSNotificationCenter defaultCenter] postNotificationName:sessionsTableDidAddSessionNotification object:newSession];
 }
 
 - (Session*) sessionForIndexPath:(NSIndexPath *)myIndexPath
 {
-    return [sessions objectAtIndex:[myIndexPath row]];
+//    return [sessions objectAtIndex:[myIndexPath row]];
+    return [self.fetchedResultsController objectAtIndexPath:myIndexPath];
 }
 
 - (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -84,6 +105,28 @@ NSString * sessionCellReuseIdentifier=@"Session";
 -(void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath
 {
     [[NSNotificationCenter defaultCenter] postNotificationName:sessionsTableDidPressAccessoryDetailButtonNotification object:[self sessionForIndexPath:indexPath]];
+}
+
+#pragma mark - Fetched results controller
+
+-(NSFetchedResultsController*) fetchedResultsController
+{
+    if (_fetchedResultsController) {
+        return _fetchedResultsController;
+    }
+    NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+    NSEntityDescription *entity = [NSEntityDescription entityForName:@"Session"
+                                              inManagedObjectContext: managedObjectContext];
+    [fetchRequest setEntity:entity];
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"creationDate"
+                                                                   ascending:NO];
+    NSArray *sortDescriptors = [[NSArray alloc] initWithObjects:sortDescriptor, nil];
+    [fetchRequest setSortDescriptors:sortDescriptors];
+    
+    _fetchedResultsController=[[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    _fetchedResultsController.delegate=self;
+    return _fetchedResultsController;
 }
 
 @end

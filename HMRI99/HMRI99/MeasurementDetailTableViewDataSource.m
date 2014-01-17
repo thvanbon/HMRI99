@@ -5,6 +5,7 @@
 
 @synthesize tableView;
 @synthesize measurement;
+@synthesize managedObjectContext;
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
@@ -32,7 +33,7 @@
                     measurementTextField.placeholder = @"eg. R5";
                     measurementTextField.keyboardType = UIKeyboardTypeDefault;
                     measurementTextField.returnKeyType = UIReturnKeyNext;
-                    measurementTextField.text=measurement.ID;
+                    measurementTextField.text=measurement.identification;
                     break;
                 case 1:
                     cell.textLabel.text = @"Name";
@@ -150,7 +151,7 @@
     int tag =[textfield tag];
     switch (tag) {
         case 1:
-            measurement.ID=text;
+            measurement.identification=text;
             break;
         case 2:
             measurement.noiseSource.name=text;
@@ -176,6 +177,10 @@
         default:
             break;
     }
+    NSError *error=nil;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Error: %@",error);
+    }
 }
 
 -(void)measurementSegmentedControlWasUpdated:(UISegmentedControl *)updatedControl
@@ -196,6 +201,10 @@
 
 -(void)updateTableView
 {
+    NSError *error=nil;
+    if (![self.managedObjectContext save:&error]) {
+        NSLog(@"Error: %@",error);
+    }
     [measurement calculateSoundPowerLevel];
     NSIndexPath * IndexPath4 = [NSIndexPath indexPathForRow:4 inSection:0];
     UITableViewCell * cell4=[tableView cellForRowAtIndexPath:IndexPath4];
