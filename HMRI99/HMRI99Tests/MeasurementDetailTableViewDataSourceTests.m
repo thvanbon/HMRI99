@@ -3,6 +3,7 @@
 
     // Collaborators
 #import "Measurement.h"
+#import <CoreData/CoreData.h>
 //#import "NoiseSource.h"
 
     // Test support
@@ -21,26 +22,60 @@
 @end
 
 @implementation MeasurementDetailTableViewDataSourceTests
+
 {
     MeasurementDetailTableViewDataSource * sut;
+    NSPersistentStoreCoordinator *coord;
+    NSManagedObjectContext *ctx;
+    NSManagedObjectModel *model;
+    NSPersistentStore *store;
+    
     Measurement *sampleMeasurement;
     UITextField *textField;
 }
 
-- (void) setUp
+- (void)setUp
 {
     [super setUp];
     sut=[[MeasurementDetailTableViewDataSource alloc] init];
-    sampleMeasurement=[[Measurement alloc] init];
+    model = [NSManagedObjectModel mergedModelFromBundles: nil];
+    coord = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: model];
+    store = [coord addPersistentStoreWithType: NSInMemoryStoreType
+                                configuration: nil
+                                          URL: nil
+                                      options: nil
+                                        error: NULL];
+    ctx = [[NSManagedObjectContext alloc] init];
+    [ctx setPersistentStoreCoordinator: coord];
+    
+    sampleMeasurement=(Measurement*)[NSEntityDescription
+                                     insertNewObjectForEntityForName:@"Measurement"
+                                     inManagedObjectContext: ctx];
     sut.measurement=sampleMeasurement;
+    NoiseSource * noiseSource=[NSEntityDescription
+                               insertNewObjectForEntityForName:@"NoiseSource"
+                               inManagedObjectContext: ctx];
+    sampleMeasurement.noiseSource=noiseSource;
 }
 
-- (void) tearDown
+- (void)tearDown
 {
-    sut=nil;
     sampleMeasurement=nil;
     textField=nil;
+    sut=nil;
+    ctx = nil;
+    NSError *error = nil;
+    STAssertTrue([coord removePersistentStore: store error: &error],
+                 @"couldn't remove persistent store: %@", error);
+    store = nil;
+    coord = nil;
+    model = nil;
     [super tearDown];
+}
+
+- (void)testThatEnvironmentWorks
+{
+    STAssertNotNil(store, @"no persistent store");
 }
 
 - (void) testNumberOfSectionsReturnsOne
@@ -98,12 +133,12 @@
 - (void) testChangingIDTextFieldUpdatesMeasurementID
 {
     [self updateRow:0 withInsertedSampleText:@"R4"];
-    assertThat([[sut measurement] ID],is(equalTo(@"R4")));
+    assertThat([[sut measurement] identification],is(equalTo(@"R4")));
 }
 
 - (void) testIDTextFieldShowsMeasurementID
 {
-    sut.measurement.ID=@"R2";
+    sut.measurement.identification=@"R2";
     assertThat([[self textFieldForRow:0] text], is(equalTo(@"R2")));
 }
 

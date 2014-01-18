@@ -1,7 +1,9 @@
 #import <Foundation/Foundation.h>
+@class Measurement;
 
 @interface NoiseSource : NSManagedObject
 @property NSString *name;
 @property NSString * operatingConditions;
-- (id)initWithName:(NSString *)myName;
+@property (nonatomic, retain) Measurement * measurement;
+
 @end

@@ -108,7 +108,6 @@
     MeasurementDetailViewController *nextViewController=[[MeasurementDetailViewController alloc] initWithNibName:nil bundle:nil];
     MeasurementDetailTableViewDataSource * measurementDetailDataSource=[[MeasurementDetailTableViewDataSource alloc] init];
     measurementDetailDataSource.measurement=selectedMeasurement;
-    //measurementDetailDataSource.tableView=[nextViewController tableView];
     MeasurementsTableViewDataSource *measurementsDataSource=(MeasurementsTableViewDataSource*) self.dataSource;
     measurementDetailDataSource.managedObjectContext= measurementsDataSource.managedObjectContext;
     nextViewController.dataSource=measurementDetailDataSource;

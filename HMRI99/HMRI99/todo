@@ -4,6 +4,7 @@ extract results
 mail results
 delete measurements
 sort measurements
+add validation
 clean up cells
 add other measurement types
 add auto-scroll
@@ -15,5 +16,4 @@ scan rion
 
 clean up
 update unit tests
-delete unneeded files
 refactor redundant code

@@ -13,7 +13,6 @@ extern NSString *sessionsTableDidPressAccessoryDetailButtonNotification;
 @property (nonatomic,strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
 
-- (void) setSessions:(NSArray *) newSessions;
 - (void) addSession;
 - (Session*) sessionForIndexPath:(NSIndexPath *)myIndexPath;
 

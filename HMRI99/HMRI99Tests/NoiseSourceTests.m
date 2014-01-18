@@ -18,24 +18,47 @@
 @end
 
 @implementation NoiseSourceTests
+
 {
     NoiseSource * sut;
+    NSPersistentStoreCoordinator *coord;
+    NSManagedObjectContext *ctx;
+    NSManagedObjectModel *model;
+    NSPersistentStore *store;
 }
 
-- (void) setUp
+- (void)setUp
 {
     [super setUp];
-    sut = [[NoiseSource alloc] initWithName:@"compressor"];
+    model = [NSManagedObjectModel mergedModelFromBundles: nil];
+    coord = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: model];
+    store = [coord addPersistentStoreWithType: NSInMemoryStoreType
+                                configuration: nil
+                                          URL: nil
+                                      options: nil
+                                        error: NULL];
+    ctx = [[NSManagedObjectContext alloc] init];
+    [ctx setPersistentStoreCoordinator: coord];
+    sut=[NSEntityDescription insertNewObjectForEntityForName:@"NoiseSource" inManagedObjectContext:ctx];
 }
 
-- (void) tearDown
+- (void)tearDown
 {
     sut=nil;
+    ctx = nil;
+    NSError *error = nil;
+    STAssertTrue([coord removePersistentStore: store error: &error],
+                 @"couldn't remove persistent store: %@", error);
+    store = nil;
+    coord = nil;
+    model = nil;
     [super tearDown];
 }
 
+
 - (void) testNoiseSourceHasName
 {
+    sut.name=@"compressor";
     assertThat([sut name], is(equalTo(@"compressor")));
 }
 

@@ -7,9 +7,6 @@ NSString * sessionsTableDidPressAccessoryDetailButtonNotification=@"sessionsTabl
 
 @implementation SessionsTableViewDataSource
 
-{
-    NSMutableArray * sessions;
-}
 @synthesize summaryCell;
 @synthesize managedObjectContext;
 
@@ -24,22 +21,14 @@ NSString * sessionsTableDidPressAccessoryDetailButtonNotification=@"sessionsTabl
     
     id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:0];
     return [sectionInfo numberOfObjects];
-
-   // return [sessions count];
 }
 
 NSString * sessionCellReuseIdentifier=@"Session";
 
 - (SessionSummaryStaticCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSParameterAssert([indexPath section] == 0);
- //   NSParameterAssert([sessions count] > [indexPath row]);
     Session *session = [self sessionForIndexPath:indexPath];
     
-    
-//    if ([sessions count])
-//    {
-        //Session * session = [sessions objectAtIndex: indexPath.row];
         summaryCell =[tableView dequeueReusableCellWithIdentifier: sessionCellReuseIdentifier];
         if (!summaryCell) {
             [[NSBundle bundleForClass: [self class]] loadNibNamed: @"SessionSummaryStaticCell"
@@ -58,18 +47,13 @@ NSString * sessionCellReuseIdentifier=@"Session";
         summaryCell.locationLabel.text=[session location];
         summaryCell.engineerLabel.text=[session engineer];
         [summaryCell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
-//    }
+
     return summaryCell;
 }
 
-- (void) setSessions:(NSMutableArray *) newSessions
-{
-    sessions=newSessions;
-}
 
 -(void)addSession
 {
-//    Session *newSession=[[Session alloc]init];
     Session *newSession=(Session*)[NSEntityDescription insertNewObjectForEntityForName:@"Session"
                                                                 inManagedObjectContext:[self managedObjectContext]];
     newSession.creationDate=[NSDate date];
@@ -77,19 +61,13 @@ NSString * sessionCellReuseIdentifier=@"Session";
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Error: %@",error);
     }
-//    
-//    if ([sessions count]==0) {
-//        [self setSessions:[NSMutableArray arrayWithObject:newSession]];
-//    } else{
-//        [sessions insertObject:newSession atIndex:0];
-//    }
     [[NSNotificationCenter defaultCenter] postNotificationName:sessionsTableDidAddSessionNotification object:newSession];
 }
 
 - (Session*) sessionForIndexPath:(NSIndexPath *)myIndexPath
 {
-//    return [sessions objectAtIndex:[myIndexPath row]];
     return [self.fetchedResultsController objectAtIndexPath:myIndexPath];
+
 }
 
 - (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

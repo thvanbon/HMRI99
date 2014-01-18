@@ -19,23 +19,38 @@
 @end
 
 @implementation SessionDetailsDatasourceTests
+
 {
     SessionDetailsDataSource * sut;
     Session *sampleSession;
     UITextField *textField;
     NSDateFormatter *formatter;
     NSDate *myDate;
+    NSPersistentStoreCoordinator *coord;
+    NSManagedObjectContext *ctx;
+    NSManagedObjectModel *model;
+    NSPersistentStore *store;
 }
 
 - (void) setUp
 {
     [super setUp];
+    model = [NSManagedObjectModel mergedModelFromBundles: nil];
+    coord = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: model];
+    store = [coord addPersistentStoreWithType: NSInMemoryStoreType
+                                configuration: nil
+                                          URL: nil
+                                      options: nil
+                                        error: NULL];
+    ctx = [[NSManagedObjectContext alloc] init];
+    [ctx setPersistentStoreCoordinator: coord];
     sut=[[SessionDetailsDataSource alloc] init];
-    sampleSession=[[Session alloc] init];
+    sampleSession=[NSEntityDescription insertNewObjectForEntityForName:@"Session" inManagedObjectContext:ctx];
     sut.session=sampleSession;
     formatter= [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"dd-MM-yyyy"];
     myDate=[NSDate dateWithTimeIntervalSinceNow:0.0f];
+    sut.managedObjectContext=ctx;
 }
 
 - (void) tearDown
@@ -44,6 +59,13 @@
     sampleSession=nil;
     textField=nil;
     formatter=nil;
+    ctx = nil;
+    NSError *error = nil;
+    STAssertTrue([coord removePersistentStore: store error: &error],
+                 @"couldn't remove persistent store: %@", error);
+    store = nil;
+    coord = nil;
+    model = nil;
     [super tearDown];
 }
 

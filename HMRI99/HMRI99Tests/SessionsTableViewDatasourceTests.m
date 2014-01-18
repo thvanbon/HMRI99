@@ -3,7 +3,7 @@
 
     // Collaborators
 #import "Session.h"
-#import "SessionSummaryCell.h"
+//#import "SessionSummaryCell.h"
 
     // Test support
 #import <SenTestingKit/SenTestingKit.h>
@@ -23,22 +23,38 @@
     NSMutableArray * sessions;
     NSNotification * receivedNotification;
     NSIndexPath * firstIndexPath;
-    SessionSummaryCell *firstCell;
+    SessionSummaryStaticCell *firstCell;
+    
+    NSPersistentStoreCoordinator *coord;
+    NSManagedObjectContext *ctx;
+    NSManagedObjectModel *model;
+    NSPersistentStore *store;
+    
 }
 
 - (void) setUp
 {
     [super setUp];
     sut=[[SessionsTableViewDataSource alloc] init];
+    model = [NSManagedObjectModel mergedModelFromBundles: nil];
+    coord = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: model];
+    store = [coord addPersistentStoreWithType: NSInMemoryStoreType
+                                configuration: nil
+                                          URL: nil
+                                      options: nil
+                                        error: NULL];
+    ctx = [[NSManagedObjectContext alloc] init];
+    [ctx setPersistentStoreCoordinator: coord];
+    sut.managedObjectContext=ctx;
     myDate=[NSDate dateWithTimeIntervalSinceNow:0.0f];
-    sampleSession=[[Session alloc] initWithName:@"CARG.13.01"
-                                           date:myDate
-                                       location:@"Zaandam"
-                                       engineer:@"HKa"];
-    sessions=[NSMutableArray arrayWithObject:sampleSession];
-    [sut setSessions:sessions];
+    sampleSession=[NSEntityDescription insertNewObjectForEntityForName:@"Session" inManagedObjectContext:ctx];
+    sampleSession.name=@"CARG.13.01";
+    sampleSession.date=myDate;
+    sampleSession.location=@"Zaandam";
+    sampleSession.engineer=@"Alfred Brooks";
+    sampleSession.creationDate=[NSDate date];
     firstIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    firstCell = (SessionSummaryCell *)[sut tableView: nil cellForRowAtIndexPath: firstIndexPath];
+    firstCell = (SessionSummaryStaticCell *)[sut tableView: nil cellForRowAtIndexPath: firstIndexPath];
     
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(didReceiveNotification:)
@@ -64,6 +80,14 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     receivedNotification=nil;
     firstIndexPath=nil;
+    
+    ctx = nil;
+    NSError *error = nil;
+    STAssertTrue([coord removePersistentStore: store error: &error],
+                 @"couldn't remove persistent store: %@", error);
+    store = nil;
+    coord = nil;
+    model = nil;
     firstCell=nil;
     [super tearDown];
 }
@@ -73,11 +97,11 @@
 //    assertThat([sut summaryCell], is(notNilValue()));
 //}
 
-- (void) testSessionsDataSourceCanReceiveAListOfSessions
-{
-    STAssertNoThrow([sut setSessions:sessions], @"The data source needs a list of measurement sessions");
-}
-
+//- (void) testSessionsDataSourceCanReceiveAListOfSessions
+//{
+//    STAssertNoThrow([sut setSessions:sessions], @"The data source needs a list of measurement sessions");
+//}
+//
 - (void) testSessionsDataSourceCanReceiveAnAddedSession
 {
     [sut addSession];
@@ -86,20 +110,13 @@
 
 - (void) testOneRowForOneSession
 {
-    assertThat([NSNumber numberWithInt:[sut tableView:nil numberOfRowsInSection:0]],is(equalTo([NSNumber numberWithInt:[sessions count]])));
+    assertThatInt([sut tableView:nil numberOfRowsInSection:0],is(equalToInt(1)));
 }
 
 - (void) testTwoRowsForTwoSessions
 {
-    sessions=[NSArray arrayWithObjects:sampleSession,sampleSession,nil];
-    [sut setSessions:sessions];
-    assertThat([NSNumber numberWithInt:[sut tableView:nil numberOfRowsInSection:0]],is(equalTo([NSNumber numberWithInt:[sessions count]])));
-}
-
-- (void) testDataSourceCanReceiveFirstSessionThroughAddSession
-{
-    [sut addSession];
-    assertThat([NSNumber numberWithInt:[sut tableView:nil numberOfRowsInSection:0]],is(equalTo(@2)));
+   [NSEntityDescription insertNewObjectForEntityForName:@"Session" inManagedObjectContext:ctx];
+    assertThatInt([sut tableView:nil numberOfRowsInSection:0],is(equalToInt(2)));
 }
 
 - (void)testOneSectionInTheTableView
@@ -115,12 +132,13 @@
 
 - (void)testDataSourceCellCreationWillNotCreateMoreRowsThanItHasSessions
 {
-    NSIndexPath * afterLastSession=[NSIndexPath indexPathForItem:[sessions count] inSection:0];
+    NSIndexPath * afterLastSession=[NSIndexPath indexPathForItem:1 inSection:0];
     STAssertThrows([sut tableView:nil cellForRowAtIndexPath:afterLastSession], @"Data source will not prepare more cells than existing Sessions");
 }
 
 - (void)testDataSourceIndicatesWhichSessionIsRepresentedForAnIndexPath
 {
+    [sut tableView:nil numberOfRowsInSection:0];
     Session *firstSession=[sut sessionForIndexPath:firstIndexPath];
     assertThat(firstSession.name, is(equalTo(@"CARG.13.01")));    
 }
@@ -133,6 +151,7 @@
 
 -(void)testDataSourceSendsNotificationWithSessionWhenSessionIsSelected
 {
+    [sut tableView:nil numberOfRowsInSection:0];
     [sut tableView:nil didSelectRowAtIndexPath:firstIndexPath];
     assertThat([[receivedNotification object] name], is(equalTo(@"CARG.13.01")));
 }
@@ -143,11 +162,11 @@
     assertThat([receivedNotification name], is(equalTo(sessionsTableDidAddSessionNotification)));
 }
 
-- (void)testHeightOfASessionRowIsAtLeastTheSameAsTheHeightOfTheCell
-{
-    NSInteger height = [sut tableView: nil heightForRowAtIndexPath: firstIndexPath];
-    assertThatFloat(height,is(greaterThanOrEqualTo([NSNumber numberWithFloat:firstCell.frame.size.height])));
-}
+//- (void)testHeightOfASessionRowIsAtLeastTheSameAsTheHeightOfTheCell
+//{
+//    NSInteger height = [sut tableView: nil heightForRowAtIndexPath: firstIndexPath];
+//    assertThatFloat(height,is(greaterThanOrEqualTo([NSNumber numberWithFloat:firstCell.frame.size.height])));
+//}
 
 - (void)testRowHasAccessoryDetailButton
 {
@@ -163,6 +182,7 @@
 
 -(void)testDataSourceSendsNotificationWithSessionWhenAccessoryDetailButtonIsPressed
 {
+    [sut tableView:nil numberOfRowsInSection:0];
     [sut tableView:nil accessoryButtonTappedForRowWithIndexPath:firstIndexPath];
     assertThat([[receivedNotification object] name], is(equalTo(@"CARG.13.01")));
 }

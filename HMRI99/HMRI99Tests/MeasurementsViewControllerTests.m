@@ -37,15 +37,19 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
 @end
 
 @implementation MeasurementsViewControllerTests
-
 {
     MeasurementsViewController * sut;
     UITableView *tableView;
+    
     MeasurementsTableViewDataSource <UITableViewDataSource, UITableViewDelegate> *dataSource;
-//    NSNotification * receivedNotification;
     SEL realUserDidSelectMeasurement, testUserDidSelectMeasurement;
     SEL realUserDidAddMeasurement, testUserDidAddMeasurement;
     UINavigationController *navController;
+    NSPersistentStoreCoordinator *coord;
+    NSManagedObjectContext *ctx;
+    NSManagedObjectModel *model;
+    NSPersistentStore *store;
+    
 }
 
 + (void)swapInstanceMethodsForClass: (Class) cls selector: (SEL)sel1 andSelector: (SEL)sel2 {
@@ -58,7 +62,17 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
     sut=[[MeasurementsViewController alloc] init];
     tableView = [[UITableView alloc] init];
     sut.tableView = tableView;
+    model = [NSManagedObjectModel mergedModelFromBundles: nil];
+    coord = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: model];
+    store = [coord addPersistentStoreWithType: NSInMemoryStoreType
+                                configuration: nil
+                                          URL: nil
+                                      options: nil
+                                        error: NULL];
+    ctx = [[NSManagedObjectContext alloc] init];
+    [ctx setPersistentStoreCoordinator: coord];
     dataSource=[[MeasurementsTableViewDataSource alloc] init];
+    dataSource.managedObjectContext=ctx;
     sut.dataSource=dataSource;
     realUserDidSelectMeasurement = @selector(userDidSelectMeasurementNotification:);
     testUserDidSelectMeasurement = @selector(measurementsViewControllerTests_userDidSelectMeasurementNotification:);
@@ -74,12 +88,18 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
     sut=nil;
     tableView=nil;
     dataSource=nil;
-//    receivedNotification=nil;
     realUserDidSelectMeasurement=nil;
     testUserDidSelectMeasurement=nil;
     realUserDidAddMeasurement=nil;
     testUserDidAddMeasurement=nil;
     navController=nil;
+    ctx = nil;
+    NSError *error = nil;
+    STAssertTrue([coord removePersistentStore: store error: &error],
+                 @"couldn't remove persistent store: %@", error);
+    store = nil;
+    coord = nil;
+    model = nil;
     [super tearDown];
 }
 
@@ -184,13 +204,13 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
     STAssertTrue([currentTopVC isKindOfClass:[MeasurementDetailViewController class]], @"New view controller should be of class MeasurementDetailViewController");
 }
 
-//- (void)testViewControllerConnectsTableViewBacklinkInViewDidLoad
-//{
-//    MeasurementsTableViewDataSource *measurementsTableViewDataSource = [[MeasurementsTableViewDataSource alloc] init];
-//    sut.dataSource = measurementsTableViewDataSource;
-//    [sut viewDidLoad];
-//    STAssertEqualObjects(measurementsTableViewDataSource.tableView, tableView, @"Back-link to table view should be set in data source");
-//}
+- (void)testViewControllerConnectsTableViewBacklinkInViewDidLoad
+{
+    MeasurementsTableViewDataSource *measurementsTableViewDataSource = [[MeasurementsTableViewDataSource alloc] init];
+    sut.dataSource = measurementsTableViewDataSource;
+    [sut viewDidLoad];
+    STAssertEqualObjects(measurementsTableViewDataSource.tableView, tableView, @"Back-link to table view should be set in data source");
+}
 
 
 #pragma mark Notifications for adding
@@ -222,15 +242,11 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
 
 - (void)testReceivingTableAddedNotificationAddsRowToTableView
 {
-    Session *sampleSession=[[Session alloc] initWithName:@"CARG.13.01"
-                                           date:[NSDate date]
-                                       location:@"Zaandam"
-                                       engineer:@"HKa"];
-    [dataSource setSession:sampleSession];
+    dataSource.session=[NSEntityDescription insertNewObjectForEntityForName:@"Session" inManagedObjectContext:ctx];
     [sut viewDidAppear: NO];
-    int numberOfRowsInSectionOne=[sut.dataSource tableView:[sut tableView] numberOfRowsInSection:1];
+    int numberOfRowsInSectionOne=[sut.dataSource tableView:nil numberOfRowsInSection:0];
     [dataSource addMeasurement];
-    assertThat([NSNumber numberWithInt:[sut.dataSource tableView:[sut tableView] numberOfRowsInSection:1]], is(equalTo([NSNumber numberWithInt:numberOfRowsInSectionOne+1])));
+    assertThatInt([sut.dataSource tableView:nil numberOfRowsInSection:0], is(equalToInt(numberOfRowsInSectionOne+1)));
 }
 
 - (void)testReceivingMeasurementAddedNotificationHasAMeasurementDetailDataSourceForTheAddedSession
@@ -249,15 +265,15 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
     assertThatBool([nextViewController.dataSource isKindOfClass: [MeasurementDetailTableViewDataSource class]], is(equalToBool(YES)));
 }
 
-//
-////- (void)testKeyboardIsResignedWhenClickedOutsideTextFieldInTableView
-////{
-////    [sut viewDidAppear: NO];
-////    int numberOfRowsInSectionZero=[sut.dataSource tableView:[sut tableView] numberOfRowsInSection:0];
-////    [dataSource addSession];
-////    assertThat([NSNumber numberWithInt:[sut.dataSource tableView:[sut tableView] numberOfRowsInSection:0]], is(equalTo([NSNumber numberWithInt:numberOfRowsInSectionZero+1])));
-////}
-//
+
+//- (void)testKeyboardIsResignedWhenClickedOutsideTextFieldInTableView
+//{
+//    [sut viewDidAppear: NO];
+//    int numberOfRowsInSectionZero=[sut.dataSource tableView:[sut tableView] numberOfRowsInSection:0];
+//    [dataSource addSession];
+//    assertThat([NSNumber numberWithInt:[sut.dataSource tableView:[sut tableView] numberOfRowsInSection:0]], is(equalTo([NSNumber numberWithInt:numberOfRowsInSectionZero+1])));
+//}
+
 #pragma mark Helper methods
 - (void)swapInstanceMethods
 {

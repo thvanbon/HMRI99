@@ -17,10 +17,6 @@
 		76172DEC1839634A000B798F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 76172DEB1839634A000B798F /* Default.png */; };
 		76172DEE1839634A000B798F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76172DED1839634A000B798F /* Default@2x.png */; };
 		76172DF01839634A000B798F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76172DEF1839634A000B798F /* Default-568h@2x.png */; };
-		76172DF31839634A000B798F /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76172DF21839634A000B798F /* MasterViewController.m */; };
-		76172DF61839634A000B798F /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76172DF51839634A000B798F /* DetailViewController.m */; };
-		76172DF91839634A000B798F /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76172DF71839634A000B798F /* MasterViewController.xib */; };
-		76172DFC1839634A000B798F /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76172DFA1839634A000B798F /* DetailViewController.xib */; };
 		76172E041839634A000B798F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172E031839634A000B798F /* SenTestingKit.framework */; };
 		76172E051839634A000B798F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172DD918396349000B798F /* UIKit.framework */; };
 		76172E061839634A000B798F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172DDB18396349000B798F /* Foundation.framework */; };
@@ -42,7 +38,6 @@
 		762B34F3185E528C008FD7A3 /* MeasurementDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34F2185E528C008FD7A3 /* MeasurementDetailViewController.m */; };
 		762B34F5185E545B008FD7A3 /* MeasurementDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 762B34F4185E545B008FD7A3 /* MeasurementDetailViewController.xib */; };
 		762B34F7185E54A4008FD7A3 /* MeasurementDetailViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34F6185E54A4008FD7A3 /* MeasurementDetailViewControllerTests.m */; };
-		762B34F9185E579C008FD7A3 /* SessionSummaryCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34F8185E579C008FD7A3 /* SessionSummaryCellTests.m */; };
 		762B354218638C57008FD7A3 /* MeasurementDetailTableViewDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B354118638C57008FD7A3 /* MeasurementDetailTableViewDataSourceTests.m */; };
 		762B354518638CA9008FD7A3 /* MeasurementDetailTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B354418638CA8008FD7A3 /* MeasurementDetailTableViewDataSource.m */; };
 		76334E7C187369F200DFF15F /* SessionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76334E7B187369F200DFF15F /* SessionDetailsViewController.m */; };
@@ -52,16 +47,11 @@
 		76334E851873730F00DFF15F /* SessionDetailsDatasourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76334E841873730F00DFF15F /* SessionDetailsDatasourceTests.m */; };
 		767D5DBD1843E68C00ED7DC4 /* AppDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */; };
 		76808BE71889DC370075F1BE /* todo in Resources */ = {isa = PBXBuildFile; fileRef = 76808BE61889DC370075F1BE /* todo */; };
-		768C02B218512F8100BC879C /* SessionSummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 768C02B118512F8100BC879C /* SessionSummaryCell.m */; };
-		768C02B41851305D00BC879C /* SessionSummaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 768C02B31851305D00BC879C /* SessionSummaryCell.xib */; };
+		76808BEA1889E3C10075F1BE /* Measurement.m in Sources */ = {isa = PBXBuildFile; fileRef = 76808BE91889E3C10075F1BE /* Measurement.m */; };
+		76808BEC188AB90D0075F1BE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 761A0CEA1881ECA2004F0965 /* CoreData.framework */; };
 		76B07256183D3CC4003E86CB /* SessionsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC8183D3A0300A1D668 /* SessionsTableViewDataSource.m */; };
 		76B07258183D3D09003E86CB /* SessionsTableViewDatasourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B07257183D3D09003E86CB /* SessionsTableViewDatasourceTests.m */; };
 		76B9ADAA1839752D00A1D668 /* MeasurementTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADA91839752D00A1D668 /* MeasurementTests.m */; };
-		76B9ADB01839757A00A1D668 /* Measurement.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADAF1839757A00A1D668 /* Measurement.m */; };
-		76B9ADB21839865100A1D668 /* MeasurementII2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADB11839865100A1D668 /* MeasurementII2Tests.m */; };
-		76B9ADB5183986A000A1D668 /* MeasurementII2.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADB4183986A000A1D668 /* MeasurementII2.m */; };
-		76B9ADB7183A8A2D00A1D668 /* MeasurementII3Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADB6183A8A2D00A1D668 /* MeasurementII3Tests.m */; };
-		76B9ADBA183A8A5600A1D668 /* MeasurementII3.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADB9183A8A5600A1D668 /* MeasurementII3.m */; };
 		76B9ADBC183AD96E00A1D668 /* NoiseSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADBB183AD96E00A1D668 /* NoiseSourceTests.m */; };
 		76B9ADBF183AD9F700A1D668 /* NoiseSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADBE183AD9F700A1D668 /* NoiseSource.m */; };
 		76B9ADC3183BFF8800A1D668 /* SessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC1183BFF8800A1D668 /* SessionsViewController.m */; };
@@ -69,8 +59,6 @@
 		76B9ADC6183BFFDB00A1D668 /* SessionsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC5183BFFDB00A1D668 /* SessionsViewControllerTests.m */; };
 		76FB86A41842399B009270CB /* MeasurementsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FB86A31842399B009270CB /* MeasurementsTableViewDataSource.m */; };
 		76FB86A618424BD2009270CB /* MeasurementsTableViewDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FB86A518424BD2009270CB /* MeasurementsTableViewDataSourceTests.m */; };
-		76FB86AA18425C6E009270CB /* MeasurementSummaryCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FB86A918425C6E009270CB /* MeasurementSummaryCell.m */; };
-		76FB86AC18425DBB009270CB /* MeasurementSummaryCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76FB86AB18425DBA009270CB /* MeasurementSummaryCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -98,12 +86,6 @@
 		76172DEB1839634A000B798F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		76172DED1839634A000B798F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		76172DEF1839634A000B798F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		76172DF11839634A000B798F /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
-		76172DF21839634A000B798F /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		76172DF41839634A000B798F /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		76172DF51839634A000B798F /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		76172DF81839634A000B798F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MasterViewController.xib; sourceTree = "<group>"; };
-		76172DFB1839634A000B798F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DetailViewController.xib; sourceTree = "<group>"; };
 		76172E021839634A000B798F /* HMRI99Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HMRI99Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		76172E031839634A000B798F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		76172E0B1839634A000B798F /* HMRI99Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HMRI99Tests-Info.plist"; sourceTree = "<group>"; };
@@ -130,7 +112,6 @@
 		762B34F2185E528C008FD7A3 /* MeasurementDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementDetailViewController.m; sourceTree = "<group>"; };
 		762B34F4185E545B008FD7A3 /* MeasurementDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeasurementDetailViewController.xib; sourceTree = "<group>"; };
 		762B34F6185E54A4008FD7A3 /* MeasurementDetailViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementDetailViewControllerTests.m; sourceTree = "<group>"; };
-		762B34F8185E579C008FD7A3 /* SessionSummaryCellTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionSummaryCellTests.m; sourceTree = "<group>"; };
 		762B354118638C57008FD7A3 /* MeasurementDetailTableViewDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementDetailTableViewDataSourceTests.m; sourceTree = "<group>"; };
 		762B354318638CA7008FD7A3 /* MeasurementDetailTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementDetailTableViewDataSource.h; sourceTree = "<group>"; };
 		762B354418638CA8008FD7A3 /* MeasurementDetailTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementDetailTableViewDataSource.m; sourceTree = "<group>"; };
@@ -143,19 +124,10 @@
 		76334E841873730F00DFF15F /* SessionDetailsDatasourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionDetailsDatasourceTests.m; sourceTree = "<group>"; };
 		767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegateTests.m; sourceTree = "<group>"; };
 		76808BE61889DC370075F1BE /* todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todo; sourceTree = "<group>"; };
-		768C02B018512F8100BC879C /* SessionSummaryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SessionSummaryCell.h; sourceTree = "<group>"; };
-		768C02B118512F8100BC879C /* SessionSummaryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionSummaryCell.m; sourceTree = "<group>"; };
-		768C02B31851305D00BC879C /* SessionSummaryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionSummaryCell.xib; sourceTree = "<group>"; };
+		76808BE81889E3C00075F1BE /* Measurement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measurement.h; sourceTree = "<group>"; };
+		76808BE91889E3C10075F1BE /* Measurement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Measurement.m; sourceTree = "<group>"; };
 		76B07257183D3D09003E86CB /* SessionsTableViewDatasourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionsTableViewDatasourceTests.m; sourceTree = "<group>"; };
 		76B9ADA91839752D00A1D668 /* MeasurementTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementTests.m; sourceTree = "<group>"; };
-		76B9ADAE1839757A00A1D668 /* Measurement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measurement.h; sourceTree = "<group>"; };
-		76B9ADAF1839757A00A1D668 /* Measurement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Measurement.m; sourceTree = "<group>"; };
-		76B9ADB11839865100A1D668 /* MeasurementII2Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementII2Tests.m; sourceTree = "<group>"; };
-		76B9ADB3183986A000A1D668 /* MeasurementII2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementII2.h; sourceTree = "<group>"; };
-		76B9ADB4183986A000A1D668 /* MeasurementII2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementII2.m; sourceTree = "<group>"; };
-		76B9ADB6183A8A2D00A1D668 /* MeasurementII3Tests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementII3Tests.m; sourceTree = "<group>"; };
-		76B9ADB8183A8A5600A1D668 /* MeasurementII3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementII3.h; sourceTree = "<group>"; };
-		76B9ADB9183A8A5600A1D668 /* MeasurementII3.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementII3.m; sourceTree = "<group>"; };
 		76B9ADBB183AD96E00A1D668 /* NoiseSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoiseSourceTests.m; sourceTree = "<group>"; };
 		76B9ADBD183AD9F700A1D668 /* NoiseSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoiseSource.h; sourceTree = "<group>"; };
 		76B9ADBE183AD9F700A1D668 /* NoiseSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoiseSource.m; sourceTree = "<group>"; };
@@ -168,9 +140,6 @@
 		76FB86A21842399B009270CB /* MeasurementsTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementsTableViewDataSource.h; sourceTree = "<group>"; };
 		76FB86A31842399B009270CB /* MeasurementsTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementsTableViewDataSource.m; sourceTree = "<group>"; };
 		76FB86A518424BD2009270CB /* MeasurementsTableViewDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementsTableViewDataSourceTests.m; sourceTree = "<group>"; };
-		76FB86A818425C6E009270CB /* MeasurementSummaryCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeasurementSummaryCell.h; path = ../MeasurementSummaryCell.h; sourceTree = "<group>"; };
-		76FB86A918425C6E009270CB /* MeasurementSummaryCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeasurementSummaryCell.m; path = ../MeasurementSummaryCell.m; sourceTree = "<group>"; };
-		76FB86AB18425DBA009270CB /* MeasurementSummaryCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MeasurementSummaryCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -194,6 +163,7 @@
 				76172E061839634A000B798F /* Foundation.framework in Frameworks */,
 				76172E1D183966E6000B798F /* OCHamcrestIOS.framework in Frameworks */,
 				760D8966184B9C480007B0B1 /* OCMockitoIOS.framework in Frameworks */,
+				76808BEC188AB90D0075F1BE /* CoreData.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -203,7 +173,6 @@
 		76172DCD18396349000B798F = {
 			isa = PBXGroup;
 			children = (
-				761A0CEA1881ECA2004F0965 /* CoreData.framework */,
 				76172DDF1839634A000B798F /* HMRI99 */,
 				76172E091839634A000B798F /* HMRI99Tests */,
 				76172DD818396349000B798F /* Frameworks */,
@@ -223,6 +192,7 @@
 		76172DD818396349000B798F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				761A0CEA1881ECA2004F0965 /* CoreData.framework */,
 				760D8965184B9C480007B0B1 /* OCMockitoIOS.framework */,
 				76172E1C183966E6000B798F /* OCHamcrestIOS.framework */,
 				76172DD918396349000B798F /* UIKit.framework */,
@@ -237,57 +207,41 @@
 			isa = PBXGroup;
 			children = (
 				76808BE61889DC370075F1BE /* todo */,
+				76172DE81839634A000B798F /* AppDelegate.h */,
+				76172DE91839634A000B798F /* AppDelegate.m */,
 				761A0CE41881A714004F0965 /* HMRI99Model.xcdatamodeld */,
-				76334E7D18736BAA00DFF15F /* SessionDetailsDataSource.h */,
-				76334E7E18736BAA00DFF15F /* SessionDetailsDataSource.m */,
-				76334E7A187369F200DFF15F /* SessionDetailsViewController.h */,
-				76334E7B187369F200DFF15F /* SessionDetailsViewController.m */,
-				76334E8018736C2500DFF15F /* SessionDetailsViewController.xib */,
+				76808BE81889E3C00075F1BE /* Measurement.h */,
+				76808BE91889E3C10075F1BE /* Measurement.m */,
 				762B354318638CA7008FD7A3 /* MeasurementDetailTableViewDataSource.h */,
 				762B354418638CA8008FD7A3 /* MeasurementDetailTableViewDataSource.m */,
 				762B34F1185E528B008FD7A3 /* MeasurementDetailViewController.h */,
 				762B34F2185E528C008FD7A3 /* MeasurementDetailViewController.m */,
 				762B34F4185E545B008FD7A3 /* MeasurementDetailViewController.xib */,
-				768C02B018512F8100BC879C /* SessionSummaryCell.h */,
-				768C02B31851305D00BC879C /* SessionSummaryCell.xib */,
-				768C02B118512F8100BC879C /* SessionSummaryCell.m */,
+				76FB86A21842399B009270CB /* MeasurementsTableViewDataSource.h */,
+				76FB86A31842399B009270CB /* MeasurementsTableViewDataSource.m */,
 				762B34EE185E270E008FD7A3 /* MeasurementSummaryStaticCell.h */,
 				762B34EF185E270E008FD7A3 /* MeasurementSummaryStaticCell.m */,
 				762B34EC185E26B3008FD7A3 /* MeasurementSummaryStaticCell.xib */,
-				762B34DC185531F1008FD7A3 /* SessionSummaryStaticCell.h */,
-				762B34DD185531F1008FD7A3 /* SessionSummaryStaticCell.m */,
-				762B34E118553371008FD7A3 /* SessionSummaryStaticCell.xib */,
-				76FB86A818425C6E009270CB /* MeasurementSummaryCell.h */,
-				76FB86A918425C6E009270CB /* MeasurementSummaryCell.m */,
-				76FB86AB18425DBA009270CB /* MeasurementSummaryCell.xib */,
-				76B9ADBD183AD9F700A1D668 /* NoiseSource.h */,
-				76B9ADBE183AD9F700A1D668 /* NoiseSource.m */,
-				76B9ADB8183A8A5600A1D668 /* MeasurementII3.h */,
-				76B9ADB9183A8A5600A1D668 /* MeasurementII3.m */,
-				76B9ADB3183986A000A1D668 /* MeasurementII2.h */,
-				76B9ADB4183986A000A1D668 /* MeasurementII2.m */,
-				76B9ADAE1839757A00A1D668 /* Measurement.h */,
-				76B9ADAF1839757A00A1D668 /* Measurement.m */,
-				76172E1E18396753000B798F /* Session.h */,
-				76172E1F18396753000B798F /* Session.m */,
-				76172DE81839634A000B798F /* AppDelegate.h */,
-				76172DE91839634A000B798F /* AppDelegate.m */,
-				76172DF11839634A000B798F /* MasterViewController.h */,
-				76172DF21839634A000B798F /* MasterViewController.m */,
-				76B9ADC0183BFF8800A1D668 /* SessionsViewController.h */,
-				76B9ADC1183BFF8800A1D668 /* SessionsViewController.m */,
-				76B9ADC2183BFF8800A1D668 /* SessionsViewController.xib */,
-				76B9ADC7183D3A0300A1D668 /* SessionsTableViewDataSource.h */,
-				76B9ADC8183D3A0300A1D668 /* SessionsTableViewDataSource.m */,
-				76FB86A21842399B009270CB /* MeasurementsTableViewDataSource.h */,
-				76FB86A31842399B009270CB /* MeasurementsTableViewDataSource.m */,
 				762B34E31858D489008FD7A3 /* MeasurementsViewController.h */,
 				762B34E41858D489008FD7A3 /* MeasurementsViewController.m */,
 				762B34E8185CA5D0008FD7A3 /* MeasurementsViewController.xib */,
-				76172DF41839634A000B798F /* DetailViewController.h */,
-				76172DF51839634A000B798F /* DetailViewController.m */,
-				76172DF71839634A000B798F /* MasterViewController.xib */,
-				76172DFA1839634A000B798F /* DetailViewController.xib */,
+				76B9ADBD183AD9F700A1D668 /* NoiseSource.h */,
+				76B9ADBE183AD9F700A1D668 /* NoiseSource.m */,
+				76172E1E18396753000B798F /* Session.h */,
+				76172E1F18396753000B798F /* Session.m */,
+				76334E7D18736BAA00DFF15F /* SessionDetailsDataSource.h */,
+				76334E7E18736BAA00DFF15F /* SessionDetailsDataSource.m */,
+				76334E7A187369F200DFF15F /* SessionDetailsViewController.h */,
+				76334E7B187369F200DFF15F /* SessionDetailsViewController.m */,
+				76334E8018736C2500DFF15F /* SessionDetailsViewController.xib */,
+				76B9ADC7183D3A0300A1D668 /* SessionsTableViewDataSource.h */,
+				76B9ADC8183D3A0300A1D668 /* SessionsTableViewDataSource.m */,
+				762B34DC185531F1008FD7A3 /* SessionSummaryStaticCell.h */,
+				762B34DD185531F1008FD7A3 /* SessionSummaryStaticCell.m */,
+				762B34E118553371008FD7A3 /* SessionSummaryStaticCell.xib */,
+				76B9ADC0183BFF8800A1D668 /* SessionsViewController.h */,
+				76B9ADC1183BFF8800A1D668 /* SessionsViewController.m */,
+				76B9ADC2183BFF8800A1D668 /* SessionsViewController.xib */,
 				76172DE01839634A000B798F /* Supporting Files */,
 			);
 			path = HMRI99;
@@ -310,22 +264,19 @@
 		76172E091839634A000B798F /* HMRI99Tests */ = {
 			isa = PBXGroup;
 			children = (
-				76334E841873730F00DFF15F /* SessionDetailsDatasourceTests.m */,
-				76334E8218736FAA00DFF15F /* SessionDetailsViewControllerTests.m */,
+				767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */,
 				762B354118638C57008FD7A3 /* MeasurementDetailTableViewDataSourceTests.m */,
 				762B34F6185E54A4008FD7A3 /* MeasurementDetailViewControllerTests.m */,
-				762B34EA185DE293008FD7A3 /* MeasurementSummaryStaticCellTests.m */,
-				762B34DF1855329E008FD7A3 /* SessionSummaryStaticCellTests.m */,
-				762B34F8185E579C008FD7A3 /* SessionSummaryCellTests.m */,
-				767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */,
 				76FB86A518424BD2009270CB /* MeasurementsTableViewDataSourceTests.m */,
-				76B07257183D3D09003E86CB /* SessionsTableViewDatasourceTests.m */,
-				76B9ADC5183BFFDB00A1D668 /* SessionsViewControllerTests.m */,
+				762B34EA185DE293008FD7A3 /* MeasurementSummaryStaticCellTests.m */,
 				762B34E6185C73CB008FD7A3 /* MeasurementsViewControllerTests.m */,
-				76B9ADBB183AD96E00A1D668 /* NoiseSourceTests.m */,
-				76B9ADB6183A8A2D00A1D668 /* MeasurementII3Tests.m */,
-				76B9ADB11839865100A1D668 /* MeasurementII2Tests.m */,
 				76B9ADA91839752D00A1D668 /* MeasurementTests.m */,
+				76B9ADBB183AD96E00A1D668 /* NoiseSourceTests.m */,
+				76334E841873730F00DFF15F /* SessionDetailsDatasourceTests.m */,
+				76334E8218736FAA00DFF15F /* SessionDetailsViewControllerTests.m */,
+				76B07257183D3D09003E86CB /* SessionsTableViewDatasourceTests.m */,
+				762B34DF1855329E008FD7A3 /* SessionSummaryStaticCellTests.m */,
+				76B9ADC5183BFFDB00A1D668 /* SessionsViewControllerTests.m */,
 				76172E1A183966A2000B798F /* SessionTests.m */,
 				76172E0A1839634A000B798F /* Supporting Files */,
 			);
@@ -417,11 +368,7 @@
 				76172DEC1839634A000B798F /* Default.png in Resources */,
 				76172DEE1839634A000B798F /* Default@2x.png in Resources */,
 				76172DF01839634A000B798F /* Default-568h@2x.png in Resources */,
-				76172DF91839634A000B798F /* MasterViewController.xib in Resources */,
-				76172DFC1839634A000B798F /* DetailViewController.xib in Resources */,
 				76B9ADC4183BFF8800A1D668 /* SessionsViewController.xib in Resources */,
-				76FB86AC18425DBB009270CB /* MeasurementSummaryCell.xib in Resources */,
-				768C02B41851305D00BC879C /* SessionSummaryCell.xib in Resources */,
 				762B34E218553371008FD7A3 /* SessionSummaryStaticCell.xib in Resources */,
 				762B34E9185CA5D1008FD7A3 /* MeasurementsViewController.xib in Resources */,
 				762B34ED185E26B3008FD7A3 /* MeasurementSummaryStaticCell.xib in Resources */,
@@ -477,18 +424,11 @@
 			files = (
 				76172DE61839634A000B798F /* main.m in Sources */,
 				76172DEA1839634A000B798F /* AppDelegate.m in Sources */,
-				76172DF31839634A000B798F /* MasterViewController.m in Sources */,
-				76172DF61839634A000B798F /* DetailViewController.m in Sources */,
 				76172E2018396753000B798F /* Session.m in Sources */,
-				76B9ADB01839757A00A1D668 /* Measurement.m in Sources */,
-				76B9ADB5183986A000A1D668 /* MeasurementII2.m in Sources */,
-				76B9ADBA183A8A5600A1D668 /* MeasurementII3.m in Sources */,
 				76B9ADBF183AD9F700A1D668 /* NoiseSource.m in Sources */,
 				76B9ADC3183BFF8800A1D668 /* SessionsViewController.m in Sources */,
 				76B07256183D3CC4003E86CB /* SessionsTableViewDataSource.m in Sources */,
 				76FB86A41842399B009270CB /* MeasurementsTableViewDataSource.m in Sources */,
-				76FB86AA18425C6E009270CB /* MeasurementSummaryCell.m in Sources */,
-				768C02B218512F8100BC879C /* SessionSummaryCell.m in Sources */,
 				762B34DE185531F1008FD7A3 /* SessionSummaryStaticCell.m in Sources */,
 				762B34E51858D489008FD7A3 /* MeasurementsViewController.m in Sources */,
 				762B34F0185E270F008FD7A3 /* MeasurementSummaryStaticCell.m in Sources */,
@@ -497,6 +437,7 @@
 				76334E7C187369F200DFF15F /* SessionDetailsViewController.m in Sources */,
 				76334E7F18736BAA00DFF15F /* SessionDetailsDataSource.m in Sources */,
 				761A0CE61881A714004F0965 /* HMRI99Model.xcdatamodeld in Sources */,
+				76808BEA1889E3C10075F1BE /* Measurement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -506,8 +447,6 @@
 			files = (
 				76172E1B183966A2000B798F /* SessionTests.m in Sources */,
 				76B9ADAA1839752D00A1D668 /* MeasurementTests.m in Sources */,
-				76B9ADB21839865100A1D668 /* MeasurementII2Tests.m in Sources */,
-				76B9ADB7183A8A2D00A1D668 /* MeasurementII3Tests.m in Sources */,
 				76B9ADBC183AD96E00A1D668 /* NoiseSourceTests.m in Sources */,
 				76B9ADC6183BFFDB00A1D668 /* SessionsViewControllerTests.m in Sources */,
 				76B07258183D3D09003E86CB /* SessionsTableViewDatasourceTests.m in Sources */,
@@ -517,7 +456,6 @@
 				762B34E7185C73CB008FD7A3 /* MeasurementsViewControllerTests.m in Sources */,
 				762B34EB185DE293008FD7A3 /* MeasurementSummaryStaticCellTests.m in Sources */,
 				762B34F7185E54A4008FD7A3 /* MeasurementDetailViewControllerTests.m in Sources */,
-				762B34F9185E579C008FD7A3 /* SessionSummaryCellTests.m in Sources */,
 				762B354218638C57008FD7A3 /* MeasurementDetailTableViewDataSourceTests.m in Sources */,
 				76334E8318736FAA00DFF15F /* SessionDetailsViewControllerTests.m in Sources */,
 				76334E851873730F00DFF15F /* SessionDetailsDatasourceTests.m in Sources */,
@@ -541,22 +479,6 @@
 				76172DE31839634A000B798F /* en */,
 			);
 			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		76172DF71839634A000B798F /* MasterViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				76172DF81839634A000B798F /* en */,
-			);
-			name = MasterViewController.xib;
-			sourceTree = "<group>";
-		};
-		76172DFA1839634A000B798F /* DetailViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				76172DFB1839634A000B798F /* en */,
-			);
-			name = DetailViewController.xib;
 			sourceTree = "<group>";
 		};
 		76172E0C1839634A000B798F /* InfoPlist.strings */ = {

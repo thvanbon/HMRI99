@@ -52,6 +52,11 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     SEL realUserDidPressDetailDisclosureButton, testUserDidPressDetailDisclosureButton;
     UINavigationController *navController;
     Session *cargillSession;
+    
+    NSPersistentStoreCoordinator *coord;
+    NSManagedObjectContext *ctx;
+    NSManagedObjectModel *model;
+    NSPersistentStore *store;
 }
 
 + (void)swapInstanceMethodsForClass: (Class) cls selector: (SEL)sel1 andSelector: (SEL)sel2 {
@@ -73,10 +78,27 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     realUserDidPressDetailDisclosureButton = @selector(userDidPressDetailDisclosureButtonNotification:);
     testUserDidPressDetailDisclosureButton = @selector(hMRI99ControllerTests_userDidPressDetailDisclosureButtonNotification:);
     navController = [[UINavigationController alloc] initWithRootViewController: sut];
-    cargillSession = [[Session alloc] initWithName:@"CARG.13.01"
-                                                       date:[NSDate date]
-                                                   location:@"Zaandam"
-                                                   engineer:@"HKu"];
+    
+    
+    model = [NSManagedObjectModel mergedModelFromBundles: nil];
+    coord = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: model];
+    store = [coord addPersistentStoreWithType: NSInMemoryStoreType
+                                configuration: nil
+                                          URL: nil
+                                      options: nil
+                                        error: NULL];
+    ctx = [[NSManagedObjectContext alloc] init];
+    [ctx setPersistentStoreCoordinator: coord];
+    dataSource.managedObjectContext=ctx;
+    
+    cargillSession=[NSEntityDescription insertNewObjectForEntityForName:@"Session"
+                                  inManagedObjectContext:ctx];
+    
+    cargillSession.name=@"CARG.13.01";
+    cargillSession.date=[NSDate date];
+    cargillSession.location=@"Zaandam";
+    cargillSession.engineer=@"HKu";
+    
     objc_removeAssociatedObjects(sut);
 }
 
@@ -95,6 +117,16 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     testUserDidPressDetailDisclosureButton=nil;
     navController=nil;
     cargillSession=nil;
+    
+    
+    ctx = nil;
+    NSError *error = nil;
+    STAssertTrue([coord removePersistentStore: store error: &error],
+                 @"couldn't remove persistent store: %@", error);
+    store = nil;
+    coord = nil;
+    model = nil;
+    
     [super tearDown];
 }
 
@@ -267,7 +299,7 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
 
 - (void)testReceivingTableAddedNotificationHasASessionDetailsListDataSourceForTheAddedSession
 {
-    Session *newSession=[[Session alloc]initWithName:@"new Session" date:[NSDate date] location:@"" engineer:@""];
+    Session *newSession=[NSEntityDescription insertNewObjectForEntityForName:@"Session" inManagedObjectContext:ctx];
     NSNotification *sessionAddedNotification = [NSNotification notificationWithName: sessionsTableDidAddSessionNotification object: newSession];
     
     [sut userDidAddSessionNotification: sessionAddedNotification];
@@ -275,15 +307,15 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     STAssertTrue([nextViewController.dataSource isKindOfClass: [SessionDetailsDataSource class]], @"Adding a Session should open Session and show Session Details");
 }
 
-//- (void)testReceivingTableAddedNotificationHasAMeasurementListDataSourceForTheAddedSession
-//{
-//    Session *newSession=[[Session alloc]initWithName:@"new Session" date:[NSDate date] location:@"" engineer:@""];
-//    NSNotification *sessionAddedNotification = [NSNotification notificationWithName: sessionsTableDidAddSessionNotification object: newSession];
-//    
-//    [sut userDidAddSessionNotification: sessionAddedNotification];
-//    MeasurementsViewController *nextViewController = (MeasurementsViewController *)navController.topViewController;
-//    STAssertTrue([nextViewController.dataSource isKindOfClass: [MeasurementsTableViewDataSource class]], @"Adding a Session should open Session and show measurements table");
-//}
+- (void)testReceivingTableAddedNotificationHasAMeasurementListDataSourceForTheAddedSession
+{
+    Session *newSession=[NSEntityDescription insertNewObjectForEntityForName:@"Session" inManagedObjectContext:ctx];
+    NSNotification *sessionAddedNotification = [NSNotification notificationWithName: sessionsTableDidAddSessionNotification object: newSession];
+    
+    [sut userDidAddSessionNotification: sessionAddedNotification];
+    SessionDetailsViewController *nextViewController = (SessionDetailsViewController *)navController.topViewController;
+    STAssertTrue([nextViewController.dataSource isKindOfClass: [SessionDetailsDataSource class]], @"Adding a Session should open Session and show session details");
+}
 
 #pragma mark Notifications for pressing detail disclosure button
 
