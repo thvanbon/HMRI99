@@ -93,4 +93,20 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
     measurements = [measurements sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     return measurements;
 }
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle==UITableViewCellEditingStyleDelete) {
+        NSManagedObjectContext *ctx=[self managedObjectContext];
+        NSArray *measurements = [self sortMeasurements];
+        Measurement *measurementToDelete=[measurements objectAtIndex:indexPath.row];
+        [ctx deleteObject:measurementToDelete];
+        NSError *error=[[NSError alloc]init];
+        if (![ctx save:&error]) {
+            NSLog(@"Error: %@", error);
+        }
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    
+}
 @end

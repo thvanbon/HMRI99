@@ -52,7 +52,7 @@
     sampleSession.date=myDate;
     sampleSession.location=@"Zaandam";
     sampleSession.engineer=@"Alfred Brooks";
-    sampleSession.creationDate=[NSDate date];
+    //sampleSession.creationDate=[NSDate date];
     firstIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     firstCell = (SessionSummaryStaticCell *)[sut tableView: nil cellForRowAtIndexPath: firstIndexPath];
     

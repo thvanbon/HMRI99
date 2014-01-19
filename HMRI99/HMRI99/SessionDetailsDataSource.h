@@ -7,4 +7,5 @@
 @property (strong) Session * session;
 @property (weak) UITableView *tableView;
 @property (nonatomic,strong) NSManagedObjectContext *managedObjectContext;
+//@property (nonatomic, strong) UIDatePicker *datePicker;
 @end

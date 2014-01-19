@@ -41,15 +41,13 @@
         *outError=newError;
         return NO;
     }
-    
     return YES;
-    
 }
 
 
 -(void)calculateSoundPowerLevelII2
 {
-    float SWL=self.soundPressureLevel+10*log10f(4*M_PI*pow(self.distance,2))-self.hemiSphereCorrection;
+    float SWL=self.soundPressureLevel+10*log10f(4*M_PI*pow(self.distance,2))-self.hemiSphereCorrection; 
     self.soundPowerLevel=SWL;
 }
 
@@ -69,9 +67,7 @@
         *outError=newError;
         return NO;
     }
-    
     return YES;
-    
 }
 
 -(void)calculateSoundPowerLevelII3

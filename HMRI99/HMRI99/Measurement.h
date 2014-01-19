@@ -23,5 +23,5 @@
 -(void)calculateSoundPowerLevelII2;
 -(void)calculateSoundPowerLevelII3;
 
--(BOOL) validateNearFieldCorrection:(id*)valueRef error:(NSError **)outError;
+//-(BOOL) validateNearFieldCorrection:(id*)valueRef error:(NSError **)outError;
 @end

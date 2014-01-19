@@ -56,7 +56,7 @@ NSString * sessionCellReuseIdentifier=@"Session";
 {
     Session *newSession=(Session*)[NSEntityDescription insertNewObjectForEntityForName:@"Session"
                                                                 inManagedObjectContext:[self managedObjectContext]];
-    newSession.creationDate=[NSDate date];
+    //newSession.creationDate=[NSDate date];
     NSError *error=nil;
     if (![self.managedObjectContext save:&error]) {
         NSLog(@"Error: %@",error);

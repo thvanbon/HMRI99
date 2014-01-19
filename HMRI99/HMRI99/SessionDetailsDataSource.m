@@ -4,6 +4,7 @@
 
 @synthesize session;
 @synthesize managedObjectContext;
+//@synthesize datePicker;
 - (id)init
 {
     self = [super init];
@@ -110,6 +111,17 @@
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
+//    //if date picker doesn't exists then create it
+//    if(self.datePicker == nil){
+//        self.datePicker = [[UIDatePicker alloc] init];
+//        
+//        //set the action method that will listen for changes to picker value
+//        [self.datePicker addTarget:self
+//                              action:@selector(datePickerDateChanged:)
+//                    forControlEvents:UIControlEventValueChanged];
+//    }
+//     [self.view addSubview:self.datePicker];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(UITextFieldTextDidChange:)
                                                  name:UITextFieldTextDidChangeNotification
@@ -122,5 +134,6 @@
                                                     name:UITextFieldTextDidChangeNotification
                                                   object:textField];
 }
+
 
 @end

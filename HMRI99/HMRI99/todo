@@ -2,13 +2,14 @@ date picker
 add photo
 extract results
 mail results
-delete measurements
+//delete measurements
 sort measurements
-add validation
+//add validation
 clean up cells
 add other measurement types
-add auto-scroll
+//add auto-scroll
 id picker
+add hemispherecorrection
 add measurement device
 auto fill data (id)
 scan rion
