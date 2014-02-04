@@ -1,10 +1,11 @@
 #import "Measurement.h"
+#import <AssetsLibrary/AssetsLibrary.h>
 
 @implementation Measurement
-@dynamic identification, creationDate, type, soundPressureLevel,soundPowerLevel,noiseSource;
+@dynamic identification, creationDate, type, soundPressureLevel, soundPowerLevel, noiseSource;
 @dynamic distance, hemiSphereCorrection;
-@dynamic surfaceArea,nearFieldCorrection,directivityIndex;
-@dynamic session;
+@dynamic surfaceArea, nearFieldCorrection, directivityIndex;
+@dynamic session, image;
 
 
 -(void)calculateSoundPowerLevel
@@ -81,6 +82,46 @@
         float SWL= self.soundPressureLevel+10*log10f(self.surfaceArea)+self.nearFieldCorrection + self.directivityIndex;
         [self setSoundPowerLevel:SWL];
     }
+}
+
+#pragma mark export function
+-(NSString*)exportMeasurement
+{
+    NSString *exportNoiseSource=[self.noiseSource exportNoiseSource];
+    
+    NSString *exportDistance=@"";
+    NSString *exportHemiSphereCorrection=@"";
+    NSString *exportSurfaceArea=@"";
+    NSString *exportNearFieldCorrection=@"";
+    NSString *exportDirectivityIndex=@"";
+    NSString *exportsoundPressureLevel=[NSString stringWithFormat:@"%f", self.soundPressureLevel];
+    NSString *exportsoundPowerLevel=[NSString stringWithFormat:@"%f", self.soundPowerLevel];
+    
+    if ([self.type isEqual:@"II.2"])
+    {
+        exportDistance=[NSString stringWithFormat:@"%f", self.distance];
+        exportHemiSphereCorrection=[NSString stringWithFormat:@"%f", self.hemiSphereCorrection];
+    } else if ([self.type isEqual:@"II.3"])
+    {
+        exportSurfaceArea=[NSString stringWithFormat:@"%f", self.surfaceArea];
+        exportNearFieldCorrection=[NSString stringWithFormat:@"%f", self.nearFieldCorrection];
+        exportDirectivityIndex=[NSString stringWithFormat:@"%f", self.directivityIndex];
+    }
+    
+    NSArray *measurementStringsArray=[NSArray arrayWithObjects:
+                                exportNoiseSource,
+                                self.identification,
+                                self.type,
+                                exportsoundPressureLevel,
+                                exportsoundPowerLevel,
+                                exportDistance,
+                                exportHemiSphereCorrection,
+                                exportSurfaceArea,
+                                exportNearFieldCorrection,
+                                exportDirectivityIndex,
+                                nil];
+    NSString *exportString=[measurementStringsArray componentsJoinedByString:@"\t"];
+    return exportString;
 }
 
 

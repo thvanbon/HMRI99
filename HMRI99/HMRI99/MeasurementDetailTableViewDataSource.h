@@ -1,7 +1,11 @@
 #import <Foundation/Foundation.h>
 
 @class Measurement;
-@interface MeasurementDetailTableViewDataSource : NSObject <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface MeasurementDetailTableViewDataSource : NSObject <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+{
+    UIImage *imageToUse;
+    NSURL *url;
+}
 
 @property Measurement *measurement;
 @property (weak) UITableView *tableView;
@@ -11,4 +15,5 @@
 
 -(void) updateTableView;
 -(BOOL) textFieldShouldReturn:(UITextField *)textField;
+-(UIImage *) scaleImage:(UIImage *)image scaledToSize:(CGSize)newSize;
 @end

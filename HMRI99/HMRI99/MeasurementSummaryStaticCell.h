@@ -6,4 +6,5 @@
 @property (strong, nonatomic) IBOutlet UILabel *soundPressureLevelLabel;
 @property (strong, nonatomic) IBOutlet UILabel *measurementTypeLabel;
 @property (strong, nonatomic) IBOutlet UILabel *soundPowerLevelLabel;
+@property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @end

@@ -8,4 +8,6 @@
 @property NSDate * creationDate;
 @property NSSet * measurements;
 
+-(NSString*)exportSession;
+-(NSArray*)exportMeasurementImages;
 @end

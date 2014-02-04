@@ -10,7 +10,7 @@
 @implementation MeasurementsViewController
 
 
-@synthesize tableView, dataSource;
+@synthesize tableView, dataSource, sortBar;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -33,6 +33,19 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     self.navigationItem.title=@"Measurements";
+    NSArray *sortItems=[NSArray arrayWithObjects:@"original", @"id", @"name", @"Lw", nil];
+    UISegmentedControl *sortControl=[[UISegmentedControl alloc] initWithItems:sortItems];
+    sortControl.frame = CGRectMake(0, 0, 200, 30);
+    sortControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    sortControl.selectedSegmentIndex = 0;
+    UIBarButtonItem *segmentedControlButtonItem = [[UIBarButtonItem alloc] initWithCustomView:(UIView *)sortControl];
+    [sortControl addTarget:self
+                            action:@selector(sortControlWasUpdated:)
+                                              forControlEvents:UIControlEventValueChanged];
+    UIBarButtonItem *flexibleSpace = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    NSArray *barArray = [NSArray arrayWithObjects: flexibleSpace, segmentedControlButtonItem, flexibleSpace, nil];
+    [sortBar setItems:barArray];
+
 }
 
 -(void)viewDidAppear:(BOOL)animated
@@ -115,6 +128,10 @@
                                            animated: YES];
     
 }
-
+-(void)sortControlWasUpdated:(UISegmentedControl *)updatedControl
+{
+    self.dataSource.sortID=updatedControl.selectedSegmentIndex;
+    [self.dataSource.tableView reloadData];
+}
 
 @end

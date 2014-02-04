@@ -10,7 +10,7 @@
 @synthesize summaryCell;
 @synthesize tableView;
 @synthesize managedObjectContext;
-
+@synthesize sortID;
 
 NSString * measurementsTableDidSelectMeasurementNotification=@"measurementsTableDidSelectMeasurementNotification";
 
@@ -24,39 +24,51 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
 - (UITableViewCell *)tableView:(UITableView *)atableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = nil;
-        NSParameterAssert([session.measurements count]>=[indexPath row]);
-
-            if ([session.measurements count])
-            {
-                NSArray *measurements = [self sortMeasurements];
-                Measurement * measurement = [measurements objectAtIndex:indexPath.row];
-                summaryCell = [tableView dequeueReusableCellWithIdentifier: @"measurement"];
-                if (!summaryCell) {
-                    [[NSBundle bundleForClass: [self class]] loadNibNamed: @"MeasurementSummaryStaticCell"
-                                                                    owner: self options: nil];
-                }
-                summaryCell.iDLabel.text = measurement.identification;
-                summaryCell.measurementTypeLabel.text=measurement.type;
-                summaryCell.nameLabel.text=measurement.noiseSource.name;
-                float Lp=measurement.soundPressureLevel;
-                if (Lp>0) {
-                    summaryCell.soundPressureLevelLabel.text=[NSString stringWithFormat:@"Lp = %0.1f dB(A)",Lp];
-                } else
-                {
-                    summaryCell.soundPressureLevelLabel.text=@"";
-                }
-                float Lw=measurement.soundPowerLevel;
-                if (Lw>0) {
-                    summaryCell.soundPowerLevelLabel.text=[NSString stringWithFormat:@"Lw = %0.1f dB(A)",Lw];
-                } else
-                {
-                    summaryCell.soundPowerLevelLabel.text=@"";
-                }
-                summaryCell.AccessoryType=UITableViewCellAccessoryDisclosureIndicator;
-                cell = summaryCell;
-                summaryCell = nil;
-            }
-
+    NSParameterAssert([session.measurements count]>=[indexPath row]);
+    
+    if ([session.measurements count])
+    {
+        NSArray *measurements = [self sortMeasurements];
+        Measurement * measurement = [measurements objectAtIndex:indexPath.row];
+        summaryCell = [tableView dequeueReusableCellWithIdentifier: @"measurement"];
+        if (!summaryCell) {
+            [[NSBundle bundleForClass: [self class]] loadNibNamed: @"MeasurementSummaryStaticCell"
+                                                            owner: self options: nil];
+        }
+        summaryCell.iDLabel.text = measurement.identification;
+        summaryCell.measurementTypeLabel.text=measurement.type;
+        summaryCell.nameLabel.text=measurement.noiseSource.name;
+        float Lp=measurement.soundPressureLevel;
+        if (Lp>0) {
+            summaryCell.soundPressureLevelLabel.text=[NSString stringWithFormat:@"Lp = %0.1f dB(A)",Lp];
+        } else
+        {
+            summaryCell.soundPressureLevelLabel.text=@"";
+        }
+        float Lw=measurement.soundPowerLevel;
+        if (Lw>0) {
+            summaryCell.soundPowerLevelLabel.text=[NSString stringWithFormat:@"Lw = %0.1f dB(A)",Lw];
+        } else
+        {
+            summaryCell.soundPowerLevelLabel.text=@"";
+        }
+        if(measurement.image.thumbnail!=nil)
+        {
+            summaryCell.imageView.image=[UIImage imageWithData:measurement.image.thumbnail];
+            summaryCell.imageView.contentMode=UIViewContentModeScaleAspectFit;
+        }
+        else{
+            UILabel *noImageLabel=[[UILabel alloc] initWithFrame:CGRectMake(8, 6, 90, 90)];
+            noImageLabel.text=@"no image";
+            noImageLabel.textAlignment=NSTextAlignmentLeft;
+            noImageLabel.textColor=[UIColor grayColor];
+            [summaryCell.imageView addSubview:noImageLabel];
+        }
+        summaryCell.AccessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        cell = summaryCell;
+        summaryCell = nil;
+    }
+    
     return cell;
 }
 
@@ -69,15 +81,23 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
 - (void)addMeasurement
 {
     Measurement *newMeasurement=(Measurement*)[NSEntityDescription
-                                         insertNewObjectForEntityForName:@"Measurement"
-                                         inManagedObjectContext:[self managedObjectContext]];
+                                               insertNewObjectForEntityForName:@"Measurement"
+                                               inManagedObjectContext:[self managedObjectContext]];
     NoiseSource *newNoiseSource=(NoiseSource*)[NSEntityDescription
                                                insertNewObjectForEntityForName:@"NoiseSource"
                                                inManagedObjectContext:[self managedObjectContext]];
-    
+    Image *newImage=(Image*)[NSEntityDescription
+                             insertNewObjectForEntityForName:@"Image"
+                             inManagedObjectContext:[self managedObjectContext]];
     newMeasurement.creationDate=[NSDate date];
     newMeasurement.session=session;
     newMeasurement.noiseSource=newNoiseSource;
+    newMeasurement.image=newImage;
+    NSManagedObjectContext *ctx=[self managedObjectContext];
+    NSError *error=[[NSError alloc]init];
+    if (![ctx save:&error]) {
+        NSLog(@"Error: %@", error);
+    }
     [[NSNotificationCenter defaultCenter] postNotificationName:measurementsTableDidAddMeasurementNotification object:newMeasurement];
 }
 
@@ -89,7 +109,27 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
 - (NSArray *)sortMeasurements
 {
     NSArray *measurements= [session.measurements allObjects];
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"creationDate" ascending:NO];
+    NSString *sortKey;
+    BOOL ascending=NO;
+    switch (self.sortID) {
+        case 0:
+            sortKey=@"creationDate";
+            break;
+        case 1:
+            sortKey=@"identification";
+            ascending=YES;
+            break;
+        case 2:
+            sortKey=@"noiseSource.name";
+            ascending=YES;
+            break;
+        case 3:
+            sortKey=@"soundPowerLevel";
+            break;
+        default:
+            break;
+    }
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:sortKey ascending:ascending];
     measurements = [measurements sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
     return measurements;
 }
@@ -100,6 +140,8 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
         NSManagedObjectContext *ctx=[self managedObjectContext];
         NSArray *measurements = [self sortMeasurements];
         Measurement *measurementToDelete=[measurements objectAtIndex:indexPath.row];
+        [ctx deleteObject:measurementToDelete.noiseSource];
+        [ctx deleteObject:measurementToDelete.image];
         [ctx deleteObject:measurementToDelete];
         NSError *error=[[NSError alloc]init];
         if (![ctx save:&error]) {

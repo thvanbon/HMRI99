@@ -12,6 +12,7 @@ extern NSString *sessionsTableDidPressAccessoryDetailButtonNotification;
 @property (weak) IBOutlet SessionSummaryStaticCell * summaryCell;
 @property (nonatomic,strong) NSManagedObjectContext *managedObjectContext;
 @property (nonatomic,strong) NSFetchedResultsController *fetchedResultsController;
+@property (weak) UITableView *tableView;
 
 - (void) addSession;
 - (Session*) sessionForIndexPath:(NSIndexPath *)myIndexPath;

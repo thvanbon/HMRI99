@@ -1,5 +1,6 @@
 #import "SessionsTableViewDataSource.h"
 #import "SessionSummaryStaticCell.h"
+#import "Measurement.h"
 
 NSString * sessionsTableDidSelectSessionNotification=@"sessionsTableDidSelectSessionNotification";
 NSString * sessionsTableDidAddSessionNotification=@"sessionsTableDidAddSessionNotification";
@@ -7,7 +8,7 @@ NSString * sessionsTableDidPressAccessoryDetailButtonNotification=@"sessionsTabl
 
 @implementation SessionsTableViewDataSource
 
-@synthesize summaryCell;
+@synthesize summaryCell,tableView;
 @synthesize managedObjectContext;
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -29,25 +30,25 @@ NSString * sessionCellReuseIdentifier=@"Session";
 {
     Session *session = [self sessionForIndexPath:indexPath];
     
-        summaryCell =[tableView dequeueReusableCellWithIdentifier: sessionCellReuseIdentifier];
-        if (!summaryCell) {
-            [[NSBundle bundleForClass: [self class]] loadNibNamed: @"SessionSummaryStaticCell"
-                                                            owner: self options: nil];
-        }
-        
-        summaryCell.nameLabel.text=[session name];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        [formatter setDateFormat:@"dd-MM-yyyy"];
-        
-        //Optionally for time zone converstions
-        [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
-        
-        NSString *stringFromDate = [formatter stringFromDate:[session date]];
-        summaryCell.dateLabel.text=stringFromDate;
-        summaryCell.locationLabel.text=[session location];
-        summaryCell.engineerLabel.text=[session engineer];
-        [summaryCell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
-
+    summaryCell =[self.tableView dequeueReusableCellWithIdentifier: sessionCellReuseIdentifier];
+    if (!summaryCell) {
+        [[NSBundle bundleForClass: [self class]] loadNibNamed: @"SessionSummaryStaticCell"
+                                                        owner: self options: nil];
+    }
+    
+    summaryCell.nameLabel.text=[session name];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yyyy"];
+    
+    //Optionally for time zone converstions
+    [formatter setTimeZone:[NSTimeZone timeZoneWithName:@"..."]];
+    
+    NSString *stringFromDate = [formatter stringFromDate:[session date]];
+    summaryCell.dateLabel.text=stringFromDate;
+    summaryCell.locationLabel.text=[session location];
+    summaryCell.engineerLabel.text=[session engineer];
+    [summaryCell setAccessoryType:UITableViewCellAccessoryDetailDisclosureButton];
+    
     return summaryCell;
 }
 
@@ -67,12 +68,15 @@ NSString * sessionCellReuseIdentifier=@"Session";
 - (Session*) sessionForIndexPath:(NSIndexPath *)myIndexPath
 {
     return [self.fetchedResultsController objectAtIndexPath:myIndexPath];
-
+    
 }
 
 - (void)tableView: (UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [[NSNotificationCenter defaultCenter] postNotificationName:sessionsTableDidSelectSessionNotification object:[self sessionForIndexPath:indexPath]];
+    if (!self.tableView.isEditing)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:sessionsTableDidSelectSessionNotification object:[self sessionForIndexPath:indexPath]];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -107,4 +111,22 @@ NSString * sessionCellReuseIdentifier=@"Session";
     return _fetchedResultsController;
 }
 
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle==UITableViewCellEditingStyleDelete) {
+        NSManagedObjectContext *ctx=[self managedObjectContext];
+        Session *sessionToDelete=[self.fetchedResultsController objectAtIndexPath:indexPath];
+        for (Measurement * measurementToDelete in sessionToDelete.measurements) {
+            [ctx deleteObject:measurementToDelete.noiseSource];
+            [ctx deleteObject:measurementToDelete];
+        }
+        [ctx deleteObject:sessionToDelete];
+        NSError *error=[[NSError alloc]init];
+        if (![ctx save:&error]) {
+            NSLog(@"Error: %@", error);
+        }
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationFade];
+    }
+    
+}
 @end

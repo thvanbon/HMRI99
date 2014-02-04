@@ -1,6 +1,7 @@
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface SessionsViewController : UIViewController
+@interface SessionsViewController : UIViewController <MFMailComposeViewControllerDelegate>
 @property (strong) IBOutlet UITableView *tableView;
 @property (strong) NSObject <UITableViewDataSource, UITableViewDelegate> * dataSource;
 - (void)userDidSelectSessionNotification:(NSNotification *)note;

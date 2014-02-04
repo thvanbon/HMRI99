@@ -5,5 +5,5 @@
 @property NSString *name;
 @property NSString * operatingConditions;
 @property (nonatomic, retain) Measurement * measurement;
-
+-(NSString*)exportNoiseSource;
 @end

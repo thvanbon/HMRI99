@@ -45,10 +45,21 @@
 		76334E8118736C2500DFF15F /* SessionDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76334E8018736C2500DFF15F /* SessionDetailsViewController.xib */; };
 		76334E8318736FAA00DFF15F /* SessionDetailsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76334E8218736FAA00DFF15F /* SessionDetailsViewControllerTests.m */; };
 		76334E851873730F00DFF15F /* SessionDetailsDatasourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76334E841873730F00DFF15F /* SessionDetailsDatasourceTests.m */; };
+		76373BE018A04CC00096A7D6 /* box.png in Resources */ = {isa = PBXBuildFile; fileRef = 76373BD918A04CC00096A7D6 /* box.png */; };
+		76373BE118A04CC00096A7D6 /* cilinder.png in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDA18A04CC00096A7D6 /* cilinder.png */; };
+		76373BE218A04CC00096A7D6 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDB18A04CC00096A7D6 /* circle.png */; };
+		76373BE318A04CC00096A7D6 /* half cilinder.png in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDC18A04CC00096A7D6 /* half cilinder.png */; };
+		76373BE418A04CC00096A7D6 /* half sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDD18A04CC00096A7D6 /* half sphere.png */; };
+		76373BE518A04CC00096A7D6 /* rectangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDE18A04CC00096A7D6 /* rectangle.png */; };
+		76373BE618A04CC00096A7D6 /* shapes.skp in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDF18A04CC00096A7D6 /* shapes.skp */; };
+		7642E9591895B33D00DF640A /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7642E9581895B33D00DF640A /* AssetsLibrary.framework */; };
+		7642E95D1895C83700DF640A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7642E95C1895C83700DF640A /* QuartzCore.framework */; };
+		7642E95F1896FAED00DF640A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7642E95E1896FAED00DF640A /* MessageUI.framework */; };
 		767D5DBD1843E68C00ED7DC4 /* AppDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */; };
 		76808BE71889DC370075F1BE /* todo in Resources */ = {isa = PBXBuildFile; fileRef = 76808BE61889DC370075F1BE /* todo */; };
 		76808BEA1889E3C10075F1BE /* Measurement.m in Sources */ = {isa = PBXBuildFile; fileRef = 76808BE91889E3C10075F1BE /* Measurement.m */; };
 		76808BEC188AB90D0075F1BE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 761A0CEA1881ECA2004F0965 /* CoreData.framework */; };
+		76A7555E188DAD97007B0D27 /* TDDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 76A7555D188DAD97007B0D27 /* TDDatePicker.m */; };
 		76B07256183D3CC4003E86CB /* SessionsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC8183D3A0300A1D668 /* SessionsTableViewDataSource.m */; };
 		76B07258183D3D09003E86CB /* SessionsTableViewDatasourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B07257183D3D09003E86CB /* SessionsTableViewDatasourceTests.m */; };
 		76B9ADAA1839752D00A1D668 /* MeasurementTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADA91839752D00A1D668 /* MeasurementTests.m */; };
@@ -57,6 +68,8 @@
 		76B9ADC3183BFF8800A1D668 /* SessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC1183BFF8800A1D668 /* SessionsViewController.m */; };
 		76B9ADC4183BFF8800A1D668 /* SessionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76B9ADC2183BFF8800A1D668 /* SessionsViewController.xib */; };
 		76B9ADC6183BFFDB00A1D668 /* SessionsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC5183BFFDB00A1D668 /* SessionsViewControllerTests.m */; };
+		76BA198318947CF10021D15F /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 76BA198218947CF00021D15F /* Image.m */; };
+		76BA1986189488030021D15F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76BA1984189487C60021D15F /* MobileCoreServices.framework */; };
 		76FB86A41842399B009270CB /* MeasurementsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FB86A31842399B009270CB /* MeasurementsTableViewDataSource.m */; };
 		76FB86A618424BD2009270CB /* MeasurementsTableViewDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FB86A518424BD2009270CB /* MeasurementsTableViewDataSourceTests.m */; };
 /* End PBXBuildFile section */
@@ -122,10 +135,22 @@
 		76334E8018736C2500DFF15F /* SessionDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionDetailsViewController.xib; sourceTree = "<group>"; };
 		76334E8218736FAA00DFF15F /* SessionDetailsViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionDetailsViewControllerTests.m; sourceTree = "<group>"; };
 		76334E841873730F00DFF15F /* SessionDetailsDatasourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionDetailsDatasourceTests.m; sourceTree = "<group>"; };
+		76373BD918A04CC00096A7D6 /* box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = box.png; sourceTree = "<group>"; };
+		76373BDA18A04CC00096A7D6 /* cilinder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cilinder.png; sourceTree = "<group>"; };
+		76373BDB18A04CC00096A7D6 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
+		76373BDC18A04CC00096A7D6 /* half cilinder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "half cilinder.png"; sourceTree = "<group>"; };
+		76373BDD18A04CC00096A7D6 /* half sphere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "half sphere.png"; sourceTree = "<group>"; };
+		76373BDE18A04CC00096A7D6 /* rectangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rectangle.png; sourceTree = "<group>"; };
+		76373BDF18A04CC00096A7D6 /* shapes.skp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shapes.skp; sourceTree = "<group>"; };
+		7642E9581895B33D00DF640A /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		7642E95C1895C83700DF640A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		7642E95E1896FAED00DF640A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegateTests.m; sourceTree = "<group>"; };
 		76808BE61889DC370075F1BE /* todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todo; sourceTree = "<group>"; };
 		76808BE81889E3C00075F1BE /* Measurement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measurement.h; sourceTree = "<group>"; };
 		76808BE91889E3C10075F1BE /* Measurement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Measurement.m; sourceTree = "<group>"; };
+		76A7555C188DAD97007B0D27 /* TDDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDDatePicker.h; sourceTree = "<group>"; };
+		76A7555D188DAD97007B0D27 /* TDDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDDatePicker.m; sourceTree = "<group>"; };
 		76B07257183D3D09003E86CB /* SessionsTableViewDatasourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionsTableViewDatasourceTests.m; sourceTree = "<group>"; };
 		76B9ADA91839752D00A1D668 /* MeasurementTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementTests.m; sourceTree = "<group>"; };
 		76B9ADBB183AD96E00A1D668 /* NoiseSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoiseSourceTests.m; sourceTree = "<group>"; };
@@ -137,9 +162,13 @@
 		76B9ADC5183BFFDB00A1D668 /* SessionsViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionsViewControllerTests.m; sourceTree = "<group>"; };
 		76B9ADC7183D3A0300A1D668 /* SessionsTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SessionsTableViewDataSource.h; path = HMRI99Tests/SessionsTableViewDataSource.h; sourceTree = SOURCE_ROOT; };
 		76B9ADC8183D3A0300A1D668 /* SessionsTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SessionsTableViewDataSource.m; path = HMRI99Tests/SessionsTableViewDataSource.m; sourceTree = SOURCE_ROOT; };
+		76BA198118947CF00021D15F /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
+		76BA198218947CF00021D15F /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
+		76BA1984189487C60021D15F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		76FB86A21842399B009270CB /* MeasurementsTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementsTableViewDataSource.h; sourceTree = "<group>"; };
 		76FB86A31842399B009270CB /* MeasurementsTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementsTableViewDataSource.m; sourceTree = "<group>"; };
 		76FB86A518424BD2009270CB /* MeasurementsTableViewDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementsTableViewDataSourceTests.m; sourceTree = "<group>"; };
+		76FFF8F818A17F250011C079 /* HMRI99Model0.0.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HMRI99Model0.0.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +176,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7642E95F1896FAED00DF640A /* MessageUI.framework in Frameworks */,
+				7642E95D1895C83700DF640A /* QuartzCore.framework in Frameworks */,
+				7642E9591895B33D00DF640A /* AssetsLibrary.framework in Frameworks */,
+				76BA1986189488030021D15F /* MobileCoreServices.framework in Frameworks */,
 				761A0CEB1881ECA2004F0965 /* CoreData.framework in Frameworks */,
 				76172DDA18396349000B798F /* UIKit.framework in Frameworks */,
 				76172DDC18396349000B798F /* Foundation.framework in Frameworks */,
@@ -192,6 +225,10 @@
 		76172DD818396349000B798F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7642E95E1896FAED00DF640A /* MessageUI.framework */,
+				7642E95C1895C83700DF640A /* QuartzCore.framework */,
+				7642E9581895B33D00DF640A /* AssetsLibrary.framework */,
+				76BA1984189487C60021D15F /* MobileCoreServices.framework */,
 				761A0CEA1881ECA2004F0965 /* CoreData.framework */,
 				760D8965184B9C480007B0B1 /* OCMockitoIOS.framework */,
 				76172E1C183966E6000B798F /* OCHamcrestIOS.framework */,
@@ -206,7 +243,7 @@
 		76172DDF1839634A000B798F /* HMRI99 */ = {
 			isa = PBXGroup;
 			children = (
-				76808BE61889DC370075F1BE /* todo */,
+				76373BD818A04CC00096A7D6 /* shapes */,
 				76172DE81839634A000B798F /* AppDelegate.h */,
 				76172DE91839634A000B798F /* AppDelegate.m */,
 				761A0CE41881A714004F0965 /* HMRI99Model.xcdatamodeld */,
@@ -223,6 +260,8 @@
 				762B34EF185E270E008FD7A3 /* MeasurementSummaryStaticCell.m */,
 				762B34EC185E26B3008FD7A3 /* MeasurementSummaryStaticCell.xib */,
 				762B34E31858D489008FD7A3 /* MeasurementsViewController.h */,
+				76BA198118947CF00021D15F /* Image.h */,
+				76BA198218947CF00021D15F /* Image.m */,
 				762B34E41858D489008FD7A3 /* MeasurementsViewController.m */,
 				762B34E8185CA5D0008FD7A3 /* MeasurementsViewController.xib */,
 				76B9ADBD183AD9F700A1D668 /* NoiseSource.h */,
@@ -243,6 +282,9 @@
 				76B9ADC1183BFF8800A1D668 /* SessionsViewController.m */,
 				76B9ADC2183BFF8800A1D668 /* SessionsViewController.xib */,
 				76172DE01839634A000B798F /* Supporting Files */,
+				76A7555C188DAD97007B0D27 /* TDDatePicker.h */,
+				76A7555D188DAD97007B0D27 /* TDDatePicker.m */,
+				76808BE61889DC370075F1BE /* todo */,
 			);
 			path = HMRI99;
 			sourceTree = "<group>";
@@ -290,6 +332,20 @@
 				76172E0C1839634A000B798F /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		76373BD818A04CC00096A7D6 /* shapes */ = {
+			isa = PBXGroup;
+			children = (
+				76373BD918A04CC00096A7D6 /* box.png */,
+				76373BDA18A04CC00096A7D6 /* cilinder.png */,
+				76373BDB18A04CC00096A7D6 /* circle.png */,
+				76373BDC18A04CC00096A7D6 /* half cilinder.png */,
+				76373BDD18A04CC00096A7D6 /* half sphere.png */,
+				76373BDE18A04CC00096A7D6 /* rectangle.png */,
+				76373BDF18A04CC00096A7D6 /* shapes.skp */,
+			);
+			path = shapes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -375,6 +431,13 @@
 				762B34F5185E545B008FD7A3 /* MeasurementDetailViewController.xib in Resources */,
 				76334E8118736C2500DFF15F /* SessionDetailsViewController.xib in Resources */,
 				76808BE71889DC370075F1BE /* todo in Resources */,
+				76373BE018A04CC00096A7D6 /* box.png in Resources */,
+				76373BE118A04CC00096A7D6 /* cilinder.png in Resources */,
+				76373BE218A04CC00096A7D6 /* circle.png in Resources */,
+				76373BE318A04CC00096A7D6 /* half cilinder.png in Resources */,
+				76373BE418A04CC00096A7D6 /* half sphere.png in Resources */,
+				76373BE518A04CC00096A7D6 /* rectangle.png in Resources */,
+				76373BE618A04CC00096A7D6 /* shapes.skp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -438,6 +501,8 @@
 				76334E7F18736BAA00DFF15F /* SessionDetailsDataSource.m in Sources */,
 				761A0CE61881A714004F0965 /* HMRI99Model.xcdatamodeld in Sources */,
 				76808BEA1889E3C10075F1BE /* Measurement.m in Sources */,
+				76A7555E188DAD97007B0D27 /* TDDatePicker.m in Sources */,
+				76BA198318947CF10021D15F /* Image.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -642,9 +707,10 @@
 		761A0CE41881A714004F0965 /* HMRI99Model.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				76FFF8F818A17F250011C079 /* HMRI99Model0.0.xcdatamodel */,
 				761A0CE51881A714004F0965 /* HMRI99Model.xcdatamodel */,
 			);
-			currentVersion = 761A0CE51881A714004F0965 /* HMRI99Model.xcdatamodel */;
+			currentVersion = 76FFF8F818A17F250011C079 /* HMRI99Model0.0.xcdatamodel */;
 			path = HMRI99Model.xcdatamodeld;
 			sourceTree = SOURCE_ROOT;
 			versionGroupType = wrapper.xcdatamodel;

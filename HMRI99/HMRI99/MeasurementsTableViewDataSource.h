@@ -14,6 +14,7 @@ extern NSString * measurementsTableDidAddMeasurementNotification;
 @property (weak) IBOutlet MeasurementSummaryStaticCell *summaryCell;
 @property (nonatomic,strong) NSManagedObjectContext *managedObjectContext;
 @property (weak) UITableView *tableView;
+@property int sortID;
 
 - (void) addMeasurement;
 @end

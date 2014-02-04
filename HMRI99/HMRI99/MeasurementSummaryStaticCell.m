@@ -2,7 +2,7 @@
 
 @implementation MeasurementSummaryStaticCell
 
-@synthesize iDLabel, measurementTypeLabel, nameLabel, soundPowerLevelLabel, soundPressureLevelLabel;
+@synthesize iDLabel, measurementTypeLabel, nameLabel, soundPowerLevelLabel, soundPressureLevelLabel,imageView;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
@@ -14,6 +14,7 @@
         soundPressureLevelLabel=[[UILabel alloc] init];
         measurementTypeLabel=[[UILabel alloc] init];
         soundPowerLevelLabel=[[UILabel alloc] init];
+        imageView=[[UIImageView alloc] init];
     }
     return self;
 }

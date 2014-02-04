@@ -30,14 +30,15 @@
     if (tableViewProperty) {
         [dataSource setValue: tableView forKey: @"tableView"];
     }
-    
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    UIBarButtonItem *mailButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(selectSessionsToSendByMail:)];
+    self.navigationItem.leftBarButtonItem = mailButton;
     self.navigationItem.rightBarButtonItem = addButton;
     self.navigationItem.title=@"Measurement Sessions";
 }
 
 -(void)viewDidAppear:(BOOL)animated
-{    
+{
     [super viewDidAppear:animated];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(userDidSelectSessionNotification:)
@@ -55,7 +56,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(textDidChange:)
                                                  name:UITextFieldTextDidChangeNotification
-                                               object: nil];    
+                                               object: nil];
 }
 
 //added while troubleshooting switching to second vc. Might need later. Works, but not tested yet.
@@ -73,7 +74,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"sessionsTableDidPressAccessoryDetailButtonNotification" object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self                                                 name:UITextFieldTextDidChangeNotification
-                                               object: nil];
+                                                  object: nil];
 }
 
 - (void)didReceiveMemoryWarning
@@ -104,6 +105,73 @@
     }
 }
 
+- (void) selectSessionsToSendByMail: (id)sender
+{
+    self.tableView.allowsMultipleSelectionDuringEditing = YES;
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self action:@selector(cancelMail:)];
+    self.navigationItem.rightBarButtonItem = cancelButton;
+    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(sendMail:)];
+    self.navigationItem.leftBarButtonItem = doneButton;
+    [self.tableView setEditing:YES animated:YES];
+    
+}
+
+- (void) cancelMail: (id)sender
+{
+    [self.tableView setEditing:NO animated:YES];
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
+    [self viewDidLoad];
+}
+
+- (void) sendMail: (id)sender
+{
+    NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
+    if (selectedRows.count==0) {
+        [self cancelMail:nil];
+    }
+    else
+    {
+        NSMutableArray * sessionExportStringsArray=[[NSMutableArray alloc] init];
+        NSMutableArray * sessionExportImagesArray=[[NSMutableArray alloc] init];
+        for (NSIndexPath *indexPath in selectedRows) {
+            Session * session = [(SessionsTableViewDataSource*)self.dataSource sessionForIndexPath:indexPath];
+            [sessionExportStringsArray addObject:[session exportSession]];
+            [sessionExportImagesArray addObjectsFromArray:[session exportMeasurementImages]];
+        }
+        NSString *textFileContentsString=[sessionExportStringsArray componentsJoinedByString:@"\n"];
+        if ([MFMailComposeViewController canSendMail]) {
+            
+            MFMailComposeViewController *mailViewController = [[MFMailComposeViewController alloc] init];
+            mailViewController.mailComposeDelegate = self;
+            [mailViewController setSubject:@"Measurement results"];
+            [mailViewController setMessageBody:@"results in attachment!" isHTML:NO];
+//            NSLog(textFileContentsString);
+            NSData * textFileContentsData=[textFileContentsString dataUsingEncoding:NSASCIIStringEncoding];
+            
+            [mailViewController addAttachmentData:textFileContentsData mimeType:@"text/plain" fileName:@"data.txt"];
+            for (NSArray *imageToBeExported in sessionExportImagesArray) {
+                if (![[imageToBeExported objectAtIndex:1] isEqual:nil]) {
+                    NSData *imageData = UIImageJPEGRepresentation([imageToBeExported objectAtIndex:1], 0.8);
+                    [mailViewController addAttachmentData:imageData mimeType:@"image/jpeg" fileName:[NSString stringWithFormat:@"%@.jpg",[imageToBeExported objectAtIndex:0]]];
+                }
+            }
+            [self presentViewController:mailViewController animated:YES completion:nil];
+        }
+        
+        else {
+            NSLog(@"Device is unable to send email in its current state.");
+        }
+    }
+}
+
+-(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+    [self.tableView setEditing:NO animated:YES];
+    self.tableView.allowsMultipleSelectionDuringEditing = NO;
+    [self viewDidLoad];
+}
+
 - (void) userDidAddSessionNotification:(NSNotification *)note
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -114,9 +182,10 @@
     sessionDetailsDataSource.session=selectedSession;
     SessionsTableViewDataSource *sessionsDataSource=(SessionsTableViewDataSource*) self.dataSource;
     sessionDetailsDataSource.managedObjectContext= sessionsDataSource.managedObjectContext;
+    nextVC.dataSource=
     nextVC.dataSource=sessionDetailsDataSource;
     [[self navigationController] pushViewController: nextVC animated: YES];
-
+    
 }
 
 - (void)userDidPressDetailDisclosureButtonNotification:(NSNotification *)note
@@ -126,7 +195,7 @@
     SessionDetailsViewController * nextVC = [[SessionDetailsViewController alloc] init];
     SessionDetailsDataSource * sessionDetailsDataSource=[[SessionDetailsDataSource alloc]init];
     sessionDetailsDataSource.session=selectedSession;
-    SessionsTableViewDataSource *sessionsDataSource=(SessionsTableViewDataSource*) self.dataSource;    
+    SessionsTableViewDataSource *sessionsDataSource=(SessionsTableViewDataSource*) self.dataSource;
     sessionDetailsDataSource.managedObjectContext= sessionsDataSource.managedObjectContext;
     nextVC.dataSource=sessionDetailsDataSource;
     [[self navigationController] pushViewController: nextVC animated: YES];
