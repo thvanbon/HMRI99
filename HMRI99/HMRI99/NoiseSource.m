@@ -14,7 +14,6 @@
                                   self.operatingConditions,
                                   nil];
     NSString *exportString=[noiseSourceStringsArray componentsJoinedByString:@"\t"];
-  //  NSLog(exportString);
     return exportString;
 }
 @end

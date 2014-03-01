@@ -4,51 +4,50 @@
 //add full size photo
 //debug extract results
 //mail results
-debug mail results (nil measurements or missing images)
 //delete measurement
 //delete session
 //sort measurements
 //add validation
 //clean up cells
-add other measurement types
-measurement details: select row to edit details (but don't hightlight)
 //add auto-scroll
-id picker
-add hemispherecorrection
-add measurement device
-auto fill data (id)
-scan rion
+
 speed up scrolling (grand central dispatch?) http://stackoverflow.com/questions/14623686/loading-image-from-coredata-at-cellforrowatindexpath-slows-down-scrolling/14624875#14624875
-clean up
-add total session sound power level
-add total session number of measurements
 refactor redundant code
-add extra photo's
-add sketch (to photo)
-stoorcorrectie
-
-make ipad app
-realtime sync data with external database
-
 update unit tests
     AppDelegate
         Core Data
-    Measurement
-        exportMeasurement
+//    Measurement
+//        exportMeasurement
     MeasurementDetailTableViewDataSource
     MeasurementDetailViewController
     MeasurementsTableViewDataSource
     MeasurementSummaryStaticCell
     MeasurementsViewController
-    Image
-    NoiseSource
+//    Image
+//    NoiseSource
     SessionDetailsDataSource
-    Session
-        exportSession
-        exportMeasurementImages    
+//    Session
+//        exportSession
+//        exportMeasurementImages    
     SessionDetailsDataSource
     SessionDetailsViewController
     SessionsTableViewDataSource
     SessionSummaryStaticCell
     SessionsViewController
     TDDatePicker
+
+//debug mail results (zero measurements=no problem, missing images=done, empty measurements=done)
+auto fill data (id)
+measurement details: select row to edit details (but don't hightlight)
+add hemispherecorrection
+add measurement device
+add background noise correction
+id picker
+add other measurement types
+add total session sound power level
+add total session number of measurements
+add extra photos
+add sketch (to photo)
+make ipad app
+realtime sync data with external database
+scan rion results

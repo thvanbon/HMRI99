@@ -194,11 +194,11 @@
     assertThatBool(myTextField.enabled, is(equalToBool(NO)));
 }
 
-- (void) testRow2ContainsAButtonWithHeight500
+- (void) testRow2ContainsAButtonWithHeight60
 {
     UITableViewCell *imageCell=[self cellForRow:2];
     UIButton *imageButton=(UIButton*)[imageCell viewWithTag:333];
-    assertThatFloat(imageButton.frame.size.height, is(equalToFloat(50.0f)));
+    assertThatFloat(imageButton.frame.size.height, is(equalToFloat(60.0f)));
 }
 
 - (void) testRow2HasHeightGreaterThanImageButtonHeight

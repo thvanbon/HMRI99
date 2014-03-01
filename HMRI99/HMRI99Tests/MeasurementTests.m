@@ -219,6 +219,47 @@
     [sut setNearFieldCorrection:nearFieldCorrection];
     [sut calculateSoundPowerLevel];
 }
-                    
-               
+
+- (void) testMeasurementHasExportMethod
+{
+    assertThatBool([sut respondsToSelector:@selector(exportMeasurement)],is(equalToBool(YES)));
+}
+
+- (void) testExportMeasurementGivesFullOutputForTypeII2
+{
+    sut.noiseSource=[NSEntityDescription insertNewObjectForEntityForName:@"NoiseSource"
+                                      inManagedObjectContext:ctx];
+    sut.noiseSource.name=@"pump";
+    sut.noiseSource.operatingConditions=@"idle";
+    sut.type=@"II.2";
+    sut.identification=@"R1";
+    sut.soundPressureLevel=80.0f;
+    sut.soundPowerLevel=100.0f;
+    sut.distance=5.0f;
+    sut.hemiSphereCorrection=0.0f;
+    
+    NSString *exportNoiseSource=[sut.noiseSource exportNoiseSource];
+    NSString *expectedExportString=[NSString stringWithFormat:@"%@\tR1\tII.2\t80.0\t100.0\t5.0\t0\t\t\t", exportNoiseSource];
+    assertThat([sut exportMeasurement],is(equalTo(expectedExportString)));
+}
+
+
+- (void) testExportMeasurementGivesFullOutputForTypeII3
+{
+    sut.noiseSource=[NSEntityDescription insertNewObjectForEntityForName:@"NoiseSource"
+                                                  inManagedObjectContext:ctx];
+    sut.noiseSource.name=@"pump";
+    sut.noiseSource.operatingConditions=@"idle";
+    sut.type=@"II.3";
+    sut.identification=@"R1";
+    sut.soundPressureLevel=80.0f;
+    sut.soundPowerLevel=100.0f;
+    sut.surfaceArea=10.0f;
+    sut.nearFieldCorrection=-2.0f;
+    sut.directivityIndex=0.0f;
+    
+    NSString *exportNoiseSource=[sut.noiseSource exportNoiseSource];
+    NSString *expectedExportString=[NSString stringWithFormat:@"%@\tR1\tII.3\t80.0\t100.0\t\t\t10.0\t-2\t0", exportNoiseSource];
+    assertThat([sut exportMeasurement],is(equalTo(expectedExportString)));
+}
 @end

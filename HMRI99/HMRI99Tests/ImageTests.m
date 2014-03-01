@@ -1,5 +1,5 @@
     // Class under test
-#import "NoiseSource.h"
+#import "Image.h"
 
     // Collaborators
 
@@ -14,17 +14,20 @@
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
 
-@interface NoiseSourceTests : SenTestCase
+@interface ImageTests : SenTestCase
 @end
 
-@implementation NoiseSourceTests
-
+@implementation ImageTests
 {
-    NoiseSource * sut;
+    Image * sut;
     NSPersistentStoreCoordinator *coord;
     NSManagedObjectContext *ctx;
     NSManagedObjectModel *model;
     NSPersistentStore *store;
+    NSBundle *bundle;
+    NSString *imagePath;
+    UIImage *image;
+    NSData *imageData;
 }
 
 - (void)setUp
@@ -39,11 +42,22 @@
                                         error: NULL];
     ctx = [[NSManagedObjectContext alloc] init];
     [ctx setPersistentStoreCoordinator: coord];
-    sut=[NSEntityDescription insertNewObjectForEntityForName:@"NoiseSource" inManagedObjectContext:ctx];
+    sut=[NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:ctx];
+    
+    bundle = [NSBundle bundleForClass:[self class]];
+    imagePath = [bundle pathForResource:@"testImage" ofType:@"jpg"];
+    image = [UIImage imageWithContentsOfFile:imagePath];
+    imageData = UIImagePNGRepresentation(image);
 }
+
 
 - (void)tearDown
 {
+    bundle=nil;
+    imagePath=nil;
+    image=nil;
+    imageData=nil;
+    
     sut=nil;
     ctx = nil;
     NSError *error = nil;
@@ -55,29 +69,23 @@
     [super tearDown];
 }
 
-
-- (void) testNoiseSourceHasName
+- (void) testImageHasUrl
 {
-    sut.name=@"compressor";
-    assertThat([sut name], is(equalTo(@"compressor")));
+    sut.url=@"testURL";
+    assertThat([sut url], is(equalTo(@"testURL")));
 }
 
-- (void) testNoiseSourceCanHaveOperatingConditions
+- (void) testImageHasImageData
 {
-    [sut setOperatingConditions:@"2000 rpm"];
-    assertThat([sut operatingConditions], is(equalTo(@"2000 rpm")));
+
+    sut.imageData=imageData;
+    assertThat([sut imageData], is(equalTo(imageData)));
 }
 
-- (void) testNoiseSourceHasExportMethod
+- (void) testImageHasThumbnail
 {
-    assertThatBool([sut respondsToSelector:@selector(exportNoiseSource)],is(equalToBool(YES)));
+    sut.thumbnail=imageData;
+    assertThat([sut thumbnail], is(equalTo(imageData)));
 }
 
-- (void) testExportNoiseSourceGivesFullOutput
-{
-    sut.name=@"pump";
-    sut.operatingConditions=@"idle";
-    NSString *expectedExportString=@"pump\tidle";
-    assertThat([sut exportNoiseSource],is(equalTo(expectedExportString)));
-}
 @end

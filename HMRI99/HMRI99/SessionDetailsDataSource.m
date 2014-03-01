@@ -6,6 +6,7 @@
 @synthesize session;
 @synthesize managedObjectContext;
 
+
 //@synthesize datePicker;
 - (id)init
 {

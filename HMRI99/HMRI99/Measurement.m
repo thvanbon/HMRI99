@@ -94,18 +94,18 @@
     NSString *exportSurfaceArea=@"";
     NSString *exportNearFieldCorrection=@"";
     NSString *exportDirectivityIndex=@"";
-    NSString *exportsoundPressureLevel=[NSString stringWithFormat:@"%f", self.soundPressureLevel];
-    NSString *exportsoundPowerLevel=[NSString stringWithFormat:@"%f", self.soundPowerLevel];
+    NSString *exportsoundPressureLevel=[NSString stringWithFormat:@"%0.1f", self.soundPressureLevel];
+    NSString *exportsoundPowerLevel=[NSString stringWithFormat:@"%0.1f", self.soundPowerLevel];
     
     if ([self.type isEqual:@"II.2"])
     {
-        exportDistance=[NSString stringWithFormat:@"%f", self.distance];
-        exportHemiSphereCorrection=[NSString stringWithFormat:@"%f", self.hemiSphereCorrection];
+        exportDistance=[NSString stringWithFormat:@"%0.1f", self.distance];
+        exportHemiSphereCorrection=[NSString stringWithFormat:@"%0.0f", self.hemiSphereCorrection];
     } else if ([self.type isEqual:@"II.3"])
     {
-        exportSurfaceArea=[NSString stringWithFormat:@"%f", self.surfaceArea];
-        exportNearFieldCorrection=[NSString stringWithFormat:@"%f", self.nearFieldCorrection];
-        exportDirectivityIndex=[NSString stringWithFormat:@"%f", self.directivityIndex];
+        exportSurfaceArea=[NSString stringWithFormat:@"%0.1f", self.surfaceArea];
+        exportNearFieldCorrection=[NSString stringWithFormat:@"%0.0f", self.nearFieldCorrection];
+        exportDirectivityIndex=[NSString stringWithFormat:@"%0.0f", self.directivityIndex];
     }
     
     NSArray *measurementStringsArray=[NSArray arrayWithObjects:

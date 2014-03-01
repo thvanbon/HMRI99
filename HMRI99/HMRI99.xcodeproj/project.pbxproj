@@ -52,6 +52,8 @@
 		76373BE418A04CC00096A7D6 /* half sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDD18A04CC00096A7D6 /* half sphere.png */; };
 		76373BE518A04CC00096A7D6 /* rectangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDE18A04CC00096A7D6 /* rectangle.png */; };
 		76373BE618A04CC00096A7D6 /* shapes.skp in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDF18A04CC00096A7D6 /* shapes.skp */; };
+		7642E2D718A7AF03007E644C /* ImageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7642E2D618A7AF02007E644C /* ImageTests.m */; };
+		7642E2D918A7C190007E644C /* testImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7642E2D818A7C190007E644C /* testImage.jpg */; };
 		7642E9591895B33D00DF640A /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7642E9581895B33D00DF640A /* AssetsLibrary.framework */; };
 		7642E95D1895C83700DF640A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7642E95C1895C83700DF640A /* QuartzCore.framework */; };
 		7642E95F1896FAED00DF640A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7642E95E1896FAED00DF640A /* MessageUI.framework */; };
@@ -142,6 +144,8 @@
 		76373BDD18A04CC00096A7D6 /* half sphere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "half sphere.png"; sourceTree = "<group>"; };
 		76373BDE18A04CC00096A7D6 /* rectangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rectangle.png; sourceTree = "<group>"; };
 		76373BDF18A04CC00096A7D6 /* shapes.skp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shapes.skp; sourceTree = "<group>"; };
+		7642E2D618A7AF02007E644C /* ImageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageTests.m; sourceTree = "<group>"; };
+		7642E2D818A7C190007E644C /* testImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testImage.jpg; sourceTree = "<group>"; };
 		7642E9581895B33D00DF640A /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		7642E95C1895C83700DF640A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7642E95E1896FAED00DF640A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -307,6 +311,7 @@
 			isa = PBXGroup;
 			children = (
 				767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */,
+				7642E2D618A7AF02007E644C /* ImageTests.m */,
 				762B354118638C57008FD7A3 /* MeasurementDetailTableViewDataSourceTests.m */,
 				762B34F6185E54A4008FD7A3 /* MeasurementDetailViewControllerTests.m */,
 				76FB86A518424BD2009270CB /* MeasurementsTableViewDataSourceTests.m */,
@@ -328,6 +333,7 @@
 		76172E0A1839634A000B798F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7642E2D818A7C190007E644C /* testImage.jpg */,
 				76172E0B1839634A000B798F /* HMRI99Tests-Info.plist */,
 				76172E0C1839634A000B798F /* InfoPlist.strings */,
 			);
@@ -446,6 +452,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				76172E0E1839634A000B798F /* InfoPlist.strings in Resources */,
+				7642E2D918A7C190007E644C /* testImage.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -524,6 +531,7 @@
 				762B354218638C57008FD7A3 /* MeasurementDetailTableViewDataSourceTests.m in Sources */,
 				76334E8318736FAA00DFF15F /* SessionDetailsViewControllerTests.m in Sources */,
 				76334E851873730F00DFF15F /* SessionDetailsDatasourceTests.m in Sources */,
+				7642E2D718A7AF03007E644C /* ImageTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

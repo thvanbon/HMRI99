@@ -37,7 +37,7 @@
     [formatter setDateFormat:@"dd-MM-yyyy"];
     for (Measurement *measurement in self.measurements)
     {
-        if (![measurement.image.imageData isEqual:nil])
+        if (measurement.image.imageData!=nil)
         {
             NSArray *imageNameArray=[NSArray arrayWithObjects:
                                      self.name,
