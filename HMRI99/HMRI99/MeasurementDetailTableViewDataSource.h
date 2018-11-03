@@ -1,7 +1,7 @@
 #import <Foundation/Foundation.h>
 
 @class Measurement;
-@interface MeasurementDetailTableViewDataSource : NSObject <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface MeasurementDetailTableViewDataSource : NSObject <UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 {
     UIImage *imageToUse;
     NSURL *url;

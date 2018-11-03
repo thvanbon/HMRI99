@@ -133,7 +133,7 @@
 {
     UITextField * textfield = (UITextField*)notification.object;
     NSString * text = textfield.text;
-    int tag =[textfield tag];
+    int tag =(int)[textfield tag];
     switch (tag) {
         case 1:
             session.name=text;

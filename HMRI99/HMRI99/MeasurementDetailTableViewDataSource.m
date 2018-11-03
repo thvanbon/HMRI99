@@ -3,6 +3,7 @@
 #import <MobileCoreServices/MobileCoreServices.h>
 #import <AssetsLibrary/AssetsLibrary.h>
 #import <QuartzCore/QuartzCore.h>
+#import <Photos/Photos.h>
 
 @implementation MeasurementDetailTableViewDataSource
 
@@ -90,7 +91,7 @@
                     [cell.contentView addSubview:measurementTypeControl];
                     [measurementTypeControl insertSegmentWithTitle:@"II.2" atIndex:0 animated:NO];
                     [measurementTypeControl insertSegmentWithTitle:@"II.3" atIndex:1 animated:NO];
-                    measurementTypeControl.segmentedControlStyle=UISegmentedControlStylePlain;
+                    
                     [measurementTypeControl addTarget:self
                                                action:@selector(measurementSegmentedControlWasUpdated:)
                                      forControlEvents:UIControlEventValueChanged];
@@ -128,7 +129,7 @@
                     [measurementTypeControl insertSegmentWithTitle:@"-1" atIndex:1 animated:NO];
                     [measurementTypeControl insertSegmentWithTitle:@"-2" atIndex:2 animated:NO];
                     [measurementTypeControl insertSegmentWithTitle:@"-3" atIndex:3 animated:NO];
-                    measurementTypeControl.segmentedControlStyle=UISegmentedControlStylePlain;
+                    
                     [measurementTypeControl addTarget:self
                                                action:@selector(measurementSegmentedControlWasUpdated:)
                                      forControlEvents:UIControlEventValueChanged];
@@ -188,7 +189,7 @@
 {
     UITextField * textfield = (UITextField*)notification.object;
     NSString * text = textfield.text;
-    int tag =[textfield tag];
+    int tag =(int)[textfield tag];
     switch (tag) {
         case 1:
             measurement.identification=text;
@@ -327,44 +328,45 @@
 -(void)imageAddButtonClicked
 {
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-    UIView *topView = window.rootViewController.view;
+    //UIView *topView = window.rootViewController.view;
     
+    UIAlertController *popupQuery = [UIAlertController alertControllerWithTitle:@"Image"
+                                                                        message:@"Change measurement image."
+                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+                                                               // Cancel button tappped.
+                                                               [window.rootViewController dismissViewControllerAnimated:YES completion:^{
+                                                               }];
+                                                           }];
+    UIAlertAction *removeImageAction = [UIAlertAction actionWithTitle:@"Remove image"
+                                                                style:UIAlertActionStyleDestructive handler:^(UIAlertAction * action) {
+                                                                    self.measurement.image.imageData=nil;
+                                                                    self.measurement.image.thumbnail=nil;
+                                                                    self.measurement.image.url=nil;
+                                                                    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                                                                }];
+    UIAlertAction *choosePhotoAction = [UIAlertAction actionWithTitle:@"Choose photo"
+                                                                style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                                    [[NSNotificationCenter defaultCenter] postNotificationName:@"startMediaBrowserNotification" object:nil];
+                                                                }];
+    UIAlertAction *takePhotoAction = [UIAlertAction actionWithTitle:@"Take photo"
+                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                                  [[NSNotificationCenter defaultCenter] postNotificationName:@"startCameraControllerNotification" object:nil];
+                                                              }];
+    UIAlertAction *showPhotoAction = [UIAlertAction actionWithTitle:@"Show photo"
+                                                              style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                              }];
     
-    UIActionSheet *popupQuery = [[UIActionSheet alloc] initWithTitle:@"Image" delegate:self cancelButtonTitle:@"Cancel Button" destructiveButtonTitle:@"Remove image" otherButtonTitles:@"Choose photo", @"Take photo", @"Show photo",nil];
-    popupQuery.actionSheetStyle = UIActionSheetStyleBlackOpaque;
-    [popupQuery showInView:topView];
+    [popupQuery addAction:cancelAction];
+    [popupQuery addAction:removeImageAction];
+    [popupQuery addAction:choosePhotoAction];
+    [popupQuery addAction:takePhotoAction];
+    [popupQuery addAction:showPhotoAction];
+    
+    [window.rootViewController presentViewController:popupQuery animated:YES completion:nil];
 }
 
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex {
-    NSError *error=nil;
-    switch (buttonIndex) {
-        case 0:
-            //Remove photo
-            measurement.image.imageData=nil;
-            measurement.image.thumbnail=nil;
-            measurement.image.url=nil;
-            if (![self.managedObjectContext save:&error]) {
-                NSLog(@"Error: %@",error);
-            }
-            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-            break;
-        case 1:
-            //Choose photo
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"startMediaBrowserNotification" object:nil];
-            break;
-        case 2:
-            //Take photo
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"startCameraControllerNotification" object:nil];
-            break;
-        case 3:
-            //Show photo
-            break;
-        case 4:
-            //Cancel
-            break;
-    }
-    
-}
 
 // For responding to the user tapping Cancel.
 - (void) imagePickerControllerDidCancel: (UIImagePickerController *) picker {
@@ -393,33 +395,36 @@
         }
         
         if (picker.sourceType==UIImagePickerControllerSourceTypeCamera) {
-            //Save the new image (original or edited) to the Camera Roll
-            ALAssetsLibrary *al = [[ALAssetsLibrary alloc] init];
-            ALAssetOrientation orientation;
-            NSString *infoOrientation = [[info objectForKey:@"UIImagePickerControllerMediaMetadata"] objectForKey:@"Orientation"];
-            switch ([infoOrientation integerValue]) {
-                case 3:
-                    orientation = ALAssetOrientationUp;
-                    break;
-                case 6:
-                    orientation = ALAssetOrientationRight;
-                    break;
-                default:
-                    orientation = ALAssetOrientationDown;
-                    break;
-            }
-            [al writeImageToSavedPhotosAlbum:[imageToUse CGImage] orientation:orientation completionBlock:^(NSURL *assetURL, NSError *error) {
-                if (error == nil) {
-                    NSLog(@"saved");
-                    url = assetURL;
-                    [self saveReloadAndDismissViewController:picker];
-                }
-                else
-                {
-                    NSLog(@"error");
-                }
-            }];
-        }  else
+            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status)
+             {
+                 switch (status) {
+                     case PHAuthorizationStatusAuthorized: {
+                         NSLog(@"PHAuthorizationStatusAuthorized");
+                         //Save the new image (original or edited) to the Camera Roll
+                         [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+                             [PHAssetChangeRequest creationRequestForAssetFromImage:self->imageToUse];
+                         }completionHandler:^(BOOL success, NSError *error) {
+                             if(success){
+                                 NSLog(@"worked");
+                             }else{
+                                 NSLog(@"Error: %@", error);
+                             }
+                         }];
+                         
+                         [self saveReloadAndDismissViewController:picker];
+                         break;}
+                     case PHAuthorizationStatusRestricted:
+                         NSLog(@"PHAuthorizationStatusRestricted");
+                         break;
+                     case PHAuthorizationStatusDenied:
+                         NSLog(@"PHAuthorizationStatusDenied");
+                         break;
+                     default:
+                         break;
+                 }
+             }];
+        }
+        else
         {
             url=(NSURL*)[info objectForKey:@"UIImagePickerControllerReferenceURL"];
             [self saveReloadAndDismissViewController:picker];
@@ -464,7 +469,7 @@
     } else
     {
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-        [picker dismissViewControllerAnimated:YES completion:nil];        
+        [picker dismissViewControllerAnimated:YES completion:nil];
     }
     
 }

@@ -36,7 +36,7 @@
     NSArray *sortItems=[NSArray arrayWithObjects:@"original", @"id", @"name", @"Lw", nil];
     UISegmentedControl *sortControl=[[UISegmentedControl alloc] initWithItems:sortItems];
     sortControl.frame = CGRectMake(0, 0, 200, 30);
-    sortControl.segmentedControlStyle = UISegmentedControlStyleBar;
+    
     sortControl.selectedSegmentIndex = 0;
     UIBarButtonItem *segmentedControlButtonItem = [[UIBarButtonItem alloc] initWithCustomView:(UIView *)sortControl];
     [sortControl addTarget:self
@@ -130,7 +130,7 @@
 }
 -(void)sortControlWasUpdated:(UISegmentedControl *)updatedControl
 {
-    self.dataSource.sortID=updatedControl.selectedSegmentIndex;
+    self.dataSource.sortID=(int)updatedControl.selectedSegmentIndex;
     [self.dataSource.tableView reloadData];
 }
 

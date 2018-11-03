@@ -45,18 +45,12 @@
 		76334E8118736C2500DFF15F /* SessionDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76334E8018736C2500DFF15F /* SessionDetailsViewController.xib */; };
 		76334E8318736FAA00DFF15F /* SessionDetailsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76334E8218736FAA00DFF15F /* SessionDetailsViewControllerTests.m */; };
 		76334E851873730F00DFF15F /* SessionDetailsDatasourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76334E841873730F00DFF15F /* SessionDetailsDatasourceTests.m */; };
-		76373BE018A04CC00096A7D6 /* box.png in Resources */ = {isa = PBXBuildFile; fileRef = 76373BD918A04CC00096A7D6 /* box.png */; };
-		76373BE118A04CC00096A7D6 /* cilinder.png in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDA18A04CC00096A7D6 /* cilinder.png */; };
-		76373BE218A04CC00096A7D6 /* circle.png in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDB18A04CC00096A7D6 /* circle.png */; };
-		76373BE318A04CC00096A7D6 /* half cilinder.png in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDC18A04CC00096A7D6 /* half cilinder.png */; };
-		76373BE418A04CC00096A7D6 /* half sphere.png in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDD18A04CC00096A7D6 /* half sphere.png */; };
-		76373BE518A04CC00096A7D6 /* rectangle.png in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDE18A04CC00096A7D6 /* rectangle.png */; };
-		76373BE618A04CC00096A7D6 /* shapes.skp in Resources */ = {isa = PBXBuildFile; fileRef = 76373BDF18A04CC00096A7D6 /* shapes.skp */; };
 		7642E2D718A7AF03007E644C /* ImageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7642E2D618A7AF02007E644C /* ImageTests.m */; };
 		7642E2D918A7C190007E644C /* testImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7642E2D818A7C190007E644C /* testImage.jpg */; };
 		7642E9591895B33D00DF640A /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7642E9581895B33D00DF640A /* AssetsLibrary.framework */; };
 		7642E95D1895C83700DF640A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7642E95C1895C83700DF640A /* QuartzCore.framework */; };
 		7642E95F1896FAED00DF640A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7642E95E1896FAED00DF640A /* MessageUI.framework */; };
+		766036AD218E444100E1320D /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766036AC218E444100E1320D /* Photos.framework */; };
 		767D5DBD1843E68C00ED7DC4 /* AppDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */; };
 		76808BE71889DC370075F1BE /* todo in Resources */ = {isa = PBXBuildFile; fileRef = 76808BE61889DC370075F1BE /* todo */; };
 		76808BEA1889E3C10075F1BE /* Measurement.m in Sources */ = {isa = PBXBuildFile; fileRef = 76808BE91889E3C10075F1BE /* Measurement.m */; };
@@ -137,18 +131,12 @@
 		76334E8018736C2500DFF15F /* SessionDetailsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SessionDetailsViewController.xib; sourceTree = "<group>"; };
 		76334E8218736FAA00DFF15F /* SessionDetailsViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionDetailsViewControllerTests.m; sourceTree = "<group>"; };
 		76334E841873730F00DFF15F /* SessionDetailsDatasourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionDetailsDatasourceTests.m; sourceTree = "<group>"; };
-		76373BD918A04CC00096A7D6 /* box.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = box.png; sourceTree = "<group>"; };
-		76373BDA18A04CC00096A7D6 /* cilinder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cilinder.png; sourceTree = "<group>"; };
-		76373BDB18A04CC00096A7D6 /* circle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = circle.png; sourceTree = "<group>"; };
-		76373BDC18A04CC00096A7D6 /* half cilinder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "half cilinder.png"; sourceTree = "<group>"; };
-		76373BDD18A04CC00096A7D6 /* half sphere.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "half sphere.png"; sourceTree = "<group>"; };
-		76373BDE18A04CC00096A7D6 /* rectangle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rectangle.png; sourceTree = "<group>"; };
-		76373BDF18A04CC00096A7D6 /* shapes.skp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = shapes.skp; sourceTree = "<group>"; };
 		7642E2D618A7AF02007E644C /* ImageTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageTests.m; sourceTree = "<group>"; };
 		7642E2D818A7C190007E644C /* testImage.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = testImage.jpg; sourceTree = "<group>"; };
 		7642E9581895B33D00DF640A /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		7642E95C1895C83700DF640A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		7642E95E1896FAED00DF640A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		766036AC218E444100E1320D /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegateTests.m; sourceTree = "<group>"; };
 		76808BE61889DC370075F1BE /* todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todo; sourceTree = "<group>"; };
 		76808BE81889E3C00075F1BE /* Measurement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measurement.h; sourceTree = "<group>"; };
@@ -180,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				766036AD218E444100E1320D /* Photos.framework in Frameworks */,
 				7642E95F1896FAED00DF640A /* MessageUI.framework in Frameworks */,
 				7642E95D1895C83700DF640A /* QuartzCore.framework in Frameworks */,
 				7642E9591895B33D00DF640A /* AssetsLibrary.framework in Frameworks */,
@@ -229,6 +218,7 @@
 		76172DD818396349000B798F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				766036AC218E444100E1320D /* Photos.framework */,
 				7642E95E1896FAED00DF640A /* MessageUI.framework */,
 				7642E95C1895C83700DF640A /* QuartzCore.framework */,
 				7642E9581895B33D00DF640A /* AssetsLibrary.framework */,
@@ -247,7 +237,6 @@
 		76172DDF1839634A000B798F /* HMRI99 */ = {
 			isa = PBXGroup;
 			children = (
-				76373BD818A04CC00096A7D6 /* shapes */,
 				76172DE81839634A000B798F /* AppDelegate.h */,
 				76172DE91839634A000B798F /* AppDelegate.m */,
 				761A0CE41881A714004F0965 /* HMRI99Model.xcdatamodeld */,
@@ -340,20 +329,6 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		76373BD818A04CC00096A7D6 /* shapes */ = {
-			isa = PBXGroup;
-			children = (
-				76373BD918A04CC00096A7D6 /* box.png */,
-				76373BDA18A04CC00096A7D6 /* cilinder.png */,
-				76373BDB18A04CC00096A7D6 /* circle.png */,
-				76373BDC18A04CC00096A7D6 /* half cilinder.png */,
-				76373BDD18A04CC00096A7D6 /* half sphere.png */,
-				76373BDE18A04CC00096A7D6 /* rectangle.png */,
-				76373BDF18A04CC00096A7D6 /* shapes.skp */,
-			);
-			path = shapes;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -437,13 +412,6 @@
 				762B34F5185E545B008FD7A3 /* MeasurementDetailViewController.xib in Resources */,
 				76334E8118736C2500DFF15F /* SessionDetailsViewController.xib in Resources */,
 				76808BE71889DC370075F1BE /* todo in Resources */,
-				76373BE018A04CC00096A7D6 /* box.png in Resources */,
-				76373BE118A04CC00096A7D6 /* cilinder.png in Resources */,
-				76373BE218A04CC00096A7D6 /* circle.png in Resources */,
-				76373BE318A04CC00096A7D6 /* half cilinder.png in Resources */,
-				76373BE418A04CC00096A7D6 /* half sphere.png in Resources */,
-				76373BE518A04CC00096A7D6 /* rectangle.png in Resources */,
-				76373BE618A04CC00096A7D6 /* shapes.skp in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,7 +576,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 			};
@@ -649,7 +617,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
