@@ -109,7 +109,7 @@
                      animations:^
      {
          self.datePicker.hidden = NO;
-         self.datePicker.date=dataSource.session.date;
+         self.datePicker.date=self.dataSource.session.date;
          self.datePicker.center =(CGPoint){160,self.tableView.frame.size.height-108};
      }
                      completion:nil];

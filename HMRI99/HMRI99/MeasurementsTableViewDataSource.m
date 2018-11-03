@@ -64,7 +64,7 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
             noImageLabel.textColor=[UIColor grayColor];
             [summaryCell.imageView addSubview:noImageLabel];
         }
-        summaryCell.AccessoryType=UITableViewCellAccessoryDisclosureIndicator;
+        summaryCell.accessoryType=UITableViewCellAccessoryDisclosureIndicator;
         cell = summaryCell;
         summaryCell = nil;
     }

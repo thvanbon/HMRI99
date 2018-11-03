@@ -339,7 +339,6 @@
 				76172DD218396349000B798F /* Sources */,
 				76172DD318396349000B798F /* Frameworks */,
 				76172DD418396349000B798F /* Resources */,
-				50524F424C454D533F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -377,6 +376,15 @@
 			attributes = {
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Thijs van Bon";
+				TargetAttributes = {
+					76172DD518396349000B798F = {
+						DevelopmentTeam = 3Y5TTPRJ54;
+						ProvisioningStyle = Automatic;
+					};
+					76172E011839634A000B798F = {
+						DevelopmentTeam = 3Y5TTPRJ54;
+					};
+				};
 			};
 			buildConfigurationList = 76172DD118396349000B798F /* Build configuration list for PBXProject "HMRI99" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -427,19 +435,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		50524F424C454D533F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "export CODESIGN_ALLOCATE=/Library/JailCoder/codesign_allocate\nif [ \"${PLATFORM_NAME}\" == \"iphoneos\" ]; then\n/Library/JailCoder/Entitlements/Entitlements.py \"my.company.${PROJECT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\";\ncodesign -f -s \"iPhone Developer\" --entitlements \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/${PROJECT_NAME}.xcent\" \"${BUILT_PRODUCTS_DIR}/${WRAPPER_NAME}/\"\nfi";
-		};
 		76172E001839634A000B798F /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -559,6 +554,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 3Y5TTPRJ54;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -608,6 +604,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
+				DEVELOPMENT_TEAM = 3Y5TTPRJ54;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -627,11 +624,15 @@
 		76172E151839634A000B798F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HMRI99/HMRI99-Prefix.pch";
 				INFOPLIST_FILE = "HMRI99/HMRI99-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "tvb.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -639,11 +640,15 @@
 		76172E161839634A000B798F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HMRI99/HMRI99-Prefix.pch";
 				INFOPLIST_FILE = "HMRI99/HMRI99-Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = "tvb.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -51,3 +51,13 @@ add sketch (to photo)
 make ipad app
 realtime sync data with external database
 scan rion results
+
+
+add measurement id to photo in e-mail
+fix camera crash
+fix select video possible (hangs after converting)
+fix session details
+fix tests
+fix sort by id (and others)
+add gps coordinates
+

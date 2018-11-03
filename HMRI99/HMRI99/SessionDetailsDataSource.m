@@ -29,8 +29,8 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:nil];
-//    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
+//    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:nil];
+    UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell"];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
                                       reuseIdentifier:nil];
