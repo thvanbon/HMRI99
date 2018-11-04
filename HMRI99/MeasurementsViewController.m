@@ -120,6 +120,7 @@
     selectedMeasurement.type=@"II.2";
     MeasurementDetailViewController *nextViewController=[[MeasurementDetailViewController alloc] initWithNibName:nil bundle:nil];
     MeasurementDetailTableViewDataSource * measurementDetailDataSource=[[MeasurementDetailTableViewDataSource alloc] init];
+    
     measurementDetailDataSource.measurement=selectedMeasurement;
     MeasurementsTableViewDataSource *measurementsDataSource=(MeasurementsTableViewDataSource*) self.dataSource;
     measurementDetailDataSource.managedObjectContext= measurementsDataSource.managedObjectContext;

@@ -179,10 +179,10 @@
     Session * selectedSession=(Session*) [note object];
     SessionDetailsViewController * nextVC = [[SessionDetailsViewController alloc] init];
     SessionDetailsDataSource * sessionDetailsDataSource=[[SessionDetailsDataSource alloc]init];
+    
     sessionDetailsDataSource.session=selectedSession;
     SessionsTableViewDataSource *sessionsDataSource=(SessionsTableViewDataSource*) self.dataSource;
     sessionDetailsDataSource.managedObjectContext= sessionsDataSource.managedObjectContext;
-    nextVC.dataSource=
     nextVC.dataSource=sessionDetailsDataSource;
     [[self navigationController] pushViewController: nextVC animated: YES];
     

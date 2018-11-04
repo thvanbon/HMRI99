@@ -9,20 +9,20 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        //self.toggle = 0;
-        self.pickerView = [[UIPickerView alloc] initWithFrame:(CGRect){{0, 0}, 320, 480}];
-        self.pickerView.delegate = dataSource;
-        self.pickerView.dataSource = dataSource;
-        self.pickerView.showsSelectionIndicator=YES;
-        self.pickerView.center = (CGPoint){160, 640};
-        self.pickerView.hidden = YES;
-        [self.view addSubview:self.pickerView];
-        self.datePicker = [[TDDatePicker alloc] initWithFrame:(CGRect){{0, 0}, 320, 480}];
-        self.datePicker.delegate = dataSource;
-        self.datePicker.center = (CGPoint){160, 640};
-        self.datePicker.datePickerMode=UIDatePickerModeDate;
-        self.datePicker.hidden = YES;
-        [self.view addSubview:self.datePicker];
+//        //self.toggle = 0;
+//        self.pickerView = [[UIPickerView alloc] initWithFrame:(CGRect){{0, 0}, 320, 480}];
+//        self.pickerView.delegate = dataSource;
+//        self.pickerView.dataSource = dataSource;
+//        self.pickerView.showsSelectionIndicator=YES;
+//        self.pickerView.center = (CGPoint){160, 640};
+//        self.pickerView.hidden = YES;
+       // [self.view addSubview:self.pickerView];
+//        self.datePicker = [[TDDatePicker alloc] initWithFrame:(CGRect){{0, 0}, 320, 480}];
+//        self.datePicker.delegate = dataSource;
+//        self.datePicker.center = (CGPoint){160, 640};
+//        self.datePicker.datePickerMode=UIDatePickerModeDate;
+//        self.datePicker.hidden = YES;
+//        [self.view addSubview:self.datePicker];
     }
     return self;
 }
@@ -57,8 +57,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    tableView.dataSource=self.dataSource;
-    tableView.delegate=self.dataSource;
+    self.tableView.dataSource=self.dataSource;
+    self.tableView.delegate=self.dataSource;
     objc_property_t tableViewProperty = class_getProperty([dataSource class], "tableView");
     if (tableViewProperty) {
         [dataSource setValue: tableView forKey: @"tableView"];

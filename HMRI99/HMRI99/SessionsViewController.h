@@ -7,5 +7,5 @@
 - (void)userDidSelectSessionNotification:(NSNotification *)note;
 - (void) insertNewObject: (id)sender;
 - (void) userDidAddSessionNotification:(NSNotification *)note;
-- (void)userDidPressDetailDisclosureButtonNotification:(NSNotification *)note;
+- (void) userDidPressDetailDisclosureButtonNotification:(NSNotification *)note;
 @end
