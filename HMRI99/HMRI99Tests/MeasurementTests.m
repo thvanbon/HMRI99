@@ -4,7 +4,7 @@
     // Collaborators
 #import "NoiseSource.h"
     // Test support
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
@@ -14,7 +14,7 @@
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
 
-@interface MeasurementTests : SenTestCase
+@interface MeasurementTests : XCTestCase
 @end
 
 @implementation MeasurementTests
@@ -36,7 +36,7 @@
                                           URL: nil
                                       options: nil
                                         error: NULL];
-    ctx = [[NSManagedObjectContext alloc] init];
+    ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [ctx setPersistentStoreCoordinator: coord];
     sut=[NSEntityDescription insertNewObjectForEntityForName:@"Measurement"
                                       inManagedObjectContext:ctx];
@@ -47,7 +47,7 @@
     sut=nil;
     ctx = nil;
     NSError *error = nil;
-    STAssertTrue([coord removePersistentStore: store error: &error],
+    XCTAssertTrue([coord removePersistentStore: store error: &error],
                  @"couldn't remove persistent store: %@", error);
     store = nil;
     coord = nil;
@@ -113,13 +113,13 @@
 
 //- (void) testThatExceptionIsRaisedWhenHemiSphereCorrectionIsSetTo1
 //{
-//    STAssertThrows([sut setHemiSphereCorrection:1],
+//    XCTAssertThrows([sut setHemiSphereCorrection:1],
 //                   @"We expected an exception to be raised when hemisphere correction is not 0 or 2");
 //}
 //
 //- (void) testThatExceptionIsRaisedWhenHemiSphereCorrectionIsSetToMinus1
 //{
-//    STAssertThrows([sut setHemiSphereCorrection:-1],
+//    XCTAssertThrows([sut setHemiSphereCorrection:-1],
 //                   @"We expected an exception to be raised when hemisphere correction is not 0 or 2");
 //}
 
@@ -169,18 +169,18 @@
 //- (void) testThatNearFieldCorrectionIsNotValidatedWhenSetToNonNegativeValue
 //{
 //    NSNumber * number=[NSNumber numberWithFloat:2.0f];
-//    assertThatBool([sut validateNearFieldCorrection:number error:nil], is(equalToBool(NO)));
+//    assertThatBool([sut validateNearFieldCorrection:number error:nil], is(equalToLong(NO)));
 //}
 //
 //- (void) testThatExceptionIsRaisedWhenNearFieldCorrectionIsBelowMinusThree
 //{
-//    STAssertThrows([sut setNearFieldCorrection:-4],
+//    XCTAssertThrows([sut setNearFieldCorrection:-4],
 //                   @"We expected an exception to be raised when near field correction is below -3");
 //}
 //
 //- (void) testThatExceptionIsRaisedWhenNearFieldCorrectionIsNotInteger
 //{
-//    STAssertThrows([sut setNearFieldCorrection:-2.2],
+//    XCTAssertThrows([sut setNearFieldCorrection:-2.2],
 //                   @"We expected an exception to be raised when near field correction is not integer");
 //}
 //
@@ -222,7 +222,7 @@
 
 - (void) testMeasurementHasExportMethod
 {
-    assertThatBool([sut respondsToSelector:@selector(exportMeasurement)],is(equalToBool(YES)));
+    assertThatBool([sut respondsToSelector:@selector(exportMeasurement)],is(equalToLong(YES)));
 }
 
 - (void) testExportMeasurementGivesFullOutputForTypeII2

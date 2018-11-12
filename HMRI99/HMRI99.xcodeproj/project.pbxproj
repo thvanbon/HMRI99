@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		760D8966184B9C480007B0B1 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 760D8965184B9C480007B0B1 /* OCMockitoIOS.framework */; };
 		76172DDA18396349000B798F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172DD918396349000B798F /* UIKit.framework */; };
 		76172DDC18396349000B798F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172DDB18396349000B798F /* Foundation.framework */; };
 		76172DDE18396349000B798F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172DDD18396349000B798F /* CoreGraphics.framework */; };
@@ -17,61 +16,57 @@
 		76172DEC1839634A000B798F /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 76172DEB1839634A000B798F /* Default.png */; };
 		76172DEE1839634A000B798F /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76172DED1839634A000B798F /* Default@2x.png */; };
 		76172DF01839634A000B798F /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 76172DEF1839634A000B798F /* Default-568h@2x.png */; };
-		76172E041839634A000B798F /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172E031839634A000B798F /* SenTestingKit.framework */; };
-		76172E051839634A000B798F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172DD918396349000B798F /* UIKit.framework */; };
-		76172E061839634A000B798F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172DDB18396349000B798F /* Foundation.framework */; };
-		76172E0E1839634A000B798F /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 76172E0C1839634A000B798F /* InfoPlist.strings */; };
-		76172E1B183966A2000B798F /* SessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76172E1A183966A2000B798F /* SessionTests.m */; };
-		76172E1D183966E6000B798F /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76172E1C183966E6000B798F /* OCHamcrestIOS.framework */; };
 		76172E2018396753000B798F /* Session.m in Sources */ = {isa = PBXBuildFile; fileRef = 76172E1F18396753000B798F /* Session.m */; };
 		761A0CE61881A714004F0965 /* HMRI99Model.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 761A0CE41881A714004F0965 /* HMRI99Model.xcdatamodeld */; };
 		761A0CEB1881ECA2004F0965 /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 761A0CEA1881ECA2004F0965 /* CoreData.framework */; };
 		762B34DE185531F1008FD7A3 /* SessionSummaryStaticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34DD185531F1008FD7A3 /* SessionSummaryStaticCell.m */; };
-		762B34E01855329E008FD7A3 /* SessionSummaryStaticCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34DF1855329E008FD7A3 /* SessionSummaryStaticCellTests.m */; };
 		762B34E218553371008FD7A3 /* SessionSummaryStaticCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 762B34E118553371008FD7A3 /* SessionSummaryStaticCell.xib */; };
 		762B34E51858D489008FD7A3 /* MeasurementsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34E41858D489008FD7A3 /* MeasurementsViewController.m */; };
-		762B34E7185C73CB008FD7A3 /* MeasurementsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34E6185C73CB008FD7A3 /* MeasurementsViewControllerTests.m */; };
 		762B34E9185CA5D1008FD7A3 /* MeasurementsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 762B34E8185CA5D0008FD7A3 /* MeasurementsViewController.xib */; };
-		762B34EB185DE293008FD7A3 /* MeasurementSummaryStaticCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34EA185DE293008FD7A3 /* MeasurementSummaryStaticCellTests.m */; };
 		762B34ED185E26B3008FD7A3 /* MeasurementSummaryStaticCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 762B34EC185E26B3008FD7A3 /* MeasurementSummaryStaticCell.xib */; };
 		762B34F0185E270F008FD7A3 /* MeasurementSummaryStaticCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34EF185E270E008FD7A3 /* MeasurementSummaryStaticCell.m */; };
 		762B34F3185E528C008FD7A3 /* MeasurementDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34F2185E528C008FD7A3 /* MeasurementDetailViewController.m */; };
 		762B34F5185E545B008FD7A3 /* MeasurementDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 762B34F4185E545B008FD7A3 /* MeasurementDetailViewController.xib */; };
-		762B34F7185E54A4008FD7A3 /* MeasurementDetailViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34F6185E54A4008FD7A3 /* MeasurementDetailViewControllerTests.m */; };
-		762B354218638C57008FD7A3 /* MeasurementDetailTableViewDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B354118638C57008FD7A3 /* MeasurementDetailTableViewDataSourceTests.m */; };
 		762B354518638CA9008FD7A3 /* MeasurementDetailTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B354418638CA8008FD7A3 /* MeasurementDetailTableViewDataSource.m */; };
 		76334E7C187369F200DFF15F /* SessionDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76334E7B187369F200DFF15F /* SessionDetailsViewController.m */; };
 		76334E7F18736BAA00DFF15F /* SessionDetailsDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76334E7E18736BAA00DFF15F /* SessionDetailsDataSource.m */; };
 		76334E8118736C2500DFF15F /* SessionDetailsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76334E8018736C2500DFF15F /* SessionDetailsViewController.xib */; };
-		76334E8318736FAA00DFF15F /* SessionDetailsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76334E8218736FAA00DFF15F /* SessionDetailsViewControllerTests.m */; };
-		76334E851873730F00DFF15F /* SessionDetailsDatasourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76334E841873730F00DFF15F /* SessionDetailsDatasourceTests.m */; };
-		7642E2D718A7AF03007E644C /* ImageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7642E2D618A7AF02007E644C /* ImageTests.m */; };
-		7642E2D918A7C190007E644C /* testImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7642E2D818A7C190007E644C /* testImage.jpg */; };
 		7642E9591895B33D00DF640A /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7642E9581895B33D00DF640A /* AssetsLibrary.framework */; };
 		7642E95D1895C83700DF640A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7642E95C1895C83700DF640A /* QuartzCore.framework */; };
 		7642E95F1896FAED00DF640A /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7642E95E1896FAED00DF640A /* MessageUI.framework */; };
 		766036AD218E444100E1320D /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766036AC218E444100E1320D /* Photos.framework */; };
-		767D5DBD1843E68C00ED7DC4 /* AppDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */; };
 		76808BE71889DC370075F1BE /* todo in Resources */ = {isa = PBXBuildFile; fileRef = 76808BE61889DC370075F1BE /* todo */; };
 		76808BEA1889E3C10075F1BE /* Measurement.m in Sources */ = {isa = PBXBuildFile; fileRef = 76808BE91889E3C10075F1BE /* Measurement.m */; };
-		76808BEC188AB90D0075F1BE /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 761A0CEA1881ECA2004F0965 /* CoreData.framework */; };
 		76A7555E188DAD97007B0D27 /* TDDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 76A7555D188DAD97007B0D27 /* TDDatePicker.m */; };
 		76B07256183D3CC4003E86CB /* SessionsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC8183D3A0300A1D668 /* SessionsTableViewDataSource.m */; };
-		76B07258183D3D09003E86CB /* SessionsTableViewDatasourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B07257183D3D09003E86CB /* SessionsTableViewDatasourceTests.m */; };
-		76B9ADAA1839752D00A1D668 /* MeasurementTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADA91839752D00A1D668 /* MeasurementTests.m */; };
-		76B9ADBC183AD96E00A1D668 /* NoiseSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADBB183AD96E00A1D668 /* NoiseSourceTests.m */; };
 		76B9ADBF183AD9F700A1D668 /* NoiseSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADBE183AD9F700A1D668 /* NoiseSource.m */; };
 		76B9ADC3183BFF8800A1D668 /* SessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC1183BFF8800A1D668 /* SessionsViewController.m */; };
 		76B9ADC4183BFF8800A1D668 /* SessionsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76B9ADC2183BFF8800A1D668 /* SessionsViewController.xib */; };
-		76B9ADC6183BFFDB00A1D668 /* SessionsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC5183BFFDB00A1D668 /* SessionsViewControllerTests.m */; };
 		76BA198318947CF10021D15F /* Image.m in Sources */ = {isa = PBXBuildFile; fileRef = 76BA198218947CF00021D15F /* Image.m */; };
 		76BA1986189488030021D15F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76BA1984189487C60021D15F /* MobileCoreServices.framework */; };
+		76C9DC3D218F3F7C003237B7 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76C9DC3C218F3F7C003237B7 /* OCMockitoIOS.framework */; };
+		76E9ADA62190CDA800931CA8 /* TestingAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 76C9DC3F218F6853003237B7 /* TestingAppDelegate.m */; };
+		76F57BFA218F211B00F2B646 /* AppDelegateTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */; };
+		76F57BFB218F211B00F2B646 /* SessionDetailsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76334E8218736FAA00DFF15F /* SessionDetailsViewControllerTests.m */; };
+		76F57BFC218F211B00F2B646 /* MeasurementDetailViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34F6185E54A4008FD7A3 /* MeasurementDetailViewControllerTests.m */; };
+		76F57BFD218F211B00F2B646 /* SessionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76172E1A183966A2000B798F /* SessionTests.m */; };
+		76F57BFE218F211B00F2B646 /* SessionDetailsDatasourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76334E841873730F00DFF15F /* SessionDetailsDatasourceTests.m */; };
+		76F57BFF218F211B00F2B646 /* MeasurementDetailTableViewDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B354118638C57008FD7A3 /* MeasurementDetailTableViewDataSourceTests.m */; };
+		76F57C00218F211B00F2B646 /* SessionSummaryStaticCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34DF1855329E008FD7A3 /* SessionSummaryStaticCellTests.m */; };
+		76F57C01218F211B00F2B646 /* NoiseSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADBB183AD96E00A1D668 /* NoiseSourceTests.m */; };
+		76F57C02218F211B00F2B646 /* ImageTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 7642E2D618A7AF02007E644C /* ImageTests.m */; };
+		76F57C03218F211B00F2B646 /* SessionsTableViewDatasourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B07257183D3D09003E86CB /* SessionsTableViewDatasourceTests.m */; };
+		76F57C04218F211B00F2B646 /* MeasurementTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADA91839752D00A1D668 /* MeasurementTests.m */; };
+		76F57C05218F211B00F2B646 /* MeasurementSummaryStaticCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34EA185DE293008FD7A3 /* MeasurementSummaryStaticCellTests.m */; };
+		76F57C06218F211B00F2B646 /* MeasurementsTableViewDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FB86A518424BD2009270CB /* MeasurementsTableViewDataSourceTests.m */; };
+		76F57C07218F211B00F2B646 /* SessionsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC5183BFFDB00A1D668 /* SessionsViewControllerTests.m */; };
+		76F57C08218F211B00F2B646 /* MeasurementsViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 762B34E6185C73CB008FD7A3 /* MeasurementsViewControllerTests.m */; };
+		76F57C0A218F254C00F2B646 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 76F57C09218F254C00F2B646 /* OCHamcrestIOS.framework */; };
 		76FB86A41842399B009270CB /* MeasurementsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FB86A31842399B009270CB /* MeasurementsTableViewDataSource.m */; };
-		76FB86A618424BD2009270CB /* MeasurementsTableViewDataSourceTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 76FB86A518424BD2009270CB /* MeasurementsTableViewDataSourceTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		76172E071839634A000B798F /* PBXContainerItemProxy */ = {
+		76F57BF5218F20C400F2B646 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 76172DCE18396349000B798F /* Project object */;
 			proxyType = 1;
@@ -81,7 +76,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		760D8965184B9C480007B0B1 /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMockitoIOS.framework; sourceTree = "<group>"; };
 		76172DD618396349000B798F /* HMRI99.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = HMRI99.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		76172DD918396349000B798F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		76172DDB18396349000B798F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -95,12 +89,9 @@
 		76172DEB1839634A000B798F /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		76172DED1839634A000B798F /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		76172DEF1839634A000B798F /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		76172E021839634A000B798F /* HMRI99Tests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HMRI99Tests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		76172E031839634A000B798F /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		76172E0B1839634A000B798F /* HMRI99Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "HMRI99Tests-Info.plist"; sourceTree = "<group>"; };
 		76172E0D1839634A000B798F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		76172E1A183966A2000B798F /* SessionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionTests.m; sourceTree = "<group>"; };
-		76172E1C183966E6000B798F /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		76172E1E18396753000B798F /* Session.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Session.h; sourceTree = "<group>"; };
 		76172E1F18396753000B798F /* Session.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Session.m; sourceTree = "<group>"; };
 		761A0CE51881A714004F0965 /* HMRI99Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = HMRI99Model.xcdatamodel; sourceTree = "<group>"; };
@@ -157,6 +148,12 @@
 		76BA198118947CF00021D15F /* Image.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Image.h; sourceTree = "<group>"; };
 		76BA198218947CF00021D15F /* Image.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Image.m; sourceTree = "<group>"; };
 		76BA1984189487C60021D15F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		76C9DC3C218F3F7C003237B7 /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCMockitoIOS.framework; sourceTree = "<group>"; };
+		76C9DC3E218F6853003237B7 /* TestingAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestingAppDelegate.h; sourceTree = "<group>"; };
+		76C9DC3F218F6853003237B7 /* TestingAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = TestingAppDelegate.m; path = HMRI99Tests/TestingAppDelegate.m; sourceTree = SOURCE_ROOT; };
+		76F57BF0218F20C400F2B646 /* HMRI99Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = HMRI99Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		76F57BF4218F20C400F2B646 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		76F57C09218F254C00F2B646 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = OCHamcrestIOS.framework; sourceTree = "<group>"; };
 		76FB86A21842399B009270CB /* MeasurementsTableViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeasurementsTableViewDataSource.h; sourceTree = "<group>"; };
 		76FB86A31842399B009270CB /* MeasurementsTableViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementsTableViewDataSource.m; sourceTree = "<group>"; };
 		76FB86A518424BD2009270CB /* MeasurementsTableViewDataSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementsTableViewDataSourceTests.m; sourceTree = "<group>"; };
@@ -180,16 +177,12 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		76172DFE1839634A000B798F /* Frameworks */ = {
+		76F57BED218F20C400F2B646 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76172E041839634A000B798F /* SenTestingKit.framework in Frameworks */,
-				76172E051839634A000B798F /* UIKit.framework in Frameworks */,
-				76172E061839634A000B798F /* Foundation.framework in Frameworks */,
-				76172E1D183966E6000B798F /* OCHamcrestIOS.framework in Frameworks */,
-				760D8966184B9C480007B0B1 /* OCMockitoIOS.framework in Frameworks */,
-				76808BEC188AB90D0075F1BE /* CoreData.framework in Frameworks */,
+				76F57C0A218F254C00F2B646 /* OCHamcrestIOS.framework in Frameworks */,
+				76C9DC3D218F3F7C003237B7 /* OCMockitoIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,7 +193,7 @@
 			isa = PBXGroup;
 			children = (
 				76172DDF1839634A000B798F /* HMRI99 */,
-				76172E091839634A000B798F /* HMRI99Tests */,
+				76F57BF1218F20C400F2B646 /* HMRI99Tests */,
 				76172DD818396349000B798F /* Frameworks */,
 				76172DD718396349000B798F /* Products */,
 			);
@@ -210,7 +203,7 @@
 			isa = PBXGroup;
 			children = (
 				76172DD618396349000B798F /* HMRI99.app */,
-				76172E021839634A000B798F /* HMRI99Tests.octest */,
+				76F57BF0218F20C400F2B646 /* HMRI99Tests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -218,18 +211,17 @@
 		76172DD818396349000B798F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				76C9DC3C218F3F7C003237B7 /* OCMockitoIOS.framework */,
+				76F57C09218F254C00F2B646 /* OCHamcrestIOS.framework */,
 				766036AC218E444100E1320D /* Photos.framework */,
 				7642E95E1896FAED00DF640A /* MessageUI.framework */,
 				7642E95C1895C83700DF640A /* QuartzCore.framework */,
 				7642E9581895B33D00DF640A /* AssetsLibrary.framework */,
 				76BA1984189487C60021D15F /* MobileCoreServices.framework */,
 				761A0CEA1881ECA2004F0965 /* CoreData.framework */,
-				760D8965184B9C480007B0B1 /* OCMockitoIOS.framework */,
-				76172E1C183966E6000B798F /* OCHamcrestIOS.framework */,
 				76172DD918396349000B798F /* UIKit.framework */,
 				76172DDB18396349000B798F /* Foundation.framework */,
 				76172DDD18396349000B798F /* CoreGraphics.framework */,
-				76172E031839634A000B798F /* SenTestingKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -253,10 +245,10 @@
 				762B34EF185E270E008FD7A3 /* MeasurementSummaryStaticCell.m */,
 				762B34EC185E26B3008FD7A3 /* MeasurementSummaryStaticCell.xib */,
 				762B34E31858D489008FD7A3 /* MeasurementsViewController.h */,
-				76BA198118947CF00021D15F /* Image.h */,
-				76BA198218947CF00021D15F /* Image.m */,
 				762B34E41858D489008FD7A3 /* MeasurementsViewController.m */,
 				762B34E8185CA5D0008FD7A3 /* MeasurementsViewController.xib */,
+				76BA198118947CF00021D15F /* Image.h */,
+				76BA198218947CF00021D15F /* Image.m */,
 				76B9ADBD183AD9F700A1D668 /* NoiseSource.h */,
 				76B9ADBE183AD9F700A1D668 /* NoiseSource.m */,
 				76172E1E18396753000B798F /* Session.h */,
@@ -265,8 +257,8 @@
 				76334E7E18736BAA00DFF15F /* SessionDetailsDataSource.m */,
 				76334E7A187369F200DFF15F /* SessionDetailsViewController.h */,
 				76334E7B187369F200DFF15F /* SessionDetailsViewController.m */,
-				76334E8018736C2500DFF15F /* SessionDetailsViewController.xib */,
 				76B9ADC7183D3A0300A1D668 /* SessionsTableViewDataSource.h */,
+				76334E8018736C2500DFF15F /* SessionDetailsViewController.xib */,
 				76B9ADC8183D3A0300A1D668 /* SessionsTableViewDataSource.m */,
 				762B34DC185531F1008FD7A3 /* SessionSummaryStaticCell.h */,
 				762B34DD185531F1008FD7A3 /* SessionSummaryStaticCell.m */,
@@ -296,9 +288,22 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		76172E091839634A000B798F /* HMRI99Tests */ = {
+		76172E0A1839634A000B798F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7642E2D818A7C190007E644C /* testImage.jpg */,
+				76172E0B1839634A000B798F /* HMRI99Tests-Info.plist */,
+				76172E0C1839634A000B798F /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		76F57BF1218F20C400F2B646 /* HMRI99Tests */ = {
+			isa = PBXGroup;
+			children = (
+				76C9DC3E218F6853003237B7 /* TestingAppDelegate.h */,
+				76C9DC3F218F6853003237B7 /* TestingAppDelegate.m */,
+				76172E0A1839634A000B798F /* Supporting Files */,
 				767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */,
 				7642E2D618A7AF02007E644C /* ImageTests.m */,
 				762B354118638C57008FD7A3 /* MeasurementDetailTableViewDataSourceTests.m */,
@@ -314,19 +319,9 @@
 				762B34DF1855329E008FD7A3 /* SessionSummaryStaticCellTests.m */,
 				76B9ADC5183BFFDB00A1D668 /* SessionsViewControllerTests.m */,
 				76172E1A183966A2000B798F /* SessionTests.m */,
-				76172E0A1839634A000B798F /* Supporting Files */,
+				76F57BF4218F20C400F2B646 /* Info.plist */,
 			);
 			path = HMRI99Tests;
-			sourceTree = "<group>";
-		};
-		76172E0A1839634A000B798F /* Supporting Files */ = {
-			isa = PBXGroup;
-			children = (
-				7642E2D818A7C190007E644C /* testImage.jpg */,
-				76172E0B1839634A000B798F /* HMRI99Tests-Info.plist */,
-				76172E0C1839634A000B798F /* InfoPlist.strings */,
-			);
-			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -349,24 +344,23 @@
 			productReference = 76172DD618396349000B798F /* HMRI99.app */;
 			productType = "com.apple.product-type.application";
 		};
-		76172E011839634A000B798F /* HMRI99Tests */ = {
+		76F57BEF218F20C400F2B646 /* HMRI99Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 76172E171839634A000B798F /* Build configuration list for PBXNativeTarget "HMRI99Tests" */;
+			buildConfigurationList = 76F57BF7218F20C400F2B646 /* Build configuration list for PBXNativeTarget "HMRI99Tests" */;
 			buildPhases = (
-				76172DFD1839634A000B798F /* Sources */,
-				76172DFE1839634A000B798F /* Frameworks */,
-				76172DFF1839634A000B798F /* Resources */,
-				76172E001839634A000B798F /* ShellScript */,
+				76F57BEC218F20C400F2B646 /* Sources */,
+				76F57BED218F20C400F2B646 /* Frameworks */,
+				76F57BEE218F20C400F2B646 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				76172E081839634A000B798F /* PBXTargetDependency */,
+				76F57BF6218F20C400F2B646 /* PBXTargetDependency */,
 			);
 			name = HMRI99Tests;
 			productName = HMRI99Tests;
-			productReference = 76172E021839634A000B798F /* HMRI99Tests.octest */;
-			productType = "com.apple.product-type.bundle";
+			productReference = 76F57BF0218F20C400F2B646 /* HMRI99Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
@@ -381,8 +375,11 @@
 						DevelopmentTeam = 3Y5TTPRJ54;
 						ProvisioningStyle = Automatic;
 					};
-					76172E011839634A000B798F = {
+					76F57BEF218F20C400F2B646 = {
+						CreatedOnToolsVersion = 10.1;
 						DevelopmentTeam = 3Y5TTPRJ54;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 76172DD518396349000B798F;
 					};
 				};
 			};
@@ -399,7 +396,7 @@
 			projectRoot = "";
 			targets = (
 				76172DD518396349000B798F /* HMRI99 */,
-				76172E011839634A000B798F /* HMRI99Tests */,
+				76F57BEF218F20C400F2B646 /* HMRI99Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -423,32 +420,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		76172DFF1839634A000B798F /* Resources */ = {
+		76F57BEE218F20C400F2B646 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76172E0E1839634A000B798F /* InfoPlist.strings in Resources */,
-				7642E2D918A7C190007E644C /* testImage.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		76172E001839634A000B798F /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		76172DD218396349000B798F /* Sources */ = {
@@ -476,35 +455,36 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		76172DFD1839634A000B798F /* Sources */ = {
+		76F57BEC218F20C400F2B646 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				76172E1B183966A2000B798F /* SessionTests.m in Sources */,
-				76B9ADAA1839752D00A1D668 /* MeasurementTests.m in Sources */,
-				76B9ADBC183AD96E00A1D668 /* NoiseSourceTests.m in Sources */,
-				76B9ADC6183BFFDB00A1D668 /* SessionsViewControllerTests.m in Sources */,
-				76B07258183D3D09003E86CB /* SessionsTableViewDatasourceTests.m in Sources */,
-				76FB86A618424BD2009270CB /* MeasurementsTableViewDataSourceTests.m in Sources */,
-				767D5DBD1843E68C00ED7DC4 /* AppDelegateTests.m in Sources */,
-				762B34E01855329E008FD7A3 /* SessionSummaryStaticCellTests.m in Sources */,
-				762B34E7185C73CB008FD7A3 /* MeasurementsViewControllerTests.m in Sources */,
-				762B34EB185DE293008FD7A3 /* MeasurementSummaryStaticCellTests.m in Sources */,
-				762B34F7185E54A4008FD7A3 /* MeasurementDetailViewControllerTests.m in Sources */,
-				762B354218638C57008FD7A3 /* MeasurementDetailTableViewDataSourceTests.m in Sources */,
-				76334E8318736FAA00DFF15F /* SessionDetailsViewControllerTests.m in Sources */,
-				76334E851873730F00DFF15F /* SessionDetailsDatasourceTests.m in Sources */,
-				7642E2D718A7AF03007E644C /* ImageTests.m in Sources */,
+				76F57C03218F211B00F2B646 /* SessionsTableViewDatasourceTests.m in Sources */,
+				76F57C01218F211B00F2B646 /* NoiseSourceTests.m in Sources */,
+				76F57C04218F211B00F2B646 /* MeasurementTests.m in Sources */,
+				76F57C02218F211B00F2B646 /* ImageTests.m in Sources */,
+				76F57BFC218F211B00F2B646 /* MeasurementDetailViewControllerTests.m in Sources */,
+				76F57C08218F211B00F2B646 /* MeasurementsViewControllerTests.m in Sources */,
+				76F57C06218F211B00F2B646 /* MeasurementsTableViewDataSourceTests.m in Sources */,
+				76F57BFA218F211B00F2B646 /* AppDelegateTests.m in Sources */,
+				76F57C07218F211B00F2B646 /* SessionsViewControllerTests.m in Sources */,
+				76E9ADA62190CDA800931CA8 /* TestingAppDelegate.m in Sources */,
+				76F57BFD218F211B00F2B646 /* SessionTests.m in Sources */,
+				76F57BFB218F211B00F2B646 /* SessionDetailsViewControllerTests.m in Sources */,
+				76F57BFE218F211B00F2B646 /* SessionDetailsDatasourceTests.m in Sources */,
+				76F57BFF218F211B00F2B646 /* MeasurementDetailTableViewDataSourceTests.m in Sources */,
+				76F57C05218F211B00F2B646 /* MeasurementSummaryStaticCellTests.m in Sources */,
+				76F57C00218F211B00F2B646 /* SessionSummaryStaticCellTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		76172E081839634A000B798F /* PBXTargetDependency */ = {
+		76F57BF6218F20C400F2B646 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 76172DD518396349000B798F /* HMRI99 */;
-			targetProxy = 76172E071839634A000B798F /* PBXContainerItemProxy */;
+			targetProxy = 76F57BF5218F20C400F2B646 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -653,41 +633,83 @@
 			};
 			name = Release;
 		};
-		76172E181839634A000B798F /* Debug */ = {
+		76F57BF8218F20C400F2B646 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HMRI99.app/HMRI99";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 3Y5TTPRJ54;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"$(SRCROOT)\"",
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HMRI99/HMRI99-Prefix.pch";
-				INFOPLIST_FILE = "HMRI99Tests/HMRI99Tests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "tvb.${PRODUCT_NAME:rfc1034identifier}";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = HMRI99Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = mp.HMRI99Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HMRI99.app/HMRI99";
 			};
 			name = Debug;
 		};
-		76172E191839634A000B798F /* Release */ = {
+		76F57BF9218F20C400F2B646 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/HMRI99.app/HMRI99";
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 3Y5TTPRJ54;
+				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-					"\"$(SRCROOT)\"",
+					"$(inherited)",
+					"$(PROJECT_DIR)",
 				);
+				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "HMRI99/HMRI99-Prefix.pch";
-				INFOPLIST_FILE = "HMRI99Tests/HMRI99Tests-Info.plist";
-				PRODUCT_BUNDLE_IDENTIFIER = "tvb.${PRODUCT_NAME:rfc1034identifier}";
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				INFOPLIST_FILE = HMRI99Tests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_BUNDLE_IDENTIFIER = mp.HMRI99Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUNDLE_LOADER)";
-				WRAPPER_EXTENSION = octest;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/HMRI99.app/HMRI99";
 			};
 			name = Release;
 		};
@@ -712,11 +734,11 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		76172E171839634A000B798F /* Build configuration list for PBXNativeTarget "HMRI99Tests" */ = {
+		76F57BF7218F20C400F2B646 /* Build configuration list for PBXNativeTarget "HMRI99Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				76172E181839634A000B798F /* Debug */,
-				76172E191839634A000B798F /* Release */,
+				76F57BF8218F20C400F2B646 /* Debug */,
+				76F57BF9218F20C400F2B646 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

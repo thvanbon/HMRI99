@@ -6,7 +6,7 @@
 #import "NoiseSource.h"
 #import "Image.h"
     // Test support
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
@@ -16,7 +16,7 @@
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
 
-@interface SessionTests : SenTestCase
+@interface SessionTests : XCTestCase
 @end
 
 @implementation SessionTests
@@ -38,7 +38,7 @@
                                           URL: nil
                                       options: nil
                                         error: NULL];
-    ctx = [[NSManagedObjectContext alloc] init];
+    ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [ctx setPersistentStoreCoordinator: coord];
     sut=[NSEntityDescription insertNewObjectForEntityForName:@"Session" inManagedObjectContext:ctx];
     
@@ -53,7 +53,7 @@
     sut=nil;
     ctx = nil;
     NSError *error = nil;
-    STAssertTrue([coord removePersistentStore: store error: &error],
+    XCTAssertTrue([coord removePersistentStore: store error: &error],
                  @"couldn't remove persistent store: %@", error);
     store = nil;
     coord = nil;
@@ -94,19 +94,19 @@
 
 - (void) testThatListOfMeasurementsIsInitiallyEmpty
 {
-    assertThat([NSNumber numberWithInt:[[sut measurements] count]], is(equalTo(@0)));
+    assertThat([NSNumber numberWithInteger:[[sut measurements] count]], is(equalTo(@0)));
 }
 
 - (void) testThatMeasurementCanBeAdded
 {
     Measurement *newMeasurement=(Measurement*)[NSEntityDescription insertNewObjectForEntityForName:@"Measurement"         inManagedObjectContext:ctx];
     newMeasurement.session=sut;
-    assertThat([NSNumber numberWithInt:[[sut measurements] count]], is(equalTo(@1)));
+    assertThat([NSNumber numberWithInteger:[[sut measurements] count]], is(equalTo(@1)));
 }
 
 - (void) testSessionHasExportMethod
 {
-    assertThatBool([sut respondsToSelector:@selector(exportSession)],is(equalToBool(YES)));
+    assertThatBool([sut respondsToSelector:@selector(exportSession)],is(equalToLong(YES)));
 }
 
 - (void) testExportSessionGivesFullOutputForOneMeasurement
@@ -139,7 +139,7 @@
 
 - (void) testSessionHasExportMeasurementImagesMethod
 {
-    assertThatBool([sut respondsToSelector:@selector(exportMeasurementImages)],is(equalToBool(YES)));
+    assertThatBool([sut respondsToSelector:@selector(exportMeasurementImages)],is(equalToLong(YES)));
 }
 
 

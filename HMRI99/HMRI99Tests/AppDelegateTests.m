@@ -7,7 +7,7 @@
 
     // Test support
 #import <UIKit/UIKit.h>
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
@@ -17,7 +17,7 @@
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
 
-@interface AppDelegateTests : SenTestCase
+@interface AppDelegateTests : XCTestCase
 @end
 
 @implementation AppDelegateTests
@@ -48,7 +48,7 @@
 - (void)testWindowIsKeyAfterApplicationLaunch
 {
     [sut application: nil didFinishLaunchingWithOptions: nil];
-    assertThatBool(sut.window.keyWindow, is(equalToBool(YES)));
+    assertThatBool(sut.window.keyWindow, is(equalToLong(YES)));
 }
 
 - (void)testWindowHasRootNavigationControllerAfterApplicationLaunch
@@ -59,21 +59,21 @@
          
 - (void)testAppDidFinishLaunchingReturnsYES
 {
-    assertThatBool([sut application: nil didFinishLaunchingWithOptions: nil],is(equalToBool(YES)));
+    assertThatBool([sut application: nil didFinishLaunchingWithOptions: nil],is(equalToLong(YES)));
 }
 
 - (void)testNavigationControllerShowsAHMRI99ViewController
 {
     [sut application: nil didFinishLaunchingWithOptions: nil];
     id visibleViewController = sut.navigationController.topViewController;
-    assertThatBool([visibleViewController isKindOfClass: [SessionsViewController class]], is(equalToBool(YES)));
+    assertThatBool([visibleViewController isKindOfClass: [SessionsViewController class]], is(equalToLong(YES)));
 }
 
 - (void)testFirstViewControllerHasASessionTableViewDataSource
 {
     [sut application: nil didFinishLaunchingWithOptions: nil];
     SessionsViewController *viewController = (SessionsViewController *) sut.navigationController.topViewController;
-    assertThatBool([viewController.dataSource isKindOfClass: [SessionsTableViewDataSource class]], is(equalToBool(YES)));
+    assertThatBool([viewController.dataSource isKindOfClass: [SessionsTableViewDataSource class]], is(equalToLong(YES)));
 }
 
 

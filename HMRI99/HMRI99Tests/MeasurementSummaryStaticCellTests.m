@@ -4,7 +4,7 @@
 // Collaborators
 
 // Test support
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
@@ -14,7 +14,7 @@
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
 
-@interface MeasurementSummaryStaticCellTests : SenTestCase
+@interface MeasurementSummaryStaticCellTests : XCTestCase
 @end
 
 @implementation MeasurementSummaryStaticCellTests

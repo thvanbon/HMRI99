@@ -5,7 +5,7 @@
     // Collaborators
 #import "Session.h"
     // Test support
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
@@ -15,7 +15,7 @@
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
 
-@interface SessionDetailsDatasourceTests : SenTestCase
+@interface SessionDetailsDatasourceTests : XCTestCase
 @end
 
 @implementation SessionDetailsDatasourceTests
@@ -42,7 +42,7 @@
                                           URL: nil
                                       options: nil
                                         error: NULL];
-    ctx = [[NSManagedObjectContext alloc] init];
+    ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [ctx setPersistentStoreCoordinator: coord];
     sut=[[SessionDetailsDataSource alloc] init];
     sampleSession=[NSEntityDescription insertNewObjectForEntityForName:@"Session" inManagedObjectContext:ctx];
@@ -61,7 +61,7 @@
     formatter=nil;
     ctx = nil;
     NSError *error = nil;
-    STAssertTrue([coord removePersistentStore: store error: &error],
+    XCTAssertTrue([coord removePersistentStore: store error: &error],
                  @"couldn't remove persistent store: %@", error);
     store = nil;
     coord = nil;
@@ -71,12 +71,12 @@
 
 - (void) testNumberOfSectionsReturnsOne
 {
-    assertThatInt([sut numberOfSectionsInTableView:nil],is(equalToInt(1)));
+    assertThatInt((int) [sut numberOfSectionsInTableView:sut.tableView],is(equalToInt(1)));
 }
 
 - (void) testNumberOfRowsReturnsFourForFirstSection
 {
-    assertThatInt([sut tableView:nil numberOfRowsInSection:0],is(equalToInt(4)));
+    assertThatInt((int) [sut tableView:sut.tableView numberOfRowsInSection:0],is(equalToInt(4)));
 }
 
 - (void) testObjectShouldConformToUITextFieldDelegate
@@ -86,12 +86,12 @@
 
 - (void) testTextFieldDidBeginEditingIsImplemented
 {
-    assertThatBool([sut respondsToSelector:@selector(textFieldDidBeginEditing:)],is(equalToBool(YES)));
+    assertThatBool([sut respondsToSelector:@selector(textFieldDidBeginEditing:)],is(equalToLong(YES)));
 }
 
 - (void) testTextFieldDidEndEditingIsImplemented
 {
-    assertThatBool([sut respondsToSelector:@selector(textFieldDidEndEditing:)],is(equalToBool(YES)));
+    assertThatBool([sut respondsToSelector:@selector(textFieldDidEndEditing:)],is(equalToLong(YES)));
 }
 
 #pragma mark row 0
@@ -257,7 +257,7 @@
 -(UITableViewCell *)cellForRow:(int)row
 {
     NSIndexPath * indexPath=[NSIndexPath indexPathForRow:row inSection:0];
-    return [sut tableView:nil cellForRowAtIndexPath:indexPath];
+    return [sut tableView:sut.tableView cellForRowAtIndexPath:indexPath];
 }
 
 -(UITextField *)textFieldForRow:(int)row

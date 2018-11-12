@@ -398,6 +398,22 @@
             [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status)
              {
                  switch (status) {
+                     case PHAuthorizationStatusNotDetermined:{
+                         NSLog(@"PHAuthorizationStatusAuthorized");
+                         //Save the new image (original or edited) to the Camera Roll
+                         [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+                             [PHAssetChangeRequest creationRequestForAssetFromImage:self->imageToUse];
+                         }completionHandler:^(BOOL success, NSError *error) {
+                             if(success){
+                                 NSLog(@"worked");
+                             }else{
+                                 NSLog(@"Error: %@", error);
+                             }
+                         }];
+                         
+                         [self saveReloadAndDismissViewController:picker];
+                         break;
+                     }
                      case PHAuthorizationStatusAuthorized: {
                          NSLog(@"PHAuthorizationStatusAuthorized");
                          //Save the new image (original or edited) to the Camera Roll

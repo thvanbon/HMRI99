@@ -1,20 +1,18 @@
-//
-//  OCHamcrest - HCClassMatcher.h
-//  Copyright 2013 hamcrest.org. See LICENSE.txt
-//
-//  Created by: Jon Reid, http://qualitycoding.org/
-//  Docs: http://hamcrest.github.com/OCHamcrest/
-//  Source: https://github.com/hamcrest/OCHamcrest
-//
+//  OCHamcrest by Jon Reid, https://qualitycoding.org/
+//  Copyright 2018 hamcrest.org. See LICENSE.txt
 
 #import <OCHamcrestIOS/HCBaseMatcher.h>
 
 
-@interface HCClassMatcher : HCBaseMatcher
-{
-    Class theClass;
-}
+NS_ASSUME_NONNULL_BEGIN
 
-- (instancetype)initWithType:(Class)type;
+@interface HCClassMatcher : HCBaseMatcher
+
+@property (nonatomic, strong, readonly) Class theClass;
+
+- (instancetype)initWithClass:(Class)aClass NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
 
 @end
+
+NS_ASSUME_NONNULL_END

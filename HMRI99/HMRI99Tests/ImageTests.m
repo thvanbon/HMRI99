@@ -4,7 +4,7 @@
     // Collaborators
 
     // Test support
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
@@ -14,7 +14,7 @@
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
 
-@interface ImageTests : SenTestCase
+@interface ImageTests : XCTestCase
 @end
 
 @implementation ImageTests
@@ -40,7 +40,7 @@
                                           URL: nil
                                       options: nil
                                         error: NULL];
-    ctx = [[NSManagedObjectContext alloc] init];
+    ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [ctx setPersistentStoreCoordinator: coord];
     sut=[NSEntityDescription insertNewObjectForEntityForName:@"Image" inManagedObjectContext:ctx];
     
@@ -61,7 +61,7 @@
     sut=nil;
     ctx = nil;
     NSError *error = nil;
-    STAssertTrue([coord removePersistentStore: store error: &error],
+    XCTAssertTrue([coord removePersistentStore: store error: &error],
                  @"couldn't remove persistent store: %@", error);
     store = nil;
     coord = nil;

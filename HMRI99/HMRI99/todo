@@ -60,6 +60,7 @@ fix session details
     SessionDetailViewController viewDidLoad bevat bij self.dataSource geen object
     Wanneer worden deze aangeroepen?
     => bij Sessions wordt viewDidLoad eerst aangeroepen en daarna pas de acties die horen bij de notification. Hoe kan dat?
+    Komt door initialisatie van pickers. NA disablen daarvan werkt het wel.
 fix tests
 add gps coordinates
 fix large keyboard

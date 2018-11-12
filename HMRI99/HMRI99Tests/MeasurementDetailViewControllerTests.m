@@ -6,7 +6,7 @@
 #import "MeasurementDetailTableViewDataSource.h"
 
     // Test support
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
@@ -16,7 +16,7 @@
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
 
-@interface MeasurementDetailViewControllerTests : SenTestCase
+@interface MeasurementDetailViewControllerTests : XCTestCase
 @end
 
 @implementation MeasurementDetailViewControllerTests
@@ -46,17 +46,17 @@
 
 - (void) testViewIsConnected
 {
-    STAssertNoThrow([sut view], @"Nib needs to be connected to right class" );
+    XCTAssertNoThrow([sut view], @"Nib needs to be connected to right class" );
 }
 
 - (void) testViewControllerHasATableView
 {
     objc_property_t tableViewProperty = class_getProperty([sut class], "tableView");
-    STAssertTrue(tableViewProperty != NULL, @"MeasurementsViewController needs a table view");
+    XCTAssertTrue(tableViewProperty != NULL, @"MeasurementsViewController needs a table view");
 }
 
 - (void)testViewControllerHasADataSourceProperty { objc_property_t dataSourceProperty =class_getProperty([sut class], "dataSource");
-    STAssertTrue(dataSourceProperty != NULL, @"MeasurementsViewController needs a data source");
+    XCTAssertTrue(dataSourceProperty != NULL, @"MeasurementsViewController needs a data source");
 }
 
 - (void) testViewControllerConnectsDataSourceInViewDidLoad
@@ -82,7 +82,7 @@
     MeasurementDetailTableViewDataSource *measurementDetailTableViewDataSource = [[MeasurementDetailTableViewDataSource alloc] init];
     sut.dataSource = measurementDetailTableViewDataSource;
     [sut viewDidLoad];
-    STAssertEqualObjects(measurementDetailTableViewDataSource.tableView, tableView, @"Back-link to table view should be set in data source");
+    XCTAssertEqualObjects(measurementDetailTableViewDataSource.tableView, tableView, @"Back-link to table view should be set in data source");
 }
 
 @end

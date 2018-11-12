@@ -4,7 +4,7 @@
     // Collaborators
 
     // Test support
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
@@ -14,7 +14,7 @@
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
 
-@interface NoiseSourceTests : SenTestCase
+@interface NoiseSourceTests : XCTestCase
 @end
 
 @implementation NoiseSourceTests
@@ -37,7 +37,7 @@
                                           URL: nil
                                       options: nil
                                         error: NULL];
-    ctx = [[NSManagedObjectContext alloc] init];
+    ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [ctx setPersistentStoreCoordinator: coord];
     sut=[NSEntityDescription insertNewObjectForEntityForName:@"NoiseSource" inManagedObjectContext:ctx];
 }
@@ -47,7 +47,7 @@
     sut=nil;
     ctx = nil;
     NSError *error = nil;
-    STAssertTrue([coord removePersistentStore: store error: &error],
+    XCTAssertTrue([coord removePersistentStore: store error: &error],
                  @"couldn't remove persistent store: %@", error);
     store = nil;
     coord = nil;
@@ -70,7 +70,7 @@
 
 - (void) testNoiseSourceHasExportMethod
 {
-    assertThatBool([sut respondsToSelector:@selector(exportNoiseSource)],is(equalToBool(YES)));
+    assertThatBool([sut respondsToSelector:@selector(exportNoiseSource)],is(equalToLong(YES)));
 }
 
 - (void) testExportNoiseSourceGivesFullOutput

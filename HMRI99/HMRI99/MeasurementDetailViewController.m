@@ -1,5 +1,6 @@
 #import "MeasurementDetailViewController.h"
 #import <objc/runtime.h>
+#import <Photos/Photos.h>
 
 @implementation MeasurementDetailViewController
 @synthesize tableView, dataSource;
@@ -96,27 +97,42 @@
                                                UINavigationControllerDelegate>) delegate {
     controller=self;
     if (([UIImagePickerController isSourceTypeAvailable:
-          UIImagePickerControllerSourceTypeSavedPhotosAlbum] == NO)
+          UIImagePickerControllerSourceTypePhotoLibrary] == NO)
         || (delegate == nil)
         || (controller == nil))
         return NO;
     
-    mediaUI = [[UIImagePickerController alloc] init];
-    mediaUI.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+    imagePicker = [[UIImagePickerController alloc] init];
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     
     // Displays saved pictures and movies, if both are available, from the
     // Camera Roll album.
-    mediaUI.mediaTypes =
+    imagePicker.mediaTypes =
     [UIImagePickerController availableMediaTypesForSourceType:
-     UIImagePickerControllerSourceTypeSavedPhotosAlbum];
+     UIImagePickerControllerSourceTypePhotoLibrary];
     
     // Hides the controls for moving & scaling pictures, or for
     // trimming movies. To instead show the controls, use YES.
-    mediaUI.allowsEditing = NO;
+    imagePicker.allowsEditing = NO;
     
-    mediaUI.delegate = delegate;
+    imagePicker.delegate = delegate;
     
-    [controller presentViewController: mediaUI animated: YES completion:nil];
+    PHAuthorizationStatus status = [PHPhotoLibrary authorizationStatus];
+    if(status == PHAuthorizationStatusNotDetermined) {
+        // Request photo authorization
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status) {
+            // User code (show imagepicker)
+            [controller presentViewController: self->imagePicker animated: YES completion:nil];
+        }];
+    } else if (status == PHAuthorizationStatusAuthorized) {
+        // User code
+        [controller presentViewController: self->imagePicker animated: YES completion:nil];
+    } else if (status == PHAuthorizationStatusRestricted) {
+        // User code
+    } else if (status == PHAuthorizationStatusDenied) {
+        // User code
+    }
+
     return YES;
 }
 
@@ -136,9 +152,9 @@
     
     // Displays a control that allows the user to choose picture or
     // movie capture, if both are available:
-    cameraUI.mediaTypes =
-    [UIImagePickerController availableMediaTypesForSourceType:
-     UIImagePickerControllerSourceTypeCamera];
+//    cameraUI.mediaTypes =
+//    [UIImagePickerController availableMediaTypesForSourceType:
+//     UIImagePickerControllerSourceTypeCamera];
     
     
     

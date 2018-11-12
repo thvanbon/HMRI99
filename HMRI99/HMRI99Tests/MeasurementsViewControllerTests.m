@@ -9,7 +9,7 @@
 #import "MeasurementDetailTableViewDataSource.h"
 
 // Test support
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
@@ -18,7 +18,7 @@
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
 
-@interface MeasurementsViewControllerTests : SenTestCase
+@interface MeasurementsViewControllerTests : XCTestCase
 @end
 
 static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedNotificationKey";
@@ -69,7 +69,7 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
                                           URL: nil
                                       options: nil
                                         error: NULL];
-    ctx = [[NSManagedObjectContext alloc] init];
+    ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [ctx setPersistentStoreCoordinator: coord];
     dataSource=[[MeasurementsTableViewDataSource alloc] init];
     dataSource.managedObjectContext=ctx;
@@ -95,7 +95,7 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
     navController=nil;
     ctx = nil;
     NSError *error = nil;
-    STAssertTrue([coord removePersistentStore: store error: &error],
+    XCTAssertTrue([coord removePersistentStore: store error: &error],
                  @"couldn't remove persistent store: %@", error);
     store = nil;
     coord = nil;
@@ -106,11 +106,11 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
 - (void) testViewControllerHasATableView
 {
     objc_property_t tableViewProperty = class_getProperty([sut class], "tableView");
-    STAssertTrue(tableViewProperty != NULL, @"MeasurementsViewController needs a table view");
+    XCTAssertTrue(tableViewProperty != NULL, @"MeasurementsViewController needs a table view");
 }
 
 - (void)testViewControllerHasADataSourceProperty { objc_property_t dataSourceProperty =class_getProperty([sut class], "dataSource");
-    STAssertTrue(dataSourceProperty != NULL, @"MeasurementsViewController needs a data source");
+    XCTAssertTrue(dataSourceProperty != NULL, @"MeasurementsViewController needs a data source");
 }
 
 - (void) testViewControllerConnectsDataSourceInViewDidLoad
@@ -191,9 +191,11 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
 
 - (void)testSelectingMeasurementDeselectsMeasurementsViewControllerAsTopViewController
 {
+    NSLog(@"%@", sut);
     [sut userDidSelectMeasurementNotification:nil];
     UIViewController *currentTopVC = [navController topViewController];
-    STAssertFalse([currentTopVC isEqual: sut], @"New view controller should be pushed onto the stack");
+    NSLog(@"%@", currentTopVC);
+    XCTAssertFalse([currentTopVC isEqual: sut], @"New view controller should be pushed onto the stack");
 }
 
 - (void)testSelectingMeasurementShouldSelectDifferentViewControllerAsTopViewController
@@ -201,7 +203,7 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
     
     [sut userDidSelectMeasurementNotification:nil];
     UIViewController *currentTopVC = [navController topViewController];
-    STAssertTrue([currentTopVC isKindOfClass:[MeasurementDetailViewController class]], @"New view controller should be of class MeasurementDetailViewController");
+    XCTAssertTrue([currentTopVC isKindOfClass:[MeasurementDetailViewController class]], @"New view controller should be of class MeasurementDetailViewController");
 }
 
 - (void)testViewControllerConnectsTableViewBacklinkInViewDidLoad
@@ -209,7 +211,7 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
     MeasurementsTableViewDataSource *measurementsTableViewDataSource = [[MeasurementsTableViewDataSource alloc] init];
     sut.dataSource = measurementsTableViewDataSource;
     [sut viewDidLoad];
-    STAssertEqualObjects(measurementsTableViewDataSource.tableView, tableView, @"Back-link to table view should be set in data source");
+    XCTAssertEqualObjects(measurementsTableViewDataSource.tableView, tableView, @"Back-link to table view should be set in data source");
 }
 
 
@@ -244,9 +246,9 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
 {
     dataSource.session=[NSEntityDescription insertNewObjectForEntityForName:@"Session" inManagedObjectContext:ctx];
     [sut viewDidAppear: NO];
-    int numberOfRowsInSectionOne=[sut.dataSource tableView:nil numberOfRowsInSection:0];
+    int numberOfRowsInSectionOne=(int) [sut.dataSource tableView:sut.tableView numberOfRowsInSection:0];
     [dataSource addMeasurement];
-    assertThatInt([sut.dataSource tableView:nil numberOfRowsInSection:0], is(equalToInt(numberOfRowsInSectionOne+1)));
+    assertThatInt((int) [sut.dataSource tableView:sut.tableView numberOfRowsInSection:0], is(equalToInt(numberOfRowsInSectionOne+1)));
 }
 
 - (void)testReceivingMeasurementAddedNotificationHasAMeasurementDetailDataSourceForTheAddedSession
@@ -254,7 +256,8 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
     [sut viewDidAppear:NO];
     [self postMeasurementAddedNotification];
     MeasurementDetailViewController *nextViewController = (MeasurementDetailViewController *)navController.topViewController;
-    assertThatBool([nextViewController.dataSource isKindOfClass: [MeasurementDetailTableViewDataSource class]], is(equalToBool(YES)));
+    //assertThatBool([nextViewController.dataSource isKindOfClass: [MeasurementDetailTableViewDataSource class]], is(equalToLong(YES)));
+    XCTAssert([nextViewController.dataSource isKindOfClass: [MeasurementDetailTableViewDataSource class]]);
 }
 
 - (void)testReceivingMeasurementAddedNotificationHasAMeasurementDetailDataSourceForTheSelectedSession
@@ -262,7 +265,7 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
     [sut viewDidAppear:NO];
     [self postMeasurementSelectedNotification];
     MeasurementDetailViewController *nextViewController = (MeasurementDetailViewController *)navController.topViewController;
-    assertThatBool([nextViewController.dataSource isKindOfClass: [MeasurementDetailTableViewDataSource class]], is(equalToBool(YES)));
+    assertThatBool([nextViewController.dataSource isKindOfClass: [MeasurementDetailTableViewDataSource class]], is(equalToLong(YES)));
 }
 
 

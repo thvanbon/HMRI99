@@ -1,17 +1,19 @@
-//
-//  OCMockito - MKTBaseMockObject.h
-//  Copyright 2013 Jonathan M. Reid. See LICENSE.txt
-//
-//  Created by: Jon Reid, http://qualitycoding.org/
-//  Source: https://github.com/jonreid/OCMockito
-//
+//  OCMockito by Jon Reid, https://qualitycoding.org/
+//  Copyright 2018 Jonathan M. Reid. See LICENSE.txt
 
 #import <Foundation/Foundation.h>
-#import "MKTPrimitiveArgumentMatching.h"
+#import "MKTNonObjectArgumentMatching.h"
 
 
-@interface MKTBaseMockObject : NSProxy <MKTPrimitiveArgumentMatching>
+NS_ASSUME_NONNULL_BEGIN
 
-- (id)init;
+@interface MKTBaseMockObject : NSProxy <MKTNonObjectArgumentMatching>
+
++ (BOOL)isMockObject:(id)object;
+
+- (instancetype)init;
+- (void)stopMocking;
 
 @end
+
+NS_ASSUME_NONNULL_END

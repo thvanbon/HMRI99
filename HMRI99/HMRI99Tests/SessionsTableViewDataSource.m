@@ -121,7 +121,7 @@ NSString * sessionCellReuseIdentifier=@"Session";
             [ctx deleteObject:measurementToDelete];
         }
         [ctx deleteObject:sessionToDelete];
-        NSError *error=[[NSError alloc]init];
+        NSError *error=nil;
         if (![ctx save:&error]) {
             NSLog(@"Error: %@", error);
         }

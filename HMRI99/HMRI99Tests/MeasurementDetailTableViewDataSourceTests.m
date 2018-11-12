@@ -7,7 +7,7 @@
 //#import "NoiseSource.h"
 
     // Test support
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 // Uncomment the next two lines to use OCHamcrest for test assertions:
 #define HC_SHORTHAND
@@ -18,7 +18,7 @@
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
 
-@interface MeasurementDetailTableViewDataSourceTests : SenTestCase
+@interface MeasurementDetailTableViewDataSourceTests : XCTestCase
 @end
 
 @implementation MeasurementDetailTableViewDataSourceTests
@@ -45,7 +45,7 @@
                                           URL: nil
                                       options: nil
                                         error: NULL];
-    ctx = [[NSManagedObjectContext alloc] init];
+    ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [ctx setPersistentStoreCoordinator: coord];
     
     sampleMeasurement=(Measurement*)[NSEntityDescription
@@ -65,7 +65,7 @@
     sut=nil;
     ctx = nil;
     NSError *error = nil;
-    STAssertTrue([coord removePersistentStore: store error: &error],
+    XCTAssertTrue([coord removePersistentStore: store error: &error],
                  @"couldn't remove persistent store: %@", error);
     store = nil;
     coord = nil;
@@ -75,17 +75,17 @@
 
 - (void)testThatEnvironmentWorks
 {
-    STAssertNotNil(store, @"no persistent store");
+    XCTAssertNotNil(store, @"no persistent store");
 }
 
 - (void) testNumberOfSectionsReturnsOne
 {
-    assertThatInt([sut numberOfSectionsInTableView:nil],is(equalToInt(1)));
+    assertThatInt((int) [sut numberOfSectionsInTableView:sut.tableView],is(equalToInt(1)));
 }
 
 - (void) testNumberOfRowsReturnsNineForFirstSection
 {
-    assertThatInt([sut tableView:nil numberOfRowsInSection:0],is(equalToInt(9)));
+    assertThatInt((int) [sut tableView:[[UITableView alloc] init] numberOfRowsInSection:0],is(equalToInt(9)));
 }
 
 - (void) testObjectShouldConformToUITextFieldDelegate
@@ -95,12 +95,12 @@
 
 - (void) testTextFieldDidBeginEditingIsImplemented
 {
-    assertThatBool([sut respondsToSelector:@selector(textFieldDidBeginEditing:)],is(equalToBool(YES)));
+    assertThatBool([sut respondsToSelector:@selector(textFieldDidBeginEditing:)],is(equalToLong(YES)));
 }
 
 - (void) testTextFieldDidEndEditingIsImplemented
 {
-    assertThatBool([sut respondsToSelector:@selector(textFieldDidEndEditing:)],is(equalToBool(YES)));
+    assertThatBool([sut respondsToSelector:@selector(textFieldDidEndEditing:)],is(equalToLong(YES)));
 }
 
 #pragma mark row 0
@@ -191,7 +191,7 @@
 - (void) testRow2TextFieldIsDisabled
 {
     UITextField * myTextField=(UITextField *)[self textFieldForRow:2];
-    assertThatBool(myTextField.enabled, is(equalToBool(NO)));
+    assertThatBool(myTextField.enabled, is(equalToLong(NO)));
 }
 
 - (void) testRow2ContainsAButtonWithHeight60
@@ -205,7 +205,7 @@
 {
     UITableViewCell *imageCell=[self cellForRow:2];
     UIButton *imageButton=(UIButton*)[imageCell viewWithTag:333];
-    assertThat([NSNumber numberWithFloat: imageButton.frame.size.height], is(lessThan([NSNumber numberWithFloat:(float)[sut tableView:nil heightForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]]])));
+    assertThat([NSNumber numberWithFloat: imageButton.frame.size.height], is(lessThan([NSNumber numberWithFloat:(float)[sut tableView:sut.tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]]])));
 }
 
 - (void) testRow2ButtonClickedSendsAlert
@@ -275,7 +275,7 @@
 - (void) testTypeSegmentedControlShowsMeasurementType
 {
     sut.measurement.type=@"II.3";
-    assertThatInt([(UISegmentedControl *)[[self cellForRow:4] viewWithTag:10]selectedSegmentIndex], is(equalToInt(1)));
+    assertThatInt((int) [(UISegmentedControl *)[[self cellForRow:4] viewWithTag:10]selectedSegmentIndex], is(equalToInt(1)));
 }
 
 #pragma mark row 5
@@ -300,25 +300,25 @@
 - (void) testRow5TextFieldIsEnabledWhenMeasurementTypeIsII2
 {
     sut.measurement.type=@"II.2";
-    assertThatBool([self textFieldForRow:5].enabled, is(equalToBool(YES)));
+    assertThatBool([self textFieldForRow:5].enabled, is(equalToLong(YES)));
 }
 
 - (void) testRow5TextFieldIsDisabledWhenMeasurementTypeIsII3
 {
     sut.measurement.type=@"II.3";
-    assertThatBool([self textFieldForRow:5].enabled, is(equalToBool(NO)));
+    assertThatBool([self textFieldForRow:5].enabled, is(equalToLong(NO)));
 }
 
 //- (void) testRow5IsHiddenWhenMeasurementTypeIsNotII2
 //{
 //    sut.measurement.type=@"II.3";
-//    assertThatBool([self cellForRow:5].hidden, is(equalToBool(YES)));
+//    assertThatBool([self cellForRow:5].hidden, is(equalToLong(YES)));
 //}
 //
 //- (void) testRow5IsNotHiddenWhenMeasurementTypeIsII2
 //{
 //    sut.measurement.type=@"II.2";
-//    assertThatBool([self cellForRow:5].hidden, is(equalToBool(NO)));
+//    assertThatBool([self cellForRow:5].hidden, is(equalToLong(NO)));
 //}
 
 - (void) testRow5HasTextFieldWithDistancePlaceholder
@@ -375,13 +375,13 @@
 - (void) testRow6TextFieldIsEnabledWhenMeasurementTypeIsII3
 {
     sut.measurement.type=@"II.3";
-    assertThatBool([self textFieldForRow:6].enabled, is(equalToBool(YES)));
+    assertThatBool([self textFieldForRow:6].enabled, is(equalToLong(YES)));
 }
 
 - (void) testRow6TextFieldIsDisabledWhenMeasurementTypeIsNotII3
 {
     sut.measurement.type=@"II.2";
-    assertThatBool([self textFieldForRow:6].enabled, is(equalToBool(NO)));
+    assertThatBool([self textFieldForRow:6].enabled, is(equalToLong(NO)));
 }
 
 - (void) testRow6HasTextFieldWithSurfacePlaceholder
@@ -440,14 +440,14 @@
 {
     sut.measurement.type=@"II.3";
     UISegmentedControl * segmentedControl=(UISegmentedControl *)[[self cellForRow:7] viewWithTag:11];
-    assertThatBool(segmentedControl.enabled, is(equalToBool(YES)));
+    assertThatBool(segmentedControl.enabled, is(equalToLong(YES)));
 }
 
 - (void) testRow7SegmentedControlIsDisabledWhenMeasurementTypeIsII2
 {
     sut.measurement.type=@"II.2";
     UISegmentedControl * segmentedControl=(UISegmentedControl *)[[self cellForRow:7] viewWithTag:11];
-    assertThatBool(segmentedControl.enabled, is(equalToBool(NO)));
+    assertThatBool(segmentedControl.enabled, is(equalToLong(NO)));
 }
 
 - (void) testObjectShouldBeSetAsNearFieldCorrectionTextFieldDelegate
@@ -466,7 +466,7 @@
 - (void) testNearFieldCorrectionSegmentedControlShowsNearFieldCorrection
 {
     sut.measurement.nearFieldCorrection=-2;
-    assertThatInt([(UISegmentedControl *)[[self cellForRow:7] viewWithTag:11]selectedSegmentIndex], is(equalToInt(2)));
+    assertThatInt((int) [(UISegmentedControl *)[[self cellForRow:7] viewWithTag:11]selectedSegmentIndex], is(equalToInt(2)));
 }
 
 #pragma mark row 8
@@ -559,7 +559,7 @@
 - (void) testSoundPowerLevelTextFieldIsDisabled
 {
     UITextField * myTextField=(UITextField *)[self textFieldForRow:8];
-     assertThatBool(myTextField.enabled, is(equalToBool(NO)));
+     assertThatBool(myTextField.enabled, is(equalToLong(NO)));
 }
 
 #pragma mark helper methods
@@ -567,7 +567,7 @@
 -(UITableViewCell *)cellForRow:(int)row
 {
     NSIndexPath * indexPath=[NSIndexPath indexPathForRow:row inSection:0];
-    return [sut tableView:nil cellForRowAtIndexPath:indexPath];
+    return [sut tableView:sut.tableView cellForRowAtIndexPath:indexPath];
 }
 
 -(UITextField *)textFieldForRow:(int)row

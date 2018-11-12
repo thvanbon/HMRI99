@@ -1,22 +1,23 @@
-//
-//  OCMockito - MKTClassObjectMock.h
-//  Copyright 2013 Jonathan M. Reid. See LICENSE.txt
-//
-//  Created by: Jon Reid, http://qualitycoding.org/
-//  Source: https://github.com/jonreid/OCMockito
-//
-//  Created by: David Hart
-//
+//  OCMockito by Jon Reid, https://qualitycoding.org/
+//  Copyright 2018 Jonathan M. Reid. See LICENSE.txt
+//  Contribution by David Hart
 
 #import "MKTBaseMockObject.h"
 
 
-/**
-    Mock object of a given class object.
+NS_ASSUME_NONNULL_BEGIN
+
+/*!
+ * @abstract Mock object of a given class object.
  */
 @interface MKTClassObjectMock : MKTBaseMockObject
 
-+ (id)mockForClass:(Class)aClass;
-- (id)initWithClass:(Class)aClass;
+@property (nonatomic, strong, readonly) Class mockedClass;
+
+- (instancetype)initWithClass:(Class)aClass NS_DESIGNATED_INITIALIZER;
+- (instancetype)init NS_UNAVAILABLE;
+- (void)swizzleSingletonAtSelector:(SEL)singletonSelector;
 
 @end
+
+NS_ASSUME_NONNULL_END

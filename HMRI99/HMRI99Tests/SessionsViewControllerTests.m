@@ -9,7 +9,7 @@
 #import "SessionDetailsDataSource.h"
 
     // Test support
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
@@ -18,7 +18,7 @@
 #import <OCMockitoIOS/OCMockitoIOS.h>
 
 
-@interface SessionsViewControllerTests : SenTestCase
+@interface SessionsViewControllerTests : XCTestCase
 @end
 
 static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotificationKey";
@@ -87,7 +87,7 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
                                           URL: nil
                                       options: nil
                                         error: NULL];
-    ctx = [[NSManagedObjectContext alloc] init];
+    ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [ctx setPersistentStoreCoordinator: coord];
     dataSource.managedObjectContext=ctx;
     
@@ -121,7 +121,7 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     
     ctx = nil;
     NSError *error = nil;
-    STAssertTrue([coord removePersistentStore: store error: &error],
+    XCTAssertTrue([coord removePersistentStore: store error: &error],
                  @"couldn't remove persistent store: %@", error);
     store = nil;
     coord = nil;
@@ -133,11 +133,11 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
 - (void) testViewControllerHasATableView
 {
     objc_property_t tableViewProperty = class_getProperty([sut class], "tableView");
-    STAssertTrue(tableViewProperty != NULL, @"HMRI99ViewController needs a table view");
+    XCTAssertTrue(tableViewProperty != NULL, @"HMRI99ViewController needs a table view");
 }
 
 - (void)testViewControllerHasADataSourceProperty { objc_property_t dataSourceProperty =class_getProperty([sut class], "dataSource");
-    STAssertTrue(dataSourceProperty != NULL, @"HMRI99ViewController needs a data source");
+    XCTAssertTrue(dataSourceProperty != NULL, @"HMRI99ViewController needs a data source");
 }
 
 - (void) testViewControllerConnectsDataSourceInViewDidLoad
@@ -220,14 +220,14 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
 {
     [sut userDidSelectSessionNotification:nil];   
     UIViewController *currentTopVC = [navController topViewController];
-    STAssertFalse([currentTopVC isEqual: sut], @"New view controller should be pushed onto the stack");
+    XCTAssertFalse([currentTopVC isEqual: sut], @"New view controller should be pushed onto the stack");
 }
 
 - (void)testSelectingSessionShouldSelectMeasurementsViewControllerAsTopViewController
 {
     [sut userDidSelectSessionNotification:nil];
     UIViewController *currentTopVC = [navController topViewController];
-    assertThatBool([currentTopVC isKindOfClass:[MeasurementsViewController class]], is(equalToBool(YES)));
+    assertThatBool([currentTopVC isKindOfClass:[MeasurementsViewController class]], is(equalToLong(YES)));
 }
 
 //- (void)testSelectingSessionForSecondTimeShouldSelectSameMeasurementsViewControllerAsTopViewController
@@ -246,8 +246,8 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     
     [sut userDidSelectSessionNotification: cargillSessionSelectedNotification];
     MeasurementsViewController *nextViewController = (MeasurementsViewController *)navController.topViewController;
-    STAssertTrue([nextViewController.dataSource isKindOfClass: [MeasurementsTableViewDataSource class]], @"Selecting a Session should push a list of Measurements");
-    STAssertEqualObjects([(MeasurementsTableViewDataSource *)
+    XCTAssertTrue([nextViewController.dataSource isKindOfClass: [MeasurementsTableViewDataSource class]], @"Selecting a Session should push a list of Measurements");
+    XCTAssertEqualObjects([(MeasurementsTableViewDataSource *)
                           nextViewController.dataSource session], cargillSession,
                          @"The Measurements to display should come from the selected Session");
 }
@@ -257,7 +257,7 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     MeasurementsTableViewDataSource *measurementsTableViewDataSource = [[MeasurementsTableViewDataSource alloc] init];
     sut.dataSource = measurementsTableViewDataSource;
     [sut viewDidLoad];
-    STAssertEqualObjects(measurementsTableViewDataSource.tableView, tableView, @"Back-link to table view should be set in data source");
+    XCTAssertEqualObjects(measurementsTableViewDataSource.tableView, tableView, @"Back-link to table view should be set in data source");
 }
 
 
@@ -292,9 +292,9 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
 - (void)testReceivingTableAddedNotificationAddsRowToTableView
 {
     [sut viewDidAppear: NO];
-    int numberOfRowsInSectionZero=[sut.dataSource tableView:[sut tableView] numberOfRowsInSection:0];
+    int numberOfRowsInSectionZero=(int) [sut.dataSource tableView:[sut tableView] numberOfRowsInSection:0];
     [dataSource addSession];
-    assertThat([NSNumber numberWithInt:[sut.dataSource tableView:[sut tableView] numberOfRowsInSection:0]], is(equalTo([NSNumber numberWithInt:numberOfRowsInSectionZero+1])));
+    assertThatInt((int) [sut.dataSource tableView:[sut tableView] numberOfRowsInSection:0], is(equalToInt(numberOfRowsInSectionZero+1)));
 }
 
 - (void)testReceivingTableAddedNotificationHasASessionDetailsListDataSourceForTheAddedSession
@@ -304,7 +304,7 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     
     [sut userDidAddSessionNotification: sessionAddedNotification];
     SessionDetailsViewController *nextViewController = (SessionDetailsViewController *)navController.topViewController;
-    STAssertTrue([nextViewController.dataSource isKindOfClass: [SessionDetailsDataSource class]], @"Adding a Session should open Session and show Session Details");
+    XCTAssertTrue([nextViewController.dataSource isKindOfClass: [SessionDetailsDataSource class]], @"Adding a Session should open Session and show Session Details");
 }
 
 - (void)testReceivingTableAddedNotificationHasAMeasurementListDataSourceForTheAddedSession
@@ -314,7 +314,7 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
     
     [sut userDidAddSessionNotification: sessionAddedNotification];
     SessionDetailsViewController *nextViewController = (SessionDetailsViewController *)navController.topViewController;
-    STAssertTrue([nextViewController.dataSource isKindOfClass: [SessionDetailsDataSource class]], @"Adding a Session should open Session and show session details");
+    XCTAssertTrue([nextViewController.dataSource isKindOfClass: [SessionDetailsDataSource class]], @"Adding a Session should open Session and show session details");
 }
 
 #pragma mark Notifications for pressing detail disclosure button
@@ -349,7 +349,7 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
 {
     [sut userDidPressDetailDisclosureButtonNotification:nil];
     UIViewController *currentTopVC = [navController topViewController];
-    assertThatBool([currentTopVC isKindOfClass:[SessionDetailsViewController class]], is(equalToBool(YES)));
+    assertThatBool([currentTopVC isKindOfClass:[SessionDetailsViewController class]], is(equalToLong(YES)));
 }
 
 - (void)testNewViewControllerHasASessionDetailsListDataSourceForTheSelectedSession
@@ -358,8 +358,8 @@ static const char *notificationKey = "HMRI99ViewControllerTestsAssociatedNotific
                                                                                        object: cargillSession];    
     [sut userDidPressDetailDisclosureButtonNotification: cargillSessionDetailDisclosureButtonPressedNotification];
     SessionDetailsViewController *nextViewController = (SessionDetailsViewController *)navController.topViewController;
-    STAssertTrue([nextViewController.dataSource isKindOfClass: [SessionDetailsDataSource class]], @"Selecting a Session should push a list of Session Details");
-    STAssertEqualObjects([(SessionDetailsDataSource *)
+    XCTAssertTrue([nextViewController.dataSource isKindOfClass: [SessionDetailsDataSource class]], @"Selecting a Session should push a list of Session Details");
+    XCTAssertEqualObjects([(SessionDetailsDataSource *)
                           nextViewController.dataSource session], cargillSession,
                          @"The Details to display should come from the selected Session");
 }

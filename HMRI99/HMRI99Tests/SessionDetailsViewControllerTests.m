@@ -6,7 +6,7 @@
 
     // Test support
 #import <objc/runtime.h>
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
@@ -16,7 +16,7 @@
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
 
-@interface SessionDetailsViewControllerTests : SenTestCase
+@interface SessionDetailsViewControllerTests : XCTestCase
 @end
 
 @implementation SessionDetailsViewControllerTests
@@ -46,13 +46,13 @@
 
 - (void) testViewIsConnected
 {
-    STAssertNoThrow([sut view], @"Nib needs to be connected to right class" );
+    XCTAssertNoThrow([sut view], @"Nib needs to be connected to right class" );
 }
 
 - (void) testViewControllerHasATableView
 {
     objc_property_t tableViewProperty = class_getProperty([sut class], "tableView");
-    STAssertTrue(tableViewProperty != NULL, @"SessionDetailsViewController needs a table view");
+    XCTAssertTrue(tableViewProperty != NULL, @"SessionDetailsViewController needs a table view");
 }
 
 - (void) testTableViewHasGroupedStyle
@@ -62,7 +62,7 @@
 
 
 - (void)testViewControllerHasADataSourceProperty { objc_property_t dataSourceProperty =class_getProperty([sut class], "dataSource");
-    STAssertTrue(dataSourceProperty != NULL, @"SessionDetailsViewController needs a data source");
+    XCTAssertTrue(dataSourceProperty != NULL, @"SessionDetailsViewController needs a data source");
 }
 
 - (void) testViewControllerConnectsDataSourceInViewDidLoad
@@ -88,6 +88,6 @@
 //    SessionDetailsDataSource *sessionDetailsDataSource = [[SessionDetailsDataSource alloc] init];
 //    sut.dataSource = sessionDetailsDataSource;
     [sut viewDidLoad];
-    STAssertEqualObjects(sut.dataSource.tableView, tableView, @"Back-link to table view should be set in data source");
+    XCTAssertEqualObjects(sut.dataSource.tableView, tableView, @"Back-link to table view should be set in data source");
 }
 @end

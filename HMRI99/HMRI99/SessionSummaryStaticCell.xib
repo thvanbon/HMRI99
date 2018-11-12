@@ -59,10 +59,10 @@
                 <constraint firstItem="20" firstAttribute="leading" secondItem="17" secondAttribute="leading" id="na2-kB-edB"/>
             </constraints>
             <connections>
-                <outlet property="dateLabel" destination="12" id="23"/>
-                <outlet property="engineerLabel" destination="20" id="25"/>
-                <outlet property="locationLabel" destination="17" id="24"/>
-                <outlet property="nameLabel" destination="4" id="11"/>
+                <outlet property="dateLabel" destination="12" id="B4T-tc-G2D"/>
+                <outlet property="engineerLabel" destination="20" id="R2p-zn-l39"/>
+                <outlet property="locationLabel" destination="17" id="xC1-Ik-TiX"/>
+                <outlet property="nameLabel" destination="4" id="8wg-zv-An3"/>
             </connections>
         </tableViewCell>
     </objects>

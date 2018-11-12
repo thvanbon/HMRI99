@@ -32,8 +32,8 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "76172E011839634A000B798F"
-               BuildableName = "HMRI99Tests.octest"
+               BlueprintIdentifier = "76F57BEF218F20C400F2B646"
+               BuildableName = "HMRI99Tests.xctest"
                BlueprintName = "HMRI99Tests"
                ReferencedContainer = "container:HMRI99.xcodeproj">
             </BuildableReference>
@@ -71,6 +71,13 @@
             ReferencedContainer = "container:HMRI99.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <EnvironmentVariables>
+         <EnvironmentVariable
+            key = "OS_ACTIVITY_MODE"
+            value = "disable"
+            isEnabled = "NO">
+         </EnvironmentVariable>
+      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

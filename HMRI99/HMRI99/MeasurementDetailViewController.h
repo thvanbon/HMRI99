@@ -3,7 +3,7 @@
 @interface MeasurementDetailViewController : UITableViewController
 {
     UIImagePickerController *cameraUI;
-    UIImagePickerController *mediaUI;
+    UIImagePickerController *imagePicker;
 }
 @property (nonatomic,strong) IBOutlet UITableView *tableView;
 @property (strong) NSObject <UITableViewDataSource, UITableViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate> * dataSource;

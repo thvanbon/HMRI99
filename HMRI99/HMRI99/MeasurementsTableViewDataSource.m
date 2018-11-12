@@ -94,7 +94,7 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
     newMeasurement.noiseSource=newNoiseSource;
     newMeasurement.image=newImage;
     NSManagedObjectContext *ctx=[self managedObjectContext];
-    NSError *error=[[NSError alloc]init];
+    NSError *error=nil;
     if (![ctx save:&error]) {
         NSLog(@"Error: %@", error);
     }
@@ -143,7 +143,7 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
         [ctx deleteObject:measurementToDelete.noiseSource];
         [ctx deleteObject:measurementToDelete.image];
         [ctx deleteObject:measurementToDelete];
-        NSError *error=[[NSError alloc]init];
+        NSError *error=nil;
         if (![ctx save:&error]) {
             NSLog(@"Error: %@", error);
         }

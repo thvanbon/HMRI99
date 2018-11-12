@@ -1,218 +1,402 @@
-//
-//  OCMockito - OCMockito.h
-//  Copyright 2013 Jonathan M. Reid. See LICENSE.txt
-//
-//  Created by: Jon Reid, http://qualitycoding.org/
-//  Source: https://github.com/jonreid/OCMockito
-//
+//  OCMockito by Jon Reid, https://qualitycoding.org/
+//  Copyright 2018 Jonathan M. Reid. See LICENSE.txt
 
 #import <Foundation/Foundation.h>
 
-#import "MKTClassObjectMock.h"
-#import "MKTObjectMock.h"
-#import "MKTObjectAndProtocolMock.h"
+FOUNDATION_EXPORT double OCMockitoIOSVersionNumber;
+FOUNDATION_EXPORT const unsigned char OCMockitoIOSVersionString[];
+
 #import "MKTOngoingStubbing.h"
+#import "NSInvocation+OCMockito.h"
+
+// Explicitly import transitive headers for complete "umbrella header"
+#import "MKTBaseMockObject.h"
+#import "MKTClassObjectMock.h"
+#import "MKTObjectAndProtocolMock.h"
+#import "MKTObjectMock.h"
 #import "MKTProtocolMock.h"
-#import <objc/objc-api.h>
+
+@protocol MKTVerificationMode;
 
 
-#define MKTMock(aClass) [MKTObjectMock mockForClass:aClass]
+NS_ASSUME_NONNULL_BEGIN
 
-/**
-    Returns a mock object of a given class.
- 
-    (In the event of a name clash, don't \#define @c MOCKITO_SHORTHAND and use the synonym
-    @c MKTMock instead.)
+FOUNDATION_EXPORT id MKTMock(Class classToMock);
+
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Creates mock object of given class.
+ * @param classToMock The class for which to mock instance methods.
+ * @discussion The mock object will handle all instance methods of <code>classToMock</code>. Methods
+ * return 0 by default.<br />
+ * Use <code>given</code> to stub different return values or behaviors.<br />
+ * Use <code>givenVoid</code> to stub behaviors of void methods.
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTMock instead.
  */
-#ifdef MOCKITO_SHORTHAND
-    #define mock(aClass) MKTMock(aClass)
+static inline id mock(Class classToMock)
+{
+    return MKTMock(classToMock);
+}
 #endif
 
 
-#define MKTMockClass(aClass) [MKTClassObjectMock mockForClass:aClass]
+FOUNDATION_EXPORT id MKTMockClass(Class classToMock);
 
-/**
-    Returns a mock class object of a given class.
-
-    (In the event of a name clash, don't \#define @c MOCKITO_SHORTHAND and use the synonym
-    @c MKTMockClass instead.)
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Creates mock class object of given class.
+ * @param classToMock The class for which to mock class methods.
+ * @discussion The mock object will handle all class methods of <code>classToMock</code>. Methods
+ * return 0 by default.<br />
+ * Use <code>given</code> to stub different return values or behaviors.<br />
+ * Use <code>givenVoid</code> to stub behaviors of void methods.
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTMockClass instead.
  */
-#ifdef MOCKITO_SHORTHAND
-    #define mockClass(aClass) MKTMockClass(aClass)
+static inline id mockClass(Class classToMock)
+{
+    return MKTMockClass(classToMock);
+}
 #endif
 
 
-#define MKTMockProtocol(aProtocol) [MKTProtocolMock mockForProtocol:aProtocol]
+FOUNDATION_EXPORT id MKTMockProtocol(Protocol *protocolToMock);
 
-/**
-    Returns a mock object implementing a given protocol.
-
-    (In the event of a name clash, don't \#define @c MOCKITO_SHORTHAND and use the synonym
-    @c MKTMockProtocol instead.)
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Creates mock object of given protocol.
+ * @param protocolToMock The protocol to mock.
+ * @discussion The mock object will handle all methods of <code>protocolToMock</code>. Methods
+ * return 0 by default.<br />
+ * Use <code>given</code> to stub different return values or behaviors.<br />
+ * Use <code>givenVoid</code> to stub behaviors of void methods.
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTMockProtocol instead.
  */
-#ifdef MOCKITO_SHORTHAND
-    #define mockProtocol(aProtocol) MKTMockProtocol(aProtocol)
+static inline id mockProtocol(Protocol *protocolToMock)
+{
+    return MKTMockProtocol(protocolToMock);
+}
 #endif
 
 
-#define MKTMockObjectAndProtocol(aClass, aProtocol) [MKTObjectAndProtocolMock mockForClass:aClass protocol:aProtocol]
+FOUNDATION_EXPORT id MKTMockProtocolWithoutOptionals(Protocol *protocolToMock);
 
-/**
-    Returns a mock object of a given class that also implements a given protocol.
-
-    (In the event of a name clash, don't \#define @c MOCKITO_SHORTHAND and use the synonym
-    @c MKTMockObjectAndProtocol instead.)
- */
-#ifdef MOCKITO_SHORTHAND
-    #define mockObjectAndProtocol(aClass, aProtocol) MKTMockObjectAndProtocol(aClass, aProtocol)
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Creates mock object of given protocol, but without optional methods.
+ * @param protocolToMock The protocol to mock.
+ * @discussion The mock object will handle only required methods of <code>protocolToMock</code>. It
+ * will <b>not</b> respond to the protocol's optional methods. Methods return 0 by default.<br />
+ * Use <code>given</code> to stub different return values or behaviors.<br />
+ * Use <code>givenVoid</code> to stub behaviors of void methods.
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTMockProtocolWithoutOptionals instead.
+*/
+static inline id mockProtocolWithoutOptionals(Protocol *protocolToMock)
+{
+    return MKTMockProtocolWithoutOptionals(protocolToMock);
+}
 #endif
 
 
-OBJC_EXPORT MKTOngoingStubbing *MKTGivenWithLocation(id testCase, const char *fileName, int lineNumber, ...);
+FOUNDATION_EXPORT id MKTMockObjectAndProtocol(Class classToMock, Protocol *protocolToMock);
+
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Creates mock object of given class that also implements given protocol.
+ * @param classToMock The class to mock.
+ * @param protocolToMock The protocol to mock.
+ * @discussion The mock object will handle all instance methods of <code>classToMock</code>, along
+ * with all methods of <code>protocolToMock</code>. Methods return 0 by default.<br />
+ * Use <code>given</code> to stub different return values or behaviors.<br />
+ * Use <code>givenVoid</code> to stub behaviors of void methods.
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTMockObjectAndProtocol instead.
+ */
+static inline id mockObjectAndProtocol(Class classToMock, Protocol *protocolToMock)
+{
+    return MKTMockObjectAndProtocol(classToMock, protocolToMock);
+}
+#endif
+
+
+FOUNDATION_EXPORT MKTOngoingStubbing *MKTGivenWithLocation(id testCase, const char *fileName, int lineNumber, ...);
 #define MKTGiven(methodCall) MKTGivenWithLocation(self, __FILE__, __LINE__, methodCall)
 
-/**
-    Enables method stubbing.
-
-    Use @c given when you want the mock to return particular value when particular method is called.
-
-    Example:
-    @li @ref [given([mockObject methodReturningString]) willReturn:@"foo"];
-
-    See @ref MKTOngoingStubbing for other methods to stub different types of return values.
-
-    (In the event of a name clash, don't \#define @c MOCKITO_SHORTHAND and use the synonym
-    @c MKTGiven instead.)
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Stubs a method call.
+ * @discussion Creates an MKTOngoingStubbing used for any matching method calls. Call
+ * MKTOngoingStubbing methods to define the stub's return value or behavior.
+ *
+ * Method arguments are matched with specified OCHamcrest matchers. Any argument that is not a
+ * matcher is implicitly wrapped in <code>equalTo</code> to match for equality.
+ *
+ * Example:
+ * <pre>[given([mockObject transform:\@"FOO"]) willReturn:\@"BAR"];</pre>
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTGiven instead.
  */
-#ifdef MOCKITO_SHORTHAND
-    #define given(methodCall) MKTGiven(methodCall)
+#define given(methodCall) MKTGiven(methodCall)
 #endif
 
 
-OBJC_EXPORT id MKTVerifyWithLocation(id mock, id testCase, const char *fileName, int lineNumber);
+FOUNDATION_EXPORT MKTOngoingStubbing *MKTGivenVoidWithLocation(id testCase, const char *fileName, int lineNumber, void(^methodCallWrapper)(void));
+#define MKTGivenVoid(methodCall) MKTGivenVoidWithLocation(self, __FILE__, __LINE__, ^{ methodCall; })
+
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Stubs a call to a <code>void</code> method.
+ * @discussion Creates an MKTOngoingStubbing used for any matching method calls. Call
+ * MKTOngoingStubbing methods to define the stub's behavior.
+ *
+ * Method arguments are matched with specified OCHamcrest matchers. Any argument that is not a
+ * matcher is implicitly wrapped in <code>equalTo</code> to match for equality.
+ *
+ * Example:
+ * <pre>[givenVoid([mockObject methodReturningVoid]) willDo:^id(NSInvocation *invocation) { magic(); return nil; }];</pre>
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTGiven instead.
+ */
+#define givenVoid(methodCall) MKTGivenVoid(methodCall)
+#endif
+
+
+#define MKTStubProperty(mock, propertyName, stubbedValue)                          \
+    do {                                                                           \
+        [MKTGiven([mock propertyName]) willReturn:stubbedValue];                   \
+        [MKTGiven([mock valueForKey:@#propertyName]) willReturn:stubbedValue];     \
+        [MKTGiven([mock valueForKeyPath:@#propertyName]) willReturn:stubbedValue]; \
+    } while(0)
+
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Stubs a property and its related KVO methods to return a given value.
+ * @discussion
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTStubProperty instead.
+ */
+#define stubProperty(mock, propertyName, stubbedValue) MKTStubProperty(mock, propertyName, stubbedValue)
+#endif
+
+
+FOUNDATION_EXPORT void MKTStubSingletonWithLocation(id mockClass, SEL aSelector, id testCase, const char *fileName, int lineNumber);
+#define MKTStubSingleton(mockClass, methodName) MKTStubSingletonWithLocation(mockClass, @selector(methodName), self, __FILE__, __LINE__)
+
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Stubs a singleton to the mock class object.
+ * @discussion
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTStubSingleton instead.
+ */
+#define stubSingleton(mockClass, methodName) MKTStubSingleton(mockClass, methodName)
+#endif
+
+
+FOUNDATION_EXPORT _Nullable id MKTVerifyWithLocation(id mock, id testCase, const char *fileName, int lineNumber);
 #define MKTVerify(mock) MKTVerifyWithLocation(mock, self, __FILE__, __LINE__)
 
-/**
-    Verifies certain behavior happened once.
-
-    @c verify checks that a method was invoked once, with arguments that match given OCHamcrest
-    matchers. If an argument is not a matcher, it is implicitly wrapped in an @c equalTo matcher to
-    check for equality.
-
-    Examples:
-@code
-[verify(mockObject) someMethod:startsWith(@"foo")];
-[verify(mockObject) someMethod:@"bar"];
-@endcode
-
-    @c verify(mockObject) is equivalent to
-@code
-verifyCount(mockObject, times(1))
-@endcode
-
-    (In the event of a name clash, don't \#define @c MOCKITO_SHORTHAND and use the synonym
-    @c MKTVerify instead.)
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+#undef verify
+/*!
+ * @abstract Verifies certain behavior happened once.
+ * @discussion Equivalent to <code>verifyCount(mock, times(1))</code>.
+ *
+ * Method arguments are matched with specified OCHamcrest matchers. Any argument that is
+ * not a matcher is implicitly wrapped in <code>equalTo</code> to match for equality.
+ *
+ * Examples:
+ * <pre>[verify(mockObject) someMethod:startsWith(\@"foo")];</pre>
+ * <pre>[verify(mockObject) someMethod:\@"bar"];</pre>
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTVerify instead.
  */
-#ifdef MOCKITO_SHORTHAND
-    #undef verify
-    #define verify(mock) MKTVerify(mock)
+#define verify(mock) MKTVerify(mock)
 #endif
 
 
-OBJC_EXPORT id MKTVerifyCountWithLocation(id mock, id mode, id testCase, const char *fileName, int lineNumber);
+FOUNDATION_EXPORT id MKTVerifyCountWithLocation(id mock, id <MKTVerificationMode> mode, id testCase, const char *fileName, int lineNumber);
 #define MKTVerifyCount(mock, mode) MKTVerifyCountWithLocation(mock, mode, self, __FILE__, __LINE__)
 
-/**
-    Verifies certain behavior happened a given number of times.
-
-    Examples:
-@code
-[verifyCount(mockObject, times(5)) someMethod:@"was called five times"];
-[verifyCount(mockObject, never()) someMethod:@"was never called"];
-@endcode
-
-    @c verifyCount checks that a method was invoked a given number of times, with arguments that
-    match given OCHamcrest matchers. If an argument is not a matcher, it is implicitly wrapped in an
-    @c equalTo matcher to check for equality.
-
-    (In the event of a name clash, don't \#define @c MOCKITO_SHORTHAND and use the synonym
-    @c MKTVerifyCount instead.)
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Verifies certain behavior happened a given number of times.
+ * @discussion Method arguments are matched with specified OCHamcrest matchers. Any argument that is
+ * not a matcher is implicitly wrapped in <code>equalTo</code> to match for equality.
+ * Examples:
+ * <pre>[verifyCount(mockObject, times(5)) someMethod:\@"was called five times"];</pre>
+ * <pre>[verifyCount(mockObject, never()) someMethod:\@"was never called"];</pre>
+ * verifyCount checks that a method was invoked the given number of times, with arguments that
+ * match given OCHamcrest matchers. If an argument is not a matcher, it is implicitly wrapped in an
+ * <code>equalTo</code> matcher to check for equality.
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTVerifyCount instead.
  */
-#ifdef MOCKITO_SHORTHAND
-    #define verifyCount(mock, mode) MKTVerifyCount(mock, mode)
+#define verifyCount(mock, mode) MKTVerifyCount(mock, mode)
 #endif
 
 
-OBJC_EXPORT id MKTTimes(NSUInteger wantedNumberOfInvocations);
+FOUNDATION_EXPORT id <MKTVerificationMode> MKTTimes(NSUInteger wantedNumberOfInvocations);
 
-/**
-    Verifies exact number of invocations.
-
-    Example:
-@code
-[verifyCount(mockObject, times(2)) someMethod:@"some arg"];
-@endcode
-
-    (In the event of a name clash, don't \#define @c MOCKITO_SHORTHAND and use the synonym
-    @c MKTTimes instead.)
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Creates <code>verifyCount</code> mode verifying an exact number of invocations.
+ * @discussion Example:
+ * <pre>[verifyCount(mockObject, times(2)) someMethod:\@"some arg"];</pre>
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTTimes instead.
  */
-#ifdef MOCKITO_SHORTHAND
-    #define times(wantedNumberOfInvocations) MKTTimes(wantedNumberOfInvocations)
+static inline id <MKTVerificationMode> times(NSUInteger wantedNumberOfInvocations)
+{
+    return MKTTimes(wantedNumberOfInvocations);
+}
 #endif
 
 
-OBJC_EXPORT id MKTNever(void);
+FOUNDATION_EXPORT id <MKTVerificationMode> MKTNever(void);
 
-/**
-    Verifies that interaction did not happen.
-
-    Example:
-    @code
-    [verifyCount(mockObject, never()) someMethod:@"some arg"];
-    @endcode
-
-    (In the event of a name clash, don't \#define @c MOCKITO_SHORTHAND and use the synonym
-    @c MKTNever instead.)
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Creates <code>verifyCount</code> mode verifying that an interaction did not happen.
+ * @discussion Example:
+ * <pre>[verifyCount(mockObject, never()) someMethod:\@"some arg"];</pre>
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTNever instead.
  */
-#ifdef MOCKITO_SHORTHAND
-    #define never() MKTNever()
+static inline id <MKTVerificationMode> never(void)
+{
+    return MKTNever();
+}
 #endif
 
 
-OBJC_EXPORT id MKTAtLeast(NSUInteger minimumWantedNumberOfInvocations);
+FOUNDATION_EXPORT id <MKTVerificationMode> MKTAtLeast(NSUInteger minNumberOfInvocations);
 
-/**
-    Verifies minimum number of invocations.
-
-    The verification will succeed if the specified invocation happened the number of times
-    specified or more.
-
-    Example:
-@code
-[verifyCount(mockObject, atLeast(2)) someMethod:@"some arg"];
-@endcode
-
-    (In the event of a name clash, don't \#define @c MOCKITO_SHORTHAND and use the synonym
-    @c MKTAtLeast instead.)
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Creates <code>verifyCount</code> mode verifying that an interaction happened at least
+ * the given number of times.
+ * @discussion
+ * Example:
+ * <pre>[verifyCount(mockObject, atLeast(2)) someMethod:\@"some arg"];</pre>
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTAtLeast instead.
  */
-#ifdef MOCKITO_SHORTHAND
-    #define atLeast(minimumWantedNumberOfInvocations) MKTAtLeast(minimumWantedNumberOfInvocations)
+static inline id <MKTVerificationMode> atLeast(NSUInteger minNumberOfInvocations)
+{
+    return MKTAtLeast(minNumberOfInvocations);
+}
 #endif
 
 
-OBJC_EXPORT id MKTAtLeastOnce(void);
+FOUNDATION_EXPORT id <MKTVerificationMode> MKTAtLeastOnce(void);
 
-/**
-    Verifies that interaction happened once or more.
-
-    Example:
-@code
-[verifyCount(mockObject, atLeastOnce()) someMethod:@"some arg"];
-@endcode
-
-    (In the event of a name clash, don't \#define @c MOCKITO_SHORTHAND and use the synonym
-    @c MKTAtLeastOnce instead.)
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Creates <code>verifyCount</code> mode verifying that an interaction happened at least
+ * once.
+ * @discussion Same as <code>atLeast(1)</code>.
+ *
+ * Example:
+ * <pre>[verifyCount(mockObject, atLeastOnce()) someMethod:\@"some arg"];</pre>
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTAtLeastOnce instead.
  */
-#ifdef MOCKITO_SHORTHAND
-    #define atLeastOnce() MKTAtLeastOnce()
+static inline id <MKTVerificationMode> atLeastOnce(void)
+{
+    return MKTAtLeastOnce();
+}
 #endif
+
+
+FOUNDATION_EXPORT id <MKTVerificationMode> MKTAtMost(NSUInteger maxNumberOfInvocations);
+
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Creates <code>verifyCount</code> mode verifying that an interaction happened at most
+ * the given number of times.
+ * @discussion
+ * Example:
+ * <pre>[verifyCount(mockObject, atMost(2)) someMethod:\@"some arg"];</pre>
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTAtLeast instead.
+ */
+static inline id <MKTVerificationMode> atMost(NSUInteger maxNumberOfInvocations)
+{
+    return MKTAtMost(maxNumberOfInvocations);
+}
+#endif
+
+
+FOUNDATION_EXPORT void MKTDisableMockingWithLocation(id mock, id testCase, const char *fileName, int lineNumber);
+#define MKTDisableMocking(mock) MKTDisableMockingWithLocation(mock, self, __FILE__, __LINE__)
+
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Disables mocking, preventing any more invocations from being handled.
+ * @discussion There are cases where calling stopMocking() on a mock can release code under test
+ * that was being retained. If that code under test's dealloc method then references another mock
+ * that has not yet been stopped, it will create a strong reference to an object that is in the
+ * process of being deallocated, resulting in an over-release at a later date. A solution to this is
+ * to call disableMocking() on all mocks before calling stopMocking(). This allows a test to call
+ * stopMocking on all of its mocks without having to worry about which order to call them.
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTDisableMocking instead.
+ */
+#define disableMocking(mock) MKTDisableMocking(mock)
+#endif
+
+
+FOUNDATION_EXPORT void MKTStopMockingWithLocation(id mock, id testCase, const char *fileName, int lineNumber);
+#define MKTStopMocking(mock) MKTStopMockingWithLocation(mock, self, __FILE__, __LINE__)
+
+#ifndef MKT_DISABLE_SHORT_SYNTAX
+/*!
+ * @abstract Stops mocking and releases arguments.
+ * @discussion Mock objects normally retain all message arguments. This is not a problem for most
+ * tests, but can sometimes cause retain cycles. In such cases, call stopMocking to tell the mock
+ * to release its arguments, and to stop accepting messages. See StopMockingTests.m for an example.
+ *
+ * <b>Name Clash</b><br />
+ * In the event of a name clash, <code>#define MKT_DISABLE_SHORT_SYNTAX</code> and use the synonym
+ * MKTStopMocking instead.
+ */
+#define stopMocking(mock) MKTStopMocking(mock)
+#endif
+
+NS_ASSUME_NONNULL_END

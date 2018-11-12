@@ -9,7 +9,7 @@
 #import "MeasurementsViewController.h"
 
 // Test support
-#import <SenTestingKit/SenTestingKit.h>
+#import <XCTest/XCTest.h>
 
 #define HC_SHORTHAND
 #import <OCHamcrestIOS/OCHamcrestIOS.h>
@@ -19,7 +19,7 @@
 //#import <OCMockitoIOS/OCMockitoIOS.h>
 
 
-@interface MeasurementsTableViewDataSourceTests : SenTestCase
+@interface MeasurementsTableViewDataSourceTests : XCTestCase
 @end
 
 @implementation MeasurementsTableViewDataSourceTests
@@ -53,7 +53,7 @@
                                           URL: nil
                                       options: nil
                                         error: NULL];
-    ctx = [[NSManagedObjectContext alloc] init];
+    ctx = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     [ctx setPersistentStoreCoordinator: coord];
     sut.managedObjectContext=ctx;
 
@@ -76,7 +76,7 @@
     firstIndexPath = [NSIndexPath indexPathForRow: 0 inSection: 0];
     firstIndexPathSecondSection = [NSIndexPath indexPathForRow: 0 inSection: 1];
     firstIndexPathThirdSection= [NSIndexPath indexPathForRow: 0 inSection: 2];
-    firstCell = (MeasurementSummaryStaticCell *)[sut tableView: nil cellForRowAtIndexPath: firstIndexPath];
+    firstCell = (MeasurementSummaryStaticCell *)[sut tableView: sut.tableView cellForRowAtIndexPath: firstIndexPath];
     [[NSNotificationCenter defaultCenter] addObserver: self
                                              selector: @selector(didReceiveNotification:)
                                                  name: measurementsTableDidSelectMeasurementNotification
@@ -102,7 +102,7 @@
     receivedNotification=nil;
     ctx = nil;
     NSError *error = nil;
-    STAssertTrue([coord removePersistentStore: store error: &error],
+    XCTAssertTrue([coord removePersistentStore: store error: &error],
                  @"couldn't remove persistent store: %@", error);
     store = nil;
     coord = nil;
@@ -112,7 +112,7 @@
 
 - (void)testSessionWithOneMeasurementsResultsInOnlyOneRowInTheTable
 {
-    assertThatInt([sut tableView: nil numberOfRowsInSection: 0], is(equalTo(@1)));
+    assertThatInt((int) [sut tableView: sut.tableView numberOfRowsInSection: 0], is(equalTo(@1)));
 }
 
 - (void)testSessionWithMeasurementsResultsInOneRowPerMeasurementInTheTable
@@ -121,7 +121,7 @@
                               insertNewObjectForEntityForName:@"Measurement"
                               inManagedObjectContext:ctx];
     newMeasurement2.session=session;
-    assertThatInt([sut tableView: nil numberOfRowsInSection: 0], is(equalTo(@2)));
+    assertThatInt((int) [sut tableView: sut.tableView numberOfRowsInSection: 0], is(equalTo(@2)));
 }
 
 - (void) testCellAccessoryTypeIsDisclosureIndicator
@@ -130,20 +130,20 @@
                                  insertNewObjectForEntityForName:@"Measurement"
                                  inManagedObjectContext:ctx];
     newMeasurement.session=session;
-    MeasurementSummaryStaticCell * cell=(MeasurementSummaryStaticCell*) [sut tableView:nil cellForRowAtIndexPath:firstIndexPath];
+    MeasurementSummaryStaticCell * cell=(MeasurementSummaryStaticCell*) [sut tableView:sut.tableView cellForRowAtIndexPath:firstIndexPath];
     assertThatInt(cell.accessoryType, is(equalToInt(UITableViewCellAccessoryDisclosureIndicator)));
 }
 
 - (void)testCellIDIsTheSameAsTheMeasurementID
 {
-    MeasurementSummaryStaticCell * cell=(MeasurementSummaryStaticCell*) [sut tableView:nil cellForRowAtIndexPath:firstIndexPath];
+    MeasurementSummaryStaticCell * cell=(MeasurementSummaryStaticCell*) [sut tableView:sut.tableView cellForRowAtIndexPath:firstIndexPath];
     assertThat(cell.iDLabel.text, is(equalTo(@"R1")));
 }
 
 - (void)testCellTypeIsTheSameAsTheMeasurementType
 {
     newMeasurement1.type=@"II.2";
-    MeasurementSummaryStaticCell * cell=(MeasurementSummaryStaticCell*) [sut tableView:nil cellForRowAtIndexPath:firstIndexPath];
+    MeasurementSummaryStaticCell * cell=(MeasurementSummaryStaticCell*) [sut tableView:sut.tableView cellForRowAtIndexPath:firstIndexPath];
     assertThat(cell.measurementTypeLabel.text, is(equalTo(@"II.2")));
 }
 
@@ -153,45 +153,45 @@
                                  insertNewObjectForEntityForName:@"NoiseSource"
                                  inManagedObjectContext:ctx];
     newMeasurement1.noiseSource.name=@"shovel";
-    MeasurementSummaryStaticCell * cell=(MeasurementSummaryStaticCell*) [sut tableView:nil cellForRowAtIndexPath:firstIndexPath];
+    MeasurementSummaryStaticCell * cell=(MeasurementSummaryStaticCell*) [sut tableView:sut.tableView cellForRowAtIndexPath:firstIndexPath];
     assertThat(cell.nameLabel.text, is(equalTo(@"shovel")));
 }
 
 - (void)testCellLpIsTheSameAsTheMeasurementLp
 {
     newMeasurement1.soundPressureLevel=83.0f;
-    MeasurementSummaryStaticCell * cell=(MeasurementSummaryStaticCell*) [sut tableView:nil cellForRowAtIndexPath:firstIndexPath];
+    MeasurementSummaryStaticCell * cell=(MeasurementSummaryStaticCell*) [sut tableView:sut.tableView cellForRowAtIndexPath:firstIndexPath];
     assertThat(cell.soundPressureLevelLabel.text, is(equalTo(@"Lp = 83.0 dB(A)")));
 }
 
 - (void)testCellLwIsTheSameAsTheMeasurementLw
 {
     newMeasurement1.soundPowerLevel=105.0f;
-    MeasurementSummaryStaticCell * cell=(MeasurementSummaryStaticCell*) [sut tableView:nil cellForRowAtIndexPath:firstIndexPath];
+    MeasurementSummaryStaticCell * cell=(MeasurementSummaryStaticCell*) [sut tableView:sut.tableView cellForRowAtIndexPath:firstIndexPath];
     assertThat(cell.soundPowerLevelLabel.text, is(equalTo(@"Lw = 105.0 dB(A)")));
 }
 
 - (void)testDataSourceDoesNotCreateMoreCellsThanMeasurements
 {
-    STAssertThrows([sut tableView:nil cellForRowAtIndexPath:[NSIndexPath indexPathForRow: 1 inSection: 0]], @"Data source will not prepare more cells than Measurements");
+    XCTAssertThrows([sut tableView:sut.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow: 1 inSection: 0]], @"Data source will not prepare more cells than Measurements");
 }
 
 -(void)testDataSourceSendsNotificationWhenMeasurementIsSelected
 {
     NSIndexPath * selection=[NSIndexPath indexPathForRow:0 inSection:1];
-    [sut tableView:nil didSelectRowAtIndexPath:selection];
+    [sut tableView:sut.tableView didSelectRowAtIndexPath:selection];
     assertThat([receivedNotification name], is(equalTo(measurementsTableDidSelectMeasurementNotification)));
 }
 
 -(void)testDataSourceSendsNotificationWithMeasurementWhenMeasurementIsSelected
 {
-    [sut tableView:nil didSelectRowAtIndexPath:firstIndexPath];
+    [sut tableView:sut.tableView didSelectRowAtIndexPath:firstIndexPath];
     assertThat([(Measurement *)[receivedNotification object] identification], is(equalTo(@"R1")));
 }
 
 - (void) testMeasurementCanBeAddedToDataSource
 {
-    STAssertNoThrow([sut addMeasurement], @"The data source should be able to receive an extra measurement");
+    XCTAssertNoThrow([sut addMeasurement], @"The data source should be able to receive an extra measurement");
 }
 
 -(void)testDataSourceSendsNotificationWhenMeasurementIsAdded
@@ -208,8 +208,8 @@
 - (void)testHeightOfAMeasurementRowIsAtLeastTheSameAsTheHeightOfTheCell
 {
 //    [session addMeasurement: measurement1];
-    NSInteger height = [sut tableView: nil heightForRowAtIndexPath: firstIndexPathSecondSection];
-    MeasurementSummaryStaticCell * firstCellSecondSection=(MeasurementSummaryStaticCell*) [sut tableView:nil cellForRowAtIndexPath:firstIndexPathSecondSection];
+    NSInteger height = [sut tableView: sut.tableView heightForRowAtIndexPath: firstIndexPathSecondSection];
+    MeasurementSummaryStaticCell * firstCellSecondSection=(MeasurementSummaryStaticCell*) [sut tableView:sut.tableView cellForRowAtIndexPath:firstIndexPathSecondSection];
     assertThatFloat(height,is(greaterThanOrEqualTo([NSNumber numberWithFloat:firstCellSecondSection.frame.size.height])));
 }
 
