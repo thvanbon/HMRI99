@@ -205,7 +205,7 @@
     
 - (NSString*) pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component
     {
-        NSArray * engineers=[NSArray arrayWithObjects:@"RBa",@"TBo",@"RFl",@"RGi",@"EGr",@"RHa",@"SHo",@"ENi", nil];
+        NSArray * engineers=[NSArray arrayWithObjects:@"ENi",@"RNu",@"RFl",@"RGi",@"SHa",@"TBh",@"TBo", nil];
         return [NSString stringWithFormat:@"%@", [engineers objectAtIndex:row]];
     }
     
@@ -216,7 +216,7 @@
     
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component
     {
-        return 8;
+        return 7;
     }
     
 - (void)datePickerChanged:(TDDatePicker *)datePicker newDate:(NSDate *)newDate

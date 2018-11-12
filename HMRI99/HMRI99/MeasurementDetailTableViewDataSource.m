@@ -375,7 +375,43 @@
 }
     
     
-    // For responding to the user accepting a newly-captured picture or movie
+- (void)askPermissionToSaveImageToPhotoLibrary:(NSDictionary * _Nonnull)info picker:(UIImagePickerController * _Nonnull)picker {
+    if (picker.sourceType==UIImagePickerControllerSourceTypeCamera) {
+        [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status)
+         {
+             switch (status) {
+                 case PHAuthorizationStatusNotDetermined:{
+                     NSLog(@"PHAuthorizationStatusAuthorized");
+                     //Save the new image (original or edited) to the Camera Roll
+                     [self saveToLibrary];
+                     [self saveReloadAndDismissViewController:picker];
+                     break;
+                 }
+                 case PHAuthorizationStatusAuthorized: {
+                     NSLog(@"PHAuthorizationStatusAuthorized");
+                     //Save the new image (original or edited) to the Camera Roll
+                     [self saveToLibrary];
+                     [self saveReloadAndDismissViewController:picker];
+                     break;}
+                 case PHAuthorizationStatusRestricted:
+                     NSLog(@"PHAuthorizationStatusRestricted");
+                     break;
+                 case PHAuthorizationStatusDenied:
+                     NSLog(@"PHAuthorizationStatusDenied");
+                     break;
+                 default:
+                     break;
+             }
+         }];
+    }
+    else
+    {
+        url=(NSURL*)[info objectForKey:@"UIImagePickerControllerReferenceURL"];
+        [self saveReloadAndDismissViewController:picker];
+    }
+}
+
+// For responding to the user accepting a newly-captured picture or movie
 - (void) imagePickerController: (UIImagePickerController *) picker
  didFinishPickingMediaWithInfo: (NSDictionary *) info {
     
@@ -394,57 +430,8 @@
             imageToUse = originalImage;
         }
         
-        if (picker.sourceType==UIImagePickerControllerSourceTypeCamera) {
-            [PHPhotoLibrary requestAuthorization:^(PHAuthorizationStatus status)
-             {
-                 switch (status) {
-                     case PHAuthorizationStatusNotDetermined:{
-                         NSLog(@"PHAuthorizationStatusAuthorized");
-                         //Save the new image (original or edited) to the Camera Roll
-                         [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-                             [PHAssetChangeRequest creationRequestForAssetFromImage:self->imageToUse];
-                         }completionHandler:^(BOOL success, NSError *error) {
-                             if(success){
-                                 NSLog(@"worked");
-                             }else{
-                                 NSLog(@"Error: %@", error);
-                             }
-                         }];
-                         
-                         [self saveReloadAndDismissViewController:picker];
-                         break;
-                     }
-                     case PHAuthorizationStatusAuthorized: {
-                         NSLog(@"PHAuthorizationStatusAuthorized");
-                         //Save the new image (original or edited) to the Camera Roll
-                         [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
-                             [PHAssetChangeRequest creationRequestForAssetFromImage:self->imageToUse];
-                         }completionHandler:^(BOOL success, NSError *error) {
-                             if(success){
-                                 NSLog(@"worked");
-                             }else{
-                                 NSLog(@"Error: %@", error);
-                             }
-                         }];
-                         
-                         [self saveReloadAndDismissViewController:picker];
-                         break;}
-                     case PHAuthorizationStatusRestricted:
-                     NSLog(@"PHAuthorizationStatusRestricted");
-                     break;
-                     case PHAuthorizationStatusDenied:
-                     NSLog(@"PHAuthorizationStatusDenied");
-                     break;
-                     default:
-                     break;
-                 }
-             }];
-        }
-        else
-        {
-            url=(NSURL*)[info objectForKey:@"UIImagePickerControllerReferenceURL"];
-            [self saveReloadAndDismissViewController:picker];
-        }
+        [self askPermissionToSaveImageToPhotoLibrary:info picker:picker];
+
     }
 }
     
@@ -461,8 +448,21 @@
         return newImage;
     }
     
+- (void)saveToLibrary {
+    [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+        [PHAssetChangeRequest creationRequestForAssetFromImage:self->imageToUse];
+    }completionHandler:^(BOOL success, NSError *error) {
+        if(success){
+            NSLog(@"Image saved to library");
+        }else{
+            NSLog(@"Error: %@", error);
+        }
+    }];
+}
+
 - (void)saveReloadAndDismissViewController:(UIImagePickerController *)picker
     {
+
         float aspectRatio;
         aspectRatio=imageToUse.size.height/imageToUse.size.width;
         float height=90;
