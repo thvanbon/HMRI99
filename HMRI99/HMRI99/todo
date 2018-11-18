@@ -47,13 +47,14 @@ add total session sound power level
 add total session number of measurements
 add extra photos
 add sketch (to photo)
+add custom remarks to measurement
+go to next item in measurement details when pressing "next"
 make ipad app
 realtime sync data with external database
-scan rion results
+
 
 
 add measurement id to photo in e-mail
-fix camera crash
 fix select video possible (hangs after converting)
 fix session details
     MeasurementDetailViewController viewDidLoad bevat bij self.dataSource een object
@@ -64,7 +65,7 @@ fix session details
 fix tests
 add gps coordinates
 fix large keyboard
-measurement details: select row to edit details (but don't hightlight)
+//measurement details: select row to edit details (but don't hightlight)
 
 
 -[NSError init] called; this results in an invalid NSError instance. It will raise an exception in a future release. Please call errorWithDomain:code:userInfo: or initWithDomain:code:userInfo:. This message shown only once.

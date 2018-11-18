@@ -256,6 +256,8 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
     [sut viewDidAppear:NO];
     [self postMeasurementAddedNotification];
     MeasurementDetailViewController *nextViewController = (MeasurementDetailViewController *)navController.topViewController;
+    //NSLog(@"%@", [MeasurementDetailTableViewDataSource class]);
+    NSLog(@"%@", [navController.topViewController  class]);
     //assertThatBool([nextViewController.dataSource isKindOfClass: [MeasurementDetailTableViewDataSource class]], is(equalToLong(YES)));
     XCTAssert([nextViewController.dataSource isKindOfClass: [MeasurementDetailTableViewDataSource class]]);
 }

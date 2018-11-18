@@ -484,8 +484,11 @@
             NSLog(@"Error: %@",error);
         } else
         {
-            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-            [picker dismissViewControllerAnimated:YES completion:nil];
+
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+               [picker dismissViewControllerAnimated:YES completion:nil];
+            });
         }
         
     }
