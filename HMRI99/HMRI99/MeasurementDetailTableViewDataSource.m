@@ -48,14 +48,14 @@
                 measurementTextField.returnKeyType = UIReturnKeyNext;
                 measurementTextField.text=measurement.identification;
                 break;
-                case 1:
+                case 2:
                 cell.textLabel.text = @"Name";
                 measurementTextField.placeholder = @"eg. compressor";
                 measurementTextField.keyboardType = UIKeyboardTypeDefault;
                 measurementTextField.returnKeyType = UIReturnKeyNext;
                 measurementTextField.text=measurement.noiseSource.name;
                 break;
-                case 2:
+                case 3:
                 cell.textLabel.text=@"Image";
                 measurementTextField.enabled=NO;
                 if (measurement.image.thumbnail==nil)
@@ -75,7 +75,7 @@
                 imageButton.hidden=NO;
                 imageButton.enabled=YES;
                 break;
-                case 3:
+                case 7:
                 cell.textLabel.text = @"Lp";
                 measurementTextField.placeholder = @"eg. 88";
                 measurementTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
@@ -85,7 +85,7 @@
                     measurementTextField.text=[NSString stringWithFormat:@"%0.1f", Lp];
                 }
                 break;
-                case 4:
+                case 9:
                 measurementTextField.enabled=NO;
                 cell.textLabel.text = @"Type";
                 [cell.contentView addSubview:measurementTypeControl];
@@ -99,9 +99,9 @@
                     measurementTypeControl.selectedSegmentIndex=1;
                 }else
                 measurementTypeControl.selectedSegmentIndex=0;
-                measurementTypeControl.tag=10;
+                measurementTypeControl.tag=20;
                 break;
-                case 5:
+                case 10:
                 cell.textLabel.text = @"Distance";
                 measurementTextField.placeholder = @"in meters";
                 measurementTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
@@ -109,19 +109,19 @@
                 if (measurement.distance>0){
                     measurementTextField.text=[NSString stringWithFormat:@"%0.1f", measurement.distance];
                 }
-                [self updateActivationOfCell: cell atRow:5 forType: @"II.2"];
+                [self updateActivationOfCell: cell atRow:10 forType: @"II.2"];
                 break;
-                case 6:
+                case 12:
                 cell.textLabel.text = @"Surface";
                 measurementTextField.placeholder = @"in m2";
                 measurementTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
                 measurementTextField.returnKeyType = UIReturnKeyNext;
-                [self updateActivationOfCell:cell atRow:6 forType: @"II.3"];
+                [self updateActivationOfCell:cell atRow:12 forType: @"II.3"];
                 if (measurement.surfaceArea>0){
                     measurementTextField.text=[NSString stringWithFormat:@"%0.1f", measurement.surfaceArea];
                 }
                 break;
-                case 7:
+                case 13:
                 measurementTextField.enabled=NO;
                 cell.textLabel.text = @"Near f. corr.";
                 [cell.contentView addSubview:measurementTypeControl];
@@ -134,10 +134,10 @@
                                            action:@selector(measurementSegmentedControlWasUpdated:)
                                  forControlEvents:UIControlEventValueChanged];
                 measurementTypeControl.selectedSegmentIndex=-measurement.nearFieldCorrection;
-                measurementTypeControl.tag=11;
+                measurementTypeControl.tag=21;
                 [self updateActivationOfCell:cell atRow:7 forType:@"II.3"];
                 break;
-                case 8:
+                case 15:
                 cell.textLabel.text = @"Lw";
                 measurementTextField.placeholder = @"-";
                 measurementTextField.enabled=NO;
@@ -159,12 +159,12 @@
     
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
     {
-        return 9;
+        return 16;
     }
     
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
     {
-        if (indexPath.row==2) {
+        if (indexPath.row==3) {
             return 70;
         }
         return 44;
@@ -194,24 +194,24 @@
             case 1:
             measurement.identification=text;
             break;
-            case 2:
+            case 3:
             measurement.noiseSource.name=text;
             break;
-            case 4:
+            case 8:
             measurement.soundPressureLevel=[text floatValue];
             [self updateTableView];
             break;
-            case 5:
+            case 10:
             break;
-            case 6:
+            case 11:
             measurement.distance=[text floatValue];
             [self updateTableView];
             break;
-            case 7:
+            case 13:
             measurement.surfaceArea=[text floatValue];
             [self updateTableView];
             break;
-            case 8:
+            case 14:
             measurement.nearFieldCorrection=[text floatValue];
             [self updateTableView];
             break;
@@ -226,7 +226,7 @@
     
 -(void)measurementSegmentedControlWasUpdated:(UISegmentedControl *)updatedControl
     {
-        if (updatedControl.tag==10)
+        if (updatedControl.tag==20)
         {
             if (updatedControl.selectedSegmentIndex==0)
             {
@@ -247,29 +247,29 @@
             NSLog(@"Error: %@",error);
         }
         [measurement calculateSoundPowerLevel];
-        NSIndexPath * IndexPath5 = [NSIndexPath indexPathForRow:5 inSection:0];
-        UITableViewCell * cell5=[tableView cellForRowAtIndexPath:IndexPath5];
-        NSIndexPath * IndexPath6 = [NSIndexPath indexPathForRow:6 inSection:0];
-        UITableViewCell * cell6=[tableView cellForRowAtIndexPath:IndexPath6];
-        NSIndexPath * IndexPath7 = [NSIndexPath indexPathForRow:7 inSection:0];
-        UITableViewCell * cell7=[tableView cellForRowAtIndexPath:IndexPath7];
-        NSIndexPath * IndexPath8 = [NSIndexPath indexPathForRow:8 inSection:0];
-        UITableViewCell * cell8=[tableView cellForRowAtIndexPath:IndexPath8];
+        NSIndexPath * IndexPath10 = [NSIndexPath indexPathForRow:10 inSection:0];
+        UITableViewCell * cell10=[tableView cellForRowAtIndexPath:IndexPath10];
+        NSIndexPath * IndexPath12 = [NSIndexPath indexPathForRow:12 inSection:0];
+        UITableViewCell * cell12=[tableView cellForRowAtIndexPath:IndexPath12];
+        NSIndexPath * IndexPath13 = [NSIndexPath indexPathForRow:13 inSection:0];
+        UITableViewCell * cell13=[tableView cellForRowAtIndexPath:IndexPath13];
+        NSIndexPath * IndexPath15 = [NSIndexPath indexPathForRow:15 inSection:0];
+        UITableViewCell * cell15=[tableView cellForRowAtIndexPath:IndexPath15];
         
-        [self updateActivationOfCell:cell5 atRow:5 forType:@"II.2"];
-        [self updateActivationOfCell:cell6 atRow:6 forType:@"II.3"];
-        [self updateActivationOfCell:cell7 atRow:7 forType:@"II.3"];
-        [self updateSoundPowerLevelTextFieldInCell:cell8 atRow:78];
+        [self updateActivationOfCell:cell10 atRow:10 forType:@"II.2"];
+        [self updateActivationOfCell:cell12 atRow:12 forType:@"II.3"];
+        [self updateActivationOfCell:cell13 atRow:13 forType:@"II.3"];
+        [self updateSoundPowerLevelTextFieldInCell:cell15 atRow:78];
     }
     
 - (void)activateCell:(UITableViewCell*)cell atRow:(int)row
     {
         UITextField * textField=(UITextField *) [cell viewWithTag:row+1];
-        if (row!=7) {
+        if (row!=13) {
             textField.enabled=YES;
         } else
         {
-            UISegmentedControl * segmentedControl=(UISegmentedControl *) [cell viewWithTag:11];
+            UISegmentedControl * segmentedControl=(UISegmentedControl *) [cell viewWithTag:21];
             segmentedControl.enabled=YES;
         }
         cell.textLabel.textColor=[UIColor blackColor];
@@ -278,11 +278,11 @@
 - (void)deActivateCell:(UITableViewCell*)cell atRow:(int)row
     {
         UITextField * textField=(UITextField *) [cell viewWithTag:row+1];
-        if (row!=7) {
+        if (row!=13) {
             textField.enabled=NO;
         } else
         {
-            UISegmentedControl * segmentedControl=(UISegmentedControl *) [cell viewWithTag:11];
+            UISegmentedControl * segmentedControl=(UISegmentedControl *) [cell viewWithTag:21];
             segmentedControl.enabled=NO;
         }
         
@@ -299,7 +299,7 @@
     
 - (void)updateSoundPowerLevelTextFieldInCell:(UITableViewCell*)cell atRow:(int)row
     {
-        NSIndexPath * IndexPath = [NSIndexPath indexPathForRow:8 inSection:0];
+        NSIndexPath * IndexPath = [NSIndexPath indexPathForRow:15 inSection:0];
         UITextField *measurementTextField= (UITextField*)[cell viewWithTag:[IndexPath row]+1];
         if (measurement.soundPowerLevel>0) {
             measurementTextField.text=[NSString stringWithFormat:@"%0.1f", measurement.soundPowerLevel];
@@ -344,7 +344,7 @@
                                                                         self.measurement.image.imageData=nil;
                                                                         self.measurement.image.thumbnail=nil;
                                                                         self.measurement.image.url=nil;
-                                                                        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                                                                        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
                                                                     }];
         UIAlertAction *choosePhotoAction = [UIAlertAction actionWithTitle:@"Choose photo"
                                                                     style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {

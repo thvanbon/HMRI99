@@ -72,6 +72,24 @@
     model = nil;
     [super tearDown];
 }
+// 00 ID
+// 01 measurement device
+// 02 Name
+// 03 Image
+// 04 gps coordinates
+// 05 address
+// 06 operating conditions
+// 07 Lp
+// 08 background noise correction
+// 09 Type
+// 10 Distance
+// 11 Hemispherecorrection
+// 12 Surface
+// 13 Near field correction
+// 14 Custom remarks to measurement
+// 15 Lw
+
+
 
 - (void)testThatEnvironmentWorks
 {
@@ -83,9 +101,9 @@
     assertThatInt((int) [sut numberOfSectionsInTableView:sut.tableView],is(equalToInt(1)));
 }
 
-- (void) testNumberOfRowsReturnsNineForFirstSection
+- (void) testNumberOfRowsReturnsSixteenForFirstSection
 {
-    assertThatInt((int) [sut tableView:[[UITableView alloc] init] numberOfRowsInSection:0],is(equalToInt(9)));
+    assertThatInt((int) [sut tableView:[[UITableView alloc] init] numberOfRowsInSection:0],is(equalToInt(16)));
 }
 
 - (void) testObjectShouldConformToUITextFieldDelegate
@@ -143,130 +161,169 @@
 }
 
 #pragma mark row 1
+//
+//- (void) testRow1HasTextLabelDevice
+//{
+//    assertThat([[self textLabelForRow:1] text], is(equalTo(@"Device")));
+//}
+//
+//- (void) testRow1HasTextFieldWithDevicePlaceholder
+//{
+//    assertThat([[self textFieldForRow:1] placeholder], is(equalTo(@"eg. Rion NA28 - 41")));
+//}
+//
+//- (void) testRow1HasTextFieldWithDefaultKeyboard
+//{
+//    assertThatInt([[self textFieldForRow:1]keyboardType], is(equalToInt(UIKeyboardTypeDefault)));
+//}
+//
+//- (void) testRow1HasTextFieldWithReturnKeyNext
+//{
+//    assertThatInt([[self textFieldForRow:1]returnKeyType], is(equalToInt(UIReturnKeyNext)));
+//}
+//
+//- (void) testObjectShouldBeSetAsDeviceTextFieldDelegate
+//{
+//    assertThat([[self textFieldForRow:1] delegate], is(equalTo(sut)));
+//}
+//
+//- (void) testChangingDeviceTextFieldUpdatesMeasurementDevice
+//{
+//    [self updateRow:1 withInsertedSampleText:@"Rion NA28 - 45"];
+//    assertThat([[sut measurement] measurementDevice],is(equalTo(@"Rion NA28 - 45")));
+//}
+//
+//- (void) testDeviceTextFieldShowsMeasurementDevice
+//{
+//    sut.measurement.measurementDevice=@"Rion NA28 - 77";
+//    assertThat([[self textFieldForRow:1] text], is(equalTo(@"Rion NA28 - 77")));
+//}
 
-- (void) testRow1HasTextLabelName
+# pragma mark row 2
+
+- (void) testRow2HasTextLabelName
 {
-    assertThat([[self textLabelForRow:1] text], is(equalTo(@"Name")));
+    assertThat([[self textLabelForRow:2] text], is(equalTo(@"Name")));
 }
 
-- (void) testRow1HasTextFieldWithNamePlaceholder
+- (void) testRow2HasTextFieldWithNamePlaceholder
 {
-    assertThat([[self textFieldForRow:1] placeholder], is(equalTo(@"eg. compressor")));
+    assertThat([[self textFieldForRow:2] placeholder], is(equalTo(@"eg. compressor")));
 }
 
-- (void) testRow1HasTextFieldWithDefaultKeyboard
+- (void) testRow2HasTextFieldWithDefaultKeyboard
 {
-    assertThatInt([[self textFieldForRow:1] keyboardType], is(equalToInt(UIKeyboardTypeDefault)));
+    assertThatInt([[self textFieldForRow:2] keyboardType], is(equalToInt(UIKeyboardTypeDefault)));
 }
 
-- (void) testRow1HasTextFieldWithReturnKeyNext
+- (void) testRow2HasTextFieldWithReturnKeyNext
 {
-    assertThatInt([[self textFieldForRow:1]returnKeyType], is(equalToInt(UIReturnKeyNext)));
+    assertThatInt([[self textFieldForRow:2]returnKeyType], is(equalToInt(UIReturnKeyNext)));
 }
 
 - (void) testObjectShouldBeSetAsNameTextFieldDelegate
 {
-    assertThat([[self textFieldForRow:1] delegate], is(equalTo(sut)));
+    assertThat([[self textFieldForRow:2] delegate], is(equalTo(sut)));
 }
 
 - (void) testChangingNameTextFieldUpdatesMeasurementName
 {
-    [self updateRow:1 withInsertedSampleText:@"compressor"];
+    [self updateRow:2 withInsertedSampleText:@"compressor"];
     assertThat([[[sut measurement] noiseSource] name],is(equalTo(@"compressor")));
 }
 
 - (void) testNameTextFieldShowsMeasurementName
 {
     sut.measurement.noiseSource.name=@"shovel";
-    assertThat([[self textFieldForRow:1] text], is(equalTo(@"shovel")));
+    assertThat([[self textFieldForRow:2] text], is(equalTo(@"shovel")));
 }
 
-#pragma mark row 2
+#pragma mark row 3
 
-- (void) testRow2HasTextLabelImage
+- (void) testRow3HasTextLabelImage
 {
-    assertThat([[self textLabelForRow:2] text], is(equalTo(@"Image")));
+    assertThat([[self textLabelForRow:3] text], is(equalTo(@"Image")));
 }
 
-- (void) testRow2TextFieldIsDisabled
+- (void) testRow3TextFieldIsDisabled
 {
-    UITextField * myTextField=(UITextField *)[self textFieldForRow:2];
+    UITextField * myTextField=(UITextField *)[self textFieldForRow:3];
     assertThatBool(myTextField.enabled, is(equalToLong(NO)));
 }
 
-- (void) testRow2ContainsAButtonWithHeight60
+- (void) testRow3ContainsAButtonWithHeight60
 {
-    UITableViewCell *imageCell=[self cellForRow:2];
+    UITableViewCell *imageCell=[self cellForRow:3];
     UIButton *imageButton=(UIButton*)[imageCell viewWithTag:333];
     assertThatFloat(imageButton.frame.size.height, is(equalToFloat(60.0f)));
 }
 
-- (void) testRow2HasHeightGreaterThanImageButtonHeight
+- (void) testRow3HasHeightGreaterThanImageButtonHeight
 {
-    UITableViewCell *imageCell=[self cellForRow:2];
+    UITableViewCell *imageCell=[self cellForRow:3];
     UIButton *imageButton=(UIButton*)[imageCell viewWithTag:333];
-    assertThat([NSNumber numberWithFloat: imageButton.frame.size.height], is(lessThan([NSNumber numberWithFloat:(float)[sut tableView:sut.tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]]])));
+    assertThat([NSNumber numberWithFloat: imageButton.frame.size.height], is(lessThan([NSNumber numberWithFloat:(float)[sut tableView:sut.tableView heightForRowAtIndexPath:[NSIndexPath indexPathForRow:3 inSection:0]]])));
 }
 
-- (void) testRow2ButtonClickedSendsAlert
+- (void) testRow3ButtonClickedSendsAlert
 {
 }
 
-- (void) testRow2ButtonShowsSelectedImage
+- (void) testRow3ButtonShowsSelectedImage
 {
 }
 
 
 
-#pragma mark row 3
+#pragma mark row 7
 
-- (void) testRow3HasTextLabelLp
+- (void) testRow7HasTextLabelLp
 {
-    assertThat([[self textLabelForRow:3] text], is(equalTo(@"Lp")));
+    assertThat([[self textLabelForRow:7] text], is(equalTo(@"Lp")));
 }
 
-- (void) testRow3HasTextFieldWithSoundPressureLevelPlaceholder
+- (void) testRow7HasTextFieldWithSoundPressureLevelPlaceholder
 {
-    assertThat([[self textFieldForRow:3]placeholder], is(equalTo(@"eg. 88")));
+    assertThat([[self textFieldForRow:7]placeholder], is(equalTo(@"eg. 88")));
 }
 
-- (void) testRow3HasTextFieldWithNumericKeyboard
+- (void) testRow7HasTextFieldWithNumericKeyboard
 {
-    assertThatInt([[self textFieldForRow:3] keyboardType], is(equalToInt(UIKeyboardTypeNumbersAndPunctuation)));
+    assertThatInt([[self textFieldForRow:7] keyboardType], is(equalToInt(UIKeyboardTypeNumbersAndPunctuation)));
 }
 
-- (void) testRow3HasTextFieldWithReturnKeyNext
+- (void) testRow7HasTextFieldWithReturnKeyNext
 {
-    assertThatInt([[self textFieldForRow:3] returnKeyType], is(equalToInt(UIReturnKeyNext)));
+    assertThatInt([[self textFieldForRow:7] returnKeyType], is(equalToInt(UIReturnKeyNext)));
 }
 
 - (void) testObjectShouldBeSetAsLpTextFieldDelegate
 {
-    assertThat([[self textFieldForRow:3] delegate], is(equalTo(sut)));
+    assertThat([[self textFieldForRow:7] delegate], is(equalTo(sut)));
 }
 
 - (void) testChangingLpTextFieldUpdatesMeasurementLp
 {
-    [self updateRow:3 withInsertedSampleText:@"88"];
+    [self updateRow:7 withInsertedSampleText:@"88"];
     assertThatFloat([[sut measurement] soundPressureLevel],is(equalToFloat(88.0f)));
 }
 
 - (void) testLpTextFieldShowsMeasurementLp
 {
     sut.measurement.soundPressureLevel=83.0f;
-    assertThat([[self textFieldForRow:3] text], is(equalTo(@"83.0")));
+    assertThat([[self textFieldForRow:7] text], is(equalTo(@"83.0")));
 }
 
-#pragma mark row 4
+#pragma mark row 9
 
-- (void) testRow4HasTextLabelType
+- (void) testRow9HasTextLabelType
 {
-    assertThat([[self textLabelForRow:4] text], is(equalTo(@"Type")));
+    assertThat([[self textLabelForRow:9] text], is(equalTo(@"Type")));
 }
 
 - (void) testChangingTypeSegmentedControlUpdatesMeasurementType
 {
-    UISegmentedControl * measurementTypeControl=(UISegmentedControl *)[[self cellForRow:4] viewWithTag:10];
+    UISegmentedControl * measurementTypeControl=(UISegmentedControl *)[[self cellForRow:9] viewWithTag:20];
     measurementTypeControl.selectedSegmentIndex=1;
     [sut measurementSegmentedControlWasUpdated:measurementTypeControl];
     assertThat([[sut measurement] type],is(equalTo(@"II.3")));
@@ -275,189 +332,189 @@
 - (void) testTypeSegmentedControlShowsMeasurementType
 {
     sut.measurement.type=@"II.3";
-    assertThatInt((int) [(UISegmentedControl *)[[self cellForRow:4] viewWithTag:10]selectedSegmentIndex], is(equalToInt(1)));
+    assertThatInt((int) [(UISegmentedControl *)[[self cellForRow:9] viewWithTag:20]selectedSegmentIndex], is(equalToInt(1)));
 }
 
-#pragma mark row 5
+#pragma mark row 10
 
-- (void) testRow5HasTextLabelDistance
+- (void) testRow10HasTextLabelDistance
 {
-    assertThat([[self textLabelForRow:5] text], is(equalTo(@"Distance")));
+    assertThat([[self textLabelForRow:10] text], is(equalTo(@"Distance")));
 }
 
-- (void) testLabelRow5IsGreyWhenMeasurementTypeIsNotII2
-{
-    sut.measurement.type=@"II.3";
-    assertThat([self textLabelForRow:5].textColor, is(equalTo([UIColor grayColor])));
-}
-
-- (void) testLabelRow5IsBlackWhenMeasurementTypeNotII2
-{
-    sut.measurement.type=@"II.2";
-    assertThat([self textLabelForRow:5].textColor, is(equalTo([UIColor blackColor])));
-}
-
-- (void) testRow5TextFieldIsEnabledWhenMeasurementTypeIsII2
-{
-    sut.measurement.type=@"II.2";
-    assertThatBool([self textFieldForRow:5].enabled, is(equalToLong(YES)));
-}
-
-- (void) testRow5TextFieldIsDisabledWhenMeasurementTypeIsII3
+- (void) testLabelRow10IsGreyWhenMeasurementTypeIsNotII2
 {
     sut.measurement.type=@"II.3";
-    assertThatBool([self textFieldForRow:5].enabled, is(equalToLong(NO)));
+    assertThat([self textLabelForRow:10].textColor, is(equalTo([UIColor grayColor])));
 }
 
-//- (void) testRow5IsHiddenWhenMeasurementTypeIsNotII2
+- (void) testLabelRow10IsBlackWhenMeasurementTypeNotII2
+{
+    sut.measurement.type=@"II.2";
+    assertThat([self textLabelForRow:10].textColor, is(equalTo([UIColor blackColor])));
+}
+
+- (void) testRow10TextFieldIsEnabledWhenMeasurementTypeIsII2
+{
+    sut.measurement.type=@"II.2";
+    assertThatBool([self textFieldForRow:10].enabled, is(equalToLong(YES)));
+}
+
+- (void) testRow10TextFieldIsDisabledWhenMeasurementTypeIsII3
+{
+    sut.measurement.type=@"II.3";
+    assertThatBool([self textFieldForRow:10].enabled, is(equalToLong(NO)));
+}
+
+//- (void) testRow10IsHiddenWhenMeasurementTypeIsNotII2
 //{
 //    sut.measurement.type=@"II.3";
-//    assertThatBool([self cellForRow:5].hidden, is(equalToLong(YES)));
+//    assertThatBool([self cellForRow:10].hidden, is(equalToLong(YES)));
 //}
 //
 //- (void) testRow5IsNotHiddenWhenMeasurementTypeIsII2
 //{
 //    sut.measurement.type=@"II.2";
-//    assertThatBool([self cellForRow:5].hidden, is(equalToLong(NO)));
+//    assertThatBool([self cellForRow:10].hidden, is(equalToLong(NO)));
 //}
 
-- (void) testRow5HasTextFieldWithDistancePlaceholder
+- (void) testRow10HasTextFieldWithDistancePlaceholder
 {
-    assertThat([[self textFieldForRow:5] placeholder], is(equalTo(@"in meters")));
+    assertThat([[self textFieldForRow:10] placeholder], is(equalTo(@"in meters")));
 }
 
-- (void) testRow5HasTextFieldWithNumericKeyboard
+- (void) testRow10HasTextFieldWithNumericKeyboard
 {
-    assertThatInt([[self textFieldForRow:5] keyboardType], is(equalToInt(UIKeyboardTypeNumbersAndPunctuation)));
+    assertThatInt([[self textFieldForRow:10] keyboardType], is(equalToInt(UIKeyboardTypeNumbersAndPunctuation)));
 }
 
-- (void) testRow5HasTextFieldWithReturnKeyNext
+- (void) testRow10HasTextFieldWithReturnKeyNext
 {
-    assertThatInt([[self textFieldForRow:5] returnKeyType], is(equalToInt(UIReturnKeyNext)));
+    assertThatInt([[self textFieldForRow:10] returnKeyType], is(equalToInt(UIReturnKeyNext)));
 }
 
 - (void) testObjectShouldBeSetAsDistanceTextFieldDelegate
 {
-    assertThat([[self textFieldForRow:5] delegate], is(equalTo(sut)));
+    assertThat([[self textFieldForRow:10] delegate], is(equalTo(sut)));
 }
 
 - (void) testChangingDistanceTextFieldUpdatesMeasurementDistance
 {
-    [self updateRow:5 withInsertedSampleText:@"23"];
+    [self updateRow:10 withInsertedSampleText:@"23"];
     assertThatFloat([[sut measurement] distance],is(equalToFloat(23.0f)));
 }
 
 - (void) testDistanceTextFieldShowsMeasurementDistance
 {
     sut.measurement.distance=7.0f;
-    assertThat([[self textFieldForRow:5] text], is(equalTo(@"7.0")));
+    assertThat([[self textFieldForRow:10] text], is(equalTo(@"7.0")));
 }
 
-#pragma mark row 6
+#pragma mark row 12
 
-- (void) testRow6HasTextLabelMeasurementSurface
+- (void) testRow12HasTextLabelMeasurementSurface
 {
-    assertThat([[self textLabelForRow:6] text], is(equalTo(@"Surface")));
+    assertThat([[self textLabelForRow:12] text], is(equalTo(@"Surface")));
 }
 
-- (void) testLabelRow6IsGreyWhenMeasurementTypeIsNotII3
-{
-    sut.measurement.type=@"II.2";
-    assertThat([self textLabelForRow:6].textColor, is(equalTo([UIColor grayColor])));
-}
-
-- (void) testLabelRow6IsBlackWhenMeasurementTypeIsII3
-{
-    sut.measurement.type=@"II.3";
-    assertThat([self textLabelForRow:6].textColor, is(equalTo([UIColor blackColor])));
-}
-
-- (void) testRow6TextFieldIsEnabledWhenMeasurementTypeIsII3
-{
-    sut.measurement.type=@"II.3";
-    assertThatBool([self textFieldForRow:6].enabled, is(equalToLong(YES)));
-}
-
-- (void) testRow6TextFieldIsDisabledWhenMeasurementTypeIsNotII3
+- (void) testLabelRow12IsGreyWhenMeasurementTypeIsNotII3
 {
     sut.measurement.type=@"II.2";
-    assertThatBool([self textFieldForRow:6].enabled, is(equalToLong(NO)));
+    assertThat([self textLabelForRow:12].textColor, is(equalTo([UIColor grayColor])));
 }
 
-- (void) testRow6HasTextFieldWithSurfacePlaceholder
+- (void) testLabelRow12IsBlackWhenMeasurementTypeIsII3
 {
-    assertThat([[self textFieldForRow:6] placeholder], is(equalTo(@"in m2")));
+    sut.measurement.type=@"II.3";
+    assertThat([self textLabelForRow:12].textColor, is(equalTo([UIColor blackColor])));
 }
 
-- (void) testRow6HasTextFieldWithNumericKeyboard
+- (void) testRow12TextFieldIsEnabledWhenMeasurementTypeIsII3
 {
-    assertThatInt([[self textFieldForRow:6] keyboardType], is(equalToInt(UIKeyboardTypeNumbersAndPunctuation)));
+    sut.measurement.type=@"II.3";
+    assertThatBool([self textFieldForRow:12].enabled, is(equalToLong(YES)));
 }
 
-- (void) testRow6HasTextFieldWithReturnKeyNext
+- (void) testRow12TextFieldIsDisabledWhenMeasurementTypeIsNotII3
 {
-    assertThatInt([[self textFieldForRow:6] returnKeyType], is(equalToInt(UIReturnKeyNext)));
+    sut.measurement.type=@"II.2";
+    assertThatBool([self textFieldForRow:12].enabled, is(equalToLong(NO)));
+}
+
+- (void) testRow12HasTextFieldWithSurfacePlaceholder
+{
+    assertThat([[self textFieldForRow:12] placeholder], is(equalTo(@"in m2")));
+}
+
+- (void) testRow12HasTextFieldWithNumericKeyboard
+{
+    assertThatInt([[self textFieldForRow:12] keyboardType], is(equalToInt(UIKeyboardTypeNumbersAndPunctuation)));
+}
+
+- (void) testRow12HasTextFieldWithReturnKeyNext
+{
+    assertThatInt([[self textFieldForRow:12] returnKeyType], is(equalToInt(UIReturnKeyNext)));
 }
 
 - (void) testObjectShouldBeSetAsSurfaceTextFieldDelegate
 {
-    assertThat([[self textFieldForRow:6] delegate], is(equalTo(sut)));
+    assertThat([[self textFieldForRow:12] delegate], is(equalTo(sut)));
 }
 
 - (void) testChangingSurfaceTextFieldUpdatesMeasurementSurface
 {
     sut.measurement.type=@"II.3";    
-    [self updateRow:6 withInsertedSampleText:@"23"];
+    [self updateRow:12 withInsertedSampleText:@"23"];
     assertThatFloat([[sut measurement] surfaceArea],is(equalToFloat(23.0f)));
 }
 
 - (void) testSurfaceTextFieldShowsMeasurementSurfaceArea
 {
     sut.measurement.surfaceArea=7.0f;
-    assertThat([[self textFieldForRow:6] text], is(equalTo(@"7.0")));
+    assertThat([[self textFieldForRow:12] text], is(equalTo(@"7.0")));
 }
 
-#pragma mark row 7
+#pragma mark row 13
 
-- (void) testRow7HasTextLabelMeasurementNearFieldCorrection
+- (void) testRow13HasTextLabelMeasurementNearFieldCorrection
 {
-    assertThat([[self textLabelForRow:7] text], is(equalTo(@"Near f. corr.")));
+    assertThat([[self textLabelForRow:13] text], is(equalTo(@"Near f. corr.")));
 }
 
-- (void) testLabelRow7IsGreyWhenMeasurementTypeIsII2
+- (void) testLabelRow13IsGreyWhenMeasurementTypeIsII2
 {
     sut.measurement.type=@"II.2";
-    assertThat([self textLabelForRow:7].textColor, is(equalTo([UIColor grayColor])));
+    assertThat([self textLabelForRow:13].textColor, is(equalTo([UIColor grayColor])));
 }
 
-- (void) testLabelRow7IsBlackWhenMeasurementTypeIsII3
+- (void) testLabelRow13IsBlackWhenMeasurementTypeIsII3
 {
     sut.measurement.type=@"II.3";
-    assertThat([self textLabelForRow:7].textColor, is(equalTo([UIColor blackColor])));
+    assertThat([self textLabelForRow:13].textColor, is(equalTo([UIColor blackColor])));
 }
 
-- (void) testRow7SegementedControlIsEnabledWhenMeasurementTypeIsII3
+- (void) testRow13SegmentedControlIsEnabledWhenMeasurementTypeIsII3
 {
     sut.measurement.type=@"II.3";
-    UISegmentedControl * segmentedControl=(UISegmentedControl *)[[self cellForRow:7] viewWithTag:11];
+    UISegmentedControl * segmentedControl=(UISegmentedControl *)[[self cellForRow:13] viewWithTag:21];
     assertThatBool(segmentedControl.enabled, is(equalToLong(YES)));
 }
 
-- (void) testRow7SegmentedControlIsDisabledWhenMeasurementTypeIsII2
+- (void) testRow13SegmentedControlIsDisabledWhenMeasurementTypeIsII2
 {
     sut.measurement.type=@"II.2";
-    UISegmentedControl * segmentedControl=(UISegmentedControl *)[[self cellForRow:7] viewWithTag:11];
+    UISegmentedControl * segmentedControl=(UISegmentedControl *)[[self cellForRow:13] viewWithTag:11];
     assertThatBool(segmentedControl.enabled, is(equalToLong(NO)));
 }
 
 - (void) testObjectShouldBeSetAsNearFieldCorrectionTextFieldDelegate
 {
-    assertThat([[self textFieldForRow:7] delegate], is(equalTo(sut)));
+    assertThat([[self textFieldForRow:13] delegate], is(equalTo(sut)));
 }
 
 - (void) testChangingNearFieldCorrectionSegmentedControlUpdatesNearFieldCorrection
 {
-    UISegmentedControl * segmentedControl=(UISegmentedControl *)[[self cellForRow:7] viewWithTag:11];
+    UISegmentedControl * segmentedControl=(UISegmentedControl *)[[self cellForRow:13] viewWithTag:21];
     segmentedControl.selectedSegmentIndex=1;
     [sut measurementSegmentedControlWasUpdated:segmentedControl];
     assertThatInt([[sut measurement] nearFieldCorrection],is(equalToInt(-1)));
@@ -466,24 +523,24 @@
 - (void) testNearFieldCorrectionSegmentedControlShowsNearFieldCorrection
 {
     sut.measurement.nearFieldCorrection=-2;
-    assertThatInt((int) [(UISegmentedControl *)[[self cellForRow:7] viewWithTag:11]selectedSegmentIndex], is(equalToInt(2)));
+    assertThatInt((int) [(UISegmentedControl *)[[self cellForRow:13] viewWithTag:21]selectedSegmentIndex], is(equalToInt(2)));
 }
 
-#pragma mark row 8
+#pragma mark row 15
 
-- (void) testRow8HasTextLabelSoundPowerLevel
+- (void) testRow15HasTextLabelSoundPowerLevel
 {
-    assertThat([[self textLabelForRow:8] text], is(equalTo(@"Lw")));
+    assertThat([[self textLabelForRow:15] text], is(equalTo(@"Lw")));
 }
 
-- (void) testRow8HasTextFieldWithLwPlaceholder
+- (void) testRow15HasTextFieldWithLwPlaceholder
 {
-    assertThat([[self textFieldForRow:8] placeholder], is(equalTo(@"-")));
+    assertThat([[self textFieldForRow:15] placeholder], is(equalTo(@"-")));
 }
 
 - (void) testSoundPowerLevelTextFieldShowsSoundPowerLevel{
     sut.measurement.soundPowerLevel=83.2;
-    assertThat([[self textFieldForRow:8] text], is(equalTo(@"83.2")));
+    assertThat([[self textFieldForRow:15] text], is(equalTo(@"83.2")));
 }
 
 - (void) testSoundPowerLevelTextFieldIsUpdatedWhenLpIsUpdated
@@ -492,8 +549,8 @@
     sut.measurement.soundPressureLevel=80;
     sut.measurement.type=@"II.2";
     sut.measurement.distance=10;
-    [self updateRow:3 withInsertedSampleText:@"50"];
-    float myValue =[[(UITextField *)[self textFieldForRow:8] text] floatValue];
+    [self updateRow:7 withInsertedSampleText:@"50"];
+    float myValue =[[(UITextField *)[self textFieldForRow:15] text] floatValue];
     assertThatFloat(myValue, is(closeTo(81.0,0.05)));
 }
 
@@ -505,10 +562,10 @@
     sut.measurement.distance=10;
     sut.measurement.surfaceArea=10;
     sut.measurement.nearFieldCorrection=-1;
-    UISegmentedControl * measurementTypeControl=(UISegmentedControl *)[[self cellForRow:4] viewWithTag:10];
+    UISegmentedControl * measurementTypeControl=(UISegmentedControl *)[[self cellForRow:9] viewWithTag:20];
     measurementTypeControl.selectedSegmentIndex=1;
     [sut measurementSegmentedControlWasUpdated:measurementTypeControl];  
-    float myValue =[[(UITextField *)[self textFieldForRow:8] text] floatValue];
+    float myValue =[[(UITextField *)[self textFieldForRow:15] text] floatValue];
     assertThatFloat(myValue, is(closeTo(59.0,0.05)));
 }
 
@@ -520,8 +577,8 @@
     sut.measurement.distance=20;
     sut.measurement.surfaceArea=10;
     sut.measurement.nearFieldCorrection=-1;
-    [self updateRow:5 withInsertedSampleText:@"10"];
-    float myValue =[[(UITextField *)[self textFieldForRow:8] text] floatValue];
+    [self updateRow:10 withInsertedSampleText:@"10"];
+    float myValue =[[(UITextField *)[self textFieldForRow:15] text] floatValue];
     assertThatFloat(myValue, is(closeTo(81.0,0.05)));
 }
 
@@ -533,8 +590,8 @@
     sut.measurement.distance=10;
     sut.measurement.surfaceArea=10;
     sut.measurement.nearFieldCorrection=-1;
-    [self updateRow:6 withInsertedSampleText:@"10"];
-    float myValue =[[(UITextField *)[self textFieldForRow:8] text] floatValue];
+    [self updateRow:12 withInsertedSampleText:@"10"];
+    float myValue =[[(UITextField *)[self textFieldForRow:15] text] floatValue];
     assertThatFloat(myValue, is(closeTo(59.0,0.05)));
 }
 
@@ -546,19 +603,19 @@
     sut.measurement.distance=10;
     sut.measurement.surfaceArea=10;
     sut.measurement.nearFieldCorrection=0;
-    [self updateRow:7 withInsertedSampleText:@"-1"];
-    float myValue =[[(UITextField *)[self textFieldForRow:8] text] floatValue];
+    [self updateRow:13 withInsertedSampleText:@"-1"];
+    float myValue =[[(UITextField *)[self textFieldForRow:15] text] floatValue];
     assertThatFloat(myValue, is(closeTo(59.0,0.05)));
 }
 
 - (void) testSoundPowerLevelTextFieldShowsPlaceholderWhenSPLSmallerOrEqualToZero{
     sut.measurement.soundPowerLevel=0;
-    assertThat([[self textFieldForRow:8] text], is(equalTo(@"")));
+    assertThat([[self textFieldForRow:15] text], is(equalTo(@"")));
 }
 
 - (void) testSoundPowerLevelTextFieldIsDisabled
 {
-    UITextField * myTextField=(UITextField *)[self textFieldForRow:8];
+    UITextField * myTextField=(UITextField *)[self textFieldForRow:15];
      assertThatBool(myTextField.enabled, is(equalToLong(NO)));
 }
 

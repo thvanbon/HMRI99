@@ -38,21 +38,31 @@ update unit tests
 
 //debug mail results (zero measurements=no problem, missing images=done, empty measurements=done)
 auto fill data (id)
-add hemispherecorrection
-add measurement device
-add background noise correction
-id picker
-add other measurement types
+
+add measurement device cell 2
+add hemispherecorrection cell 10
+add operating conditions 
+add background noise correction 7
+
+add custom remarks to measurement
+add gps coordinates cell 5
+add address cell 6
+
+
+
+
 add total session sound power level
 add total session number of measurements
+
+id picker
+add other measurement types
+
 add extra photos
 add sketch (to photo)
-add custom remarks to measurement
 go to next item in measurement details when pressing "next"
 make ipad app
 realtime sync data with external database
-
-
+implement show photo
 
 add measurement id to photo in e-mail
 fix select video possible (hangs after converting)
@@ -63,7 +73,7 @@ fix session details
     => bij Sessions wordt viewDidLoad eerst aangeroepen en daarna pas de acties die horen bij de notification. Hoe kan dat?
     Komt door initialisatie van pickers. NA disablen daarvan werkt het wel.
 fix tests
-add gps coordinates
+
 fix large keyboard
 //measurement details: select row to edit details (but don't hightlight)
 
