@@ -6,8 +6,10 @@
         <attribute name="url" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="measurement" optional="YES" minCount="1" maxCount="1" deletionRule="Nullify" destinationEntity="Measurement" inverseName="image" inverseEntity="Measurement" syncable="YES"/>
     </entity>
-    <entity name="Location" syncable="YES">
+    <entity name="Location" representedClassName="Location" syncable="YES">
+        <attribute name="address" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="administrativeArea" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="coordinates" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isoCountryCode" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="latitude" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="locality" optional="YES" attributeType="String" syncable="YES"/>
@@ -52,9 +54,9 @@
     </entity>
     <elements>
         <element name="Image" positionX="297" positionY="-27" width="128" height="105"/>
+        <element name="Location" positionX="295.90234375" positionY="203.87109375" width="128" height="195"/>
         <element name="Measurement" positionX="45" positionY="-111" width="128" height="300"/>
         <element name="NoiseSource" positionX="297" positionY="90" width="128" height="90"/>
         <element name="Session" positionX="-153" positionY="-21" width="128" height="165"/>
-        <element name="Location" positionX="54" positionY="18" width="128" height="165"/>
     </elements>
 </model>

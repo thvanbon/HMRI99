@@ -48,6 +48,13 @@
                 measurementTextField.returnKeyType = UIReturnKeyNext;
                 measurementTextField.text=measurement.identification;
                 break;
+                case 1:
+                cell.textLabel.text = @"Device";
+                measurementTextField.placeholder = @"eg. Rion NA28 - 41";
+                measurementTextField.keyboardType = UIKeyboardTypeDefault;
+                measurementTextField.returnKeyType = UIReturnKeyNext;
+                measurementTextField.text=measurement.measurementDevice;
+                break;
                 case 2:
                 cell.textLabel.text = @"Name";
                 measurementTextField.placeholder = @"eg. compressor";
@@ -75,6 +82,27 @@
                 imageButton.hidden=NO;
                 imageButton.enabled=YES;
                 break;
+                case 4:
+                cell.textLabel.text = @"Coordinates";
+                measurementTextField.placeholder = @"eg. 52.370216, 4.895168";
+                measurementTextField.keyboardType = UIKeyboardTypeDefault;
+                measurementTextField.returnKeyType = UIReturnKeyNext;
+                measurementTextField.text=measurement.location.coordinates;
+                break;
+                case 5:
+                cell.textLabel.text = @"Address";
+                measurementTextField.placeholder = @"eg. Visserstraat 50, Aalsmeer, NL";
+                measurementTextField.keyboardType = UIKeyboardTypeDefault;
+                measurementTextField.returnKeyType = UIReturnKeyNext;
+                measurementTextField.text=measurement.location.address;
+                break;
+                case 6:
+                cell.textLabel.text = @"Conditions";
+                measurementTextField.placeholder = @"eg. 1000 rpm";
+                measurementTextField.keyboardType = UIKeyboardTypeDefault;
+                measurementTextField.returnKeyType = UIReturnKeyNext;
+                measurementTextField.text=measurement.noiseSource.operatingConditions;
+                break;
                 case 7:
                 cell.textLabel.text = @"Lp";
                 measurementTextField.placeholder = @"eg. 88";
@@ -83,6 +111,16 @@
                 float Lp=measurement.soundPressureLevel;
                 if (Lp>0) {
                     measurementTextField.text=[NSString stringWithFormat:@"%0.1f", Lp];
+                }
+                break;
+                case 8:
+                cell.textLabel.text = @"Lambient";
+                measurementTextField.placeholder = @"eg. 75";
+                measurementTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
+                measurementTextField.returnKeyType = UIReturnKeyNext;
+                float Lambient=measurement.backgroundSoundPressureLevel;
+                if (Lambient>0) {
+                    measurementTextField.text=[NSString stringWithFormat:@"%0.1f", Lambient];
                 }
                 break;
                 case 9:
@@ -111,6 +149,25 @@
                 }
                 [self updateActivationOfCell: cell atRow:10 forType: @"II.2"];
                 break;
+                case 11:
+                measurementTextField.enabled=NO;
+                cell.textLabel.text = @"Hemi. corr.";
+                [cell.contentView addSubview:measurementTypeControl];
+                [measurementTypeControl insertSegmentWithTitle:@"0" atIndex:0 animated:NO];
+                [measurementTypeControl insertSegmentWithTitle:@"-2" atIndex:1 animated:NO];
+                
+                [measurementTypeControl addTarget:self
+                                           action:@selector(measurementSegmentedControlWasUpdated:)
+                                 forControlEvents:UIControlEventValueChanged];
+                    if (measurement.nearFieldCorrection==0) {
+                        measurementTypeControl.selectedSegmentIndex=0;
+                    }
+                    else {
+                        measurementTypeControl.selectedSegmentIndex=1;
+                    }
+                measurementTypeControl.tag=22;
+                [self updateActivationOfCell:cell atRow:11 forType:@"II.2"];
+                break;
                 case 12:
                 cell.textLabel.text = @"Surface";
                 measurementTextField.placeholder = @"in m2";
@@ -135,7 +192,14 @@
                                  forControlEvents:UIControlEventValueChanged];
                 measurementTypeControl.selectedSegmentIndex=-measurement.nearFieldCorrection;
                 measurementTypeControl.tag=21;
-                [self updateActivationOfCell:cell atRow:7 forType:@"II.3"];
+                [self updateActivationOfCell:cell atRow:13 forType:@"II.3"];
+                break;
+                case 14:
+                cell.textLabel.text = @"Remarks";
+                measurementTextField.placeholder = @"eg. measured in front of facade";
+                measurementTextField.keyboardType = UIKeyboardTypeDefault;
+                measurementTextField.returnKeyType = UIReturnKeyNext;
+                    measurementTextField.text=measurement.remarks;
                 break;
                 case 15:
                 cell.textLabel.text = @"Lw";
@@ -194,19 +258,41 @@
             case 1:
             measurement.identification=text;
             break;
+            case 2:
+            measurement.measurementDevice=text;
+            break;
             case 3:
             measurement.noiseSource.name=text;
+            break;
+            case 4:
+            break;
+            case 5:
+            measurement.location.coordinates=text;
+            break;
+            case 6:
+            measurement.location.address=text;
+            break;
+            case 7:
+        measurement.noiseSource.operatingConditions=text;
             break;
             case 8:
             measurement.soundPressureLevel=[text floatValue];
             [self updateTableView];
             break;
+            case 9:
+            measurement.backgroundSoundPressureLevel=[text floatValue];
+            [self updateTableView];
+            break;
             case 10:
+            measurement.hemiSphereCorrection=[text floatValue];
+            [self updateTableView];
             break;
             case 11:
             measurement.distance=[text floatValue];
             [self updateTableView];
             break;
+            case 12:
+                break;
             case 13:
             measurement.surfaceArea=[text floatValue];
             [self updateTableView];
@@ -214,6 +300,9 @@
             case 14:
             measurement.nearFieldCorrection=[text floatValue];
             [self updateTableView];
+            break;
+            case 15:
+            measurement.remarks=text;
             break;
             default:
             break;
@@ -233,9 +322,21 @@
                 measurement.type=@"II.2";
             } else
             measurement.type=@"II.3";
-        } else
+        } else if (updatedControl.tag==21)
         {
             measurement.nearFieldCorrection=-updatedControl.selectedSegmentIndex;
+        } else
+        {
+            switch (updatedControl.selectedSegmentIndex) {
+                case 0:
+                    measurement.hemiSphereCorrection=0;
+                    break;
+                case 1:
+                    measurement.hemiSphereCorrection=-2;
+                    break;
+                default:
+                    break;
+            }
         }
         [self updateTableView];
     }
@@ -249,6 +350,8 @@
         [measurement calculateSoundPowerLevel];
         NSIndexPath * IndexPath10 = [NSIndexPath indexPathForRow:10 inSection:0];
         UITableViewCell * cell10=[tableView cellForRowAtIndexPath:IndexPath10];
+        NSIndexPath * IndexPath11 = [NSIndexPath indexPathForRow:11 inSection:0];
+        UITableViewCell * cell11=[tableView cellForRowAtIndexPath:IndexPath11];
         NSIndexPath * IndexPath12 = [NSIndexPath indexPathForRow:12 inSection:0];
         UITableViewCell * cell12=[tableView cellForRowAtIndexPath:IndexPath12];
         NSIndexPath * IndexPath13 = [NSIndexPath indexPathForRow:13 inSection:0];
@@ -257,6 +360,7 @@
         UITableViewCell * cell15=[tableView cellForRowAtIndexPath:IndexPath15];
         
         [self updateActivationOfCell:cell10 atRow:10 forType:@"II.2"];
+        [self updateActivationOfCell:cell11 atRow:11 forType:@"II.2"];
         [self updateActivationOfCell:cell12 atRow:12 forType:@"II.3"];
         [self updateActivationOfCell:cell13 atRow:13 forType:@"II.3"];
         [self updateSoundPowerLevelTextFieldInCell:cell15 atRow:78];
@@ -265,11 +369,16 @@
 - (void)activateCell:(UITableViewCell*)cell atRow:(int)row
     {
         UITextField * textField=(UITextField *) [cell viewWithTag:row+1];
-        if (row!=13) {
+        if (row!=13 && row!=11) {
             textField.enabled=YES;
-        } else
+        }
+        else if (row==13)
         {
             UISegmentedControl * segmentedControl=(UISegmentedControl *) [cell viewWithTag:21];
+            segmentedControl.enabled=YES;
+        }
+        else{
+            UISegmentedControl * segmentedControl=(UISegmentedControl *) [cell viewWithTag:22];
             segmentedControl.enabled=YES;
         }
         cell.textLabel.textColor=[UIColor blackColor];
@@ -278,11 +387,15 @@
 - (void)deActivateCell:(UITableViewCell*)cell atRow:(int)row
     {
         UITextField * textField=(UITextField *) [cell viewWithTag:row+1];
-        if (row!=13) {
+        if (row!=13&& row!=11) {
             textField.enabled=NO;
-        } else
+        } else if (row==13)
         {
             UISegmentedControl * segmentedControl=(UISegmentedControl *) [cell viewWithTag:21];
+            segmentedControl.enabled=NO;
+        }
+        else{
+            UISegmentedControl * segmentedControl=(UISegmentedControl *) [cell viewWithTag:22];
             segmentedControl.enabled=NO;
         }
         

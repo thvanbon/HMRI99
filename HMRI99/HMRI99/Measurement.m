@@ -1,16 +1,25 @@
 #import "Measurement.h"
 #import <AssetsLibrary/AssetsLibrary.h>
 
-@implementation Measurement
-@dynamic identification, creationDate, type, soundPressureLevel, soundPowerLevel, noiseSource;
+@implementation Measurement{
+    float lAmbient;
+}
+@dynamic identification, creationDate, type, soundPressureLevel, soundPowerLevel, noiseSource, backgroundSoundPressureLevel, remarks;
 @dynamic distance, hemiSphereCorrection;
 @dynamic surfaceArea, nearFieldCorrection, directivityIndex;
 @dynamic session, image;
-
+@dynamic measurementDevice;
+@dynamic location;
 
 -(void)calculateSoundPowerLevel
 {
-    if (self.type) {
+    if (self.type && self.backgroundSoundPressureLevel<self.soundPressureLevel) {
+        if (self.backgroundSoundPressureLevel){
+            lAmbient= self.backgroundSoundPressureLevel;
+        } else {
+            lAmbient = -99.0f;
+        }
+
         if ([self.type isEqual:@"II.2"]) {
             [self calculateSoundPowerLevelII2];
         }else
@@ -23,7 +32,9 @@
         //                    format:@"type should be set when sound power level is calculated"];
         self.soundPowerLevel=0.0f;
     }
+
 }
+
 
 #pragma mark II.2
 
@@ -48,7 +59,7 @@
 
 -(void)calculateSoundPowerLevelII2
 {
-    float SWL=self.soundPressureLevel+10*log10f(4*M_PI*pow(self.distance,2))-self.hemiSphereCorrection; 
+    float SWL=10*log10f(pow(10,self.soundPressureLevel/10)-pow(10,lAmbient/10))+10*log10f(4*M_PI*pow(self.distance,2))+self.hemiSphereCorrection;
     self.soundPowerLevel=SWL;
 }
 
@@ -79,7 +90,7 @@
         [self setSoundPowerLevel:0.0f];
     }else
     {
-        float SWL= self.soundPressureLevel+10*log10f(self.surfaceArea)+self.nearFieldCorrection + self.directivityIndex;
+        float SWL= 10*log10f(pow(10,self.soundPressureLevel/10)-pow(10,lAmbient/10))+10*log10f(self.surfaceArea)+self.nearFieldCorrection + self.directivityIndex;
         [self setSoundPowerLevel:SWL];
     }
 }

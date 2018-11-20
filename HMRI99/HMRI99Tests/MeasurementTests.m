@@ -96,6 +96,14 @@
     assertThatFloat([sut soundPowerLevel],is(equalToFloat(0.0f)));
 }
 
+- (void) testThatCalculateSoundPowerLevelReturnsZeroWhenBackgroundNoiseLevelIsGreaterThanLp
+{
+    [sut setBackgroundSoundPressureLevel:80.0f];
+    [sut setSoundPressureLevel:70.0f];
+    [sut calculateSoundPowerLevel];
+    assertThatFloat([sut soundPowerLevel],is(equalToFloat(0.0f)));
+}
+
                     
 #pragma mark II.2
 
@@ -130,17 +138,24 @@
     assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(81.0,0.05)));
 }
 
-- (void) testCalculateSWLForSPL40AndDistance5Gives81
+- (void) testCalculateSWLForSPL40AndDistance5Gives65
 {
     [sut setType:@"II.2"];
     [self calculateSWLForSPL:40 distance:5 hemiSphereCorrection:0];
     assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(65.0,0.05)));
 }
 
+- (void) testCalculateSWLForSPL40AndDistance5AndLambient40Gives65
+{
+    [sut setType:@"II.2"];
+    [self calculateSWLForSPL:40 distance:5 hemiSphereCorrection:0 Lambient:37];
+    assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(62.0,0.05)));
+}
+
 - (void) testCalculateSWLForSPL50AndDistance10AndHemiSphereCorrection2Gives79
 {
     [sut setType:@"II.2"];    
-    [self calculateSWLForSPL:50 distance:10 hemiSphereCorrection:2];
+    [self calculateSWLForSPL:50 distance:10 hemiSphereCorrection:-2];
     assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(79.0,0.05)));
 }
 
@@ -152,6 +167,14 @@
     [sut calculateSoundPowerLevel];
 }
 
+- (void)calculateSWLForSPL: (float)SPL distance:(float) distance hemiSphereCorrection:(float) hemiSphereCorrection Lambient:(float)lAmbient
+{
+    [sut setDistance:distance];
+    [sut setSoundPressureLevel:SPL];
+    [sut setHemiSphereCorrection:hemiSphereCorrection];
+    [sut setBackgroundSoundPressureLevel:lAmbient];
+    [sut calculateSoundPowerLevel];
+}
 #pragma mark II.3
 
 - (void) testMeasurementHasSurfaceArea
@@ -212,6 +235,13 @@
     assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(69.0,0.05)));
 }
 
+- (void) testCalculateSWLForSPL50AndSurface100AndNearFieldMinus1AndLambient50Gives66
+{
+    [sut setType:@"II.3"];
+    [self calculateSWLForSPL:50 surfaceArea:100 nearFieldCorrection:-1 Lambient:47];
+    assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(66.0,0.05)));
+}
+
 - (void)calculateSWLForSPL: (float)SPL surfaceArea:(float) surfaceArea nearFieldCorrection:(float) nearFieldCorrection
 {
     [sut setSurfaceArea:surfaceArea];
@@ -219,6 +249,16 @@
     [sut setNearFieldCorrection:nearFieldCorrection];
     [sut calculateSoundPowerLevel];
 }
+
+- (void)calculateSWLForSPL: (float)SPL surfaceArea:(float) surfaceArea nearFieldCorrection:(float) nearFieldCorrection Lambient:(float)lAmbient
+{
+    [sut setSurfaceArea:surfaceArea];
+    [sut setSoundPressureLevel:SPL];
+    [sut setNearFieldCorrection:nearFieldCorrection];
+    [sut setBackgroundSoundPressureLevel:lAmbient];
+    [sut calculateSoundPowerLevel];
+}
+
 
 - (void) testMeasurementHasExportMethod
 {

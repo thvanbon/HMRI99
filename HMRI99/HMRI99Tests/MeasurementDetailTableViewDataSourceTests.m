@@ -56,6 +56,10 @@
                                insertNewObjectForEntityForName:@"NoiseSource"
                                inManagedObjectContext: ctx];
     sampleMeasurement.noiseSource=noiseSource;
+    Location * sampleLocation=[NSEntityDescription
+                               insertNewObjectForEntityForName:@"Location"
+                               inManagedObjectContext: ctx];
+    sampleMeasurement.location=sampleLocation;
 }
 
 - (void)tearDown
@@ -161,43 +165,43 @@
 }
 
 #pragma mark row 1
-//
-//- (void) testRow1HasTextLabelDevice
-//{
-//    assertThat([[self textLabelForRow:1] text], is(equalTo(@"Device")));
-//}
-//
-//- (void) testRow1HasTextFieldWithDevicePlaceholder
-//{
-//    assertThat([[self textFieldForRow:1] placeholder], is(equalTo(@"eg. Rion NA28 - 41")));
-//}
-//
-//- (void) testRow1HasTextFieldWithDefaultKeyboard
-//{
-//    assertThatInt([[self textFieldForRow:1]keyboardType], is(equalToInt(UIKeyboardTypeDefault)));
-//}
-//
-//- (void) testRow1HasTextFieldWithReturnKeyNext
-//{
-//    assertThatInt([[self textFieldForRow:1]returnKeyType], is(equalToInt(UIReturnKeyNext)));
-//}
-//
-//- (void) testObjectShouldBeSetAsDeviceTextFieldDelegate
-//{
-//    assertThat([[self textFieldForRow:1] delegate], is(equalTo(sut)));
-//}
-//
-//- (void) testChangingDeviceTextFieldUpdatesMeasurementDevice
-//{
-//    [self updateRow:1 withInsertedSampleText:@"Rion NA28 - 45"];
-//    assertThat([[sut measurement] measurementDevice],is(equalTo(@"Rion NA28 - 45")));
-//}
-//
-//- (void) testDeviceTextFieldShowsMeasurementDevice
-//{
-//    sut.measurement.measurementDevice=@"Rion NA28 - 77";
-//    assertThat([[self textFieldForRow:1] text], is(equalTo(@"Rion NA28 - 77")));
-//}
+
+- (void) testRow1HasTextLabelDevice
+{
+    assertThat([[self textLabelForRow:1] text], is(equalTo(@"Device")));
+}
+
+- (void) testRow1HasTextFieldWithDevicePlaceholder
+{
+    assertThat([[self textFieldForRow:1] placeholder], is(equalTo(@"eg. Rion NA28 - 41")));
+}
+
+- (void) testRow1HasTextFieldWithDefaultKeyboard
+{
+    assertThatInt([[self textFieldForRow:1]keyboardType], is(equalToInt(UIKeyboardTypeDefault)));
+}
+
+- (void) testRow1HasTextFieldWithReturnKeyNext
+{
+    assertThatInt([[self textFieldForRow:1]returnKeyType], is(equalToInt(UIReturnKeyNext)));
+}
+
+- (void) testObjectShouldBeSetAsDeviceTextFieldDelegate
+{
+    assertThat([[self textFieldForRow:1] delegate], is(equalTo(sut)));
+}
+
+- (void) testChangingDeviceTextFieldUpdatesMeasurementDevice
+{
+    [self updateRow:1 withInsertedSampleText:@"Rion NA28 - 45"];
+    assertThat([[sut measurement] measurementDevice],is(equalTo(@"Rion NA28 - 45")));
+}
+
+- (void) testDeviceTextFieldShowsMeasurementDevice
+{
+    sut.measurement.measurementDevice=@"Rion NA28 - 77";
+    assertThat([[self textFieldForRow:1] text], is(equalTo(@"Rion NA28 - 77")));
+}
 
 # pragma mark row 2
 
@@ -273,7 +277,123 @@
 {
 }
 
+# pragma mark row 4
 
+- (void) testRow4HasTextLabelCoordinates
+{
+    assertThat([[self textLabelForRow:4] text], is(equalTo(@"Coordinates")));
+}
+
+- (void) testRow4HasTextFieldWithCoordinatesPlaceholder
+{
+    assertThat([[self textFieldForRow:4] placeholder], is(equalTo(@"eg. 52.370216, 4.895168")));
+}
+
+- (void) testRow4HasTextFieldWithDefaultKeyboard
+{
+    assertThatInt([[self textFieldForRow:4] keyboardType], is(equalToInt(UIKeyboardTypeDefault)));
+}
+
+- (void) testRow4HasTextFieldWithReturnKeyNext
+{
+    assertThatInt([[self textFieldForRow:4]returnKeyType], is(equalToInt(UIReturnKeyNext)));
+}
+
+- (void) testObjectShouldBeSetAsCoordinatesTextFieldDelegate
+{
+    assertThat([[self textFieldForRow:4] delegate], is(equalTo(sut)));
+}
+
+
+- (void) testChangingCoordinatesTextFieldUpdatesCoordinates
+{
+    [self updateRow:4 withInsertedSampleText:@"53.33216, 4.925168"];
+    assertThat([[[sut measurement] location] coordinates],is(equalTo(@"53.33216, 4.925168")));
+}
+
+- (void) testCoordinatesTextFieldShowsMeasurementCoordinates
+{
+    sut.measurement.location.coordinates=@"53.635243, 4.124234";
+    assertThat([[self textFieldForRow:4] text], is(equalTo(@"53.635243, 4.124234")));
+}
+
+# pragma mark row 5
+
+- (void) testRow5HasTextLabelAddress
+{
+    assertThat([[self textLabelForRow:5] text], is(equalTo(@"Address")));
+}
+
+- (void) testRow5HasTextFieldWithAddressPlaceholder
+{
+    assertThat([[self textFieldForRow:5] placeholder], is(equalTo(@"eg. Visserstraat 50, Aalsmeer, NL")));
+}
+
+- (void) testRow5HasTextFieldWithDefaultKeyboard
+{
+    assertThatInt([[self textFieldForRow:5] keyboardType], is(equalToInt(UIKeyboardTypeDefault)));
+}
+
+- (void) testRow5HasTextFieldWithReturnKeyNext
+{
+    assertThatInt([[self textFieldForRow:5]returnKeyType], is(equalToInt(UIReturnKeyNext)));
+}
+
+- (void) testObjectShouldBeSetAsAddressTextFieldDelegate
+{
+    assertThat([[self textFieldForRow:5] delegate], is(equalTo(sut)));
+}
+
+- (void) testChangingAddressTextFieldUpdatesAddress
+{
+    [self updateRow:5 withInsertedSampleText:@"Wolfskamerweg 47"];
+    assertThat([[[sut measurement] location] address],is(equalTo(@"Wolfskamerweg 47")));
+}
+
+- (void) testAddressTextFieldShowsMeasurementAddress
+{
+    sut.measurement.location.address=@"adres";
+    assertThat([[self textFieldForRow:5] text], is(equalTo(@"adres")));
+}
+
+# pragma mark row 6
+
+- (void) testRow6HasTextLabelOperatingConditions
+{
+    assertThat([[self textLabelForRow:6] text], is(equalTo(@"Conditions")));
+}
+
+- (void) testRow6HasTextFieldWithOperatingConditionsPlaceholder
+{
+    assertThat([[self textFieldForRow:6] placeholder], is(equalTo(@"eg. 1000 rpm")));
+}
+
+- (void) testRow6HasTextFieldWithDefaultKeyboard
+{
+    assertThatInt([[self textFieldForRow:6] keyboardType], is(equalToInt(UIKeyboardTypeDefault)));
+}
+
+- (void) testRow6HasTextFieldWithReturnKeyNext
+{
+    assertThatInt([[self textFieldForRow:6]returnKeyType], is(equalToInt(UIReturnKeyNext)));
+}
+
+- (void) testObjectShouldBeSetAsOperatingConditionsTextFieldDelegate
+{
+    assertThat([[self textFieldForRow:6] delegate], is(equalTo(sut)));
+}
+
+- (void) testChangingOperatingConditionsTextFieldUpdatesOperatingConditions
+{
+    [self updateRow:6 withInsertedSampleText:@"10 bar"];
+    assertThat([[[sut measurement] noiseSource] operatingConditions],is(equalTo(@"10 bar")));
+}
+
+- (void) testOperatingConditionsTextFieldShowsMeasurementOperatingConditions
+{
+    sut.measurement.noiseSource.operatingConditions=@"300 ton/hr";
+    assertThat([[self textFieldForRow:6] text], is(equalTo(@"300 ton/hr")));
+}
 
 #pragma mark row 7
 
@@ -314,6 +434,46 @@
     assertThat([[self textFieldForRow:7] text], is(equalTo(@"83.0")));
 }
 
+
+#pragma mark row 8
+
+- (void) testRow7HasTextLabelBackgroundNoiseLevel
+{
+    assertThat([[self textLabelForRow:8] text], is(equalTo(@"Lambient")));
+}
+
+- (void) testRow8HasTextFieldWithBackgroundNoiseLevelPlaceholder
+{
+    assertThat([[self textFieldForRow:8]placeholder], is(equalTo(@"eg. 75")));
+}
+
+- (void) testRow8HasTextFieldWithNumericKeyboard
+{
+    assertThatInt([[self textFieldForRow:8] keyboardType], is(equalToInt(UIKeyboardTypeNumbersAndPunctuation)));
+}
+
+- (void) testRow8HasTextFieldWithReturnKeyNext
+{
+    assertThatInt([[self textFieldForRow:8] returnKeyType], is(equalToInt(UIReturnKeyNext)));
+}
+
+- (void) testObjectShouldBeSetAsBackgroundNoiseLevelTextFieldDelegate
+{
+    assertThat([[self textFieldForRow:8] delegate], is(equalTo(sut)));
+}
+
+- (void) testChangingBackgroundNoiseLevelTextFieldUpdatesMeasurementBackgroundNoiseLevel
+{
+    [self updateRow:8 withInsertedSampleText:@"75"];
+    assertThatFloat([[sut measurement] backgroundSoundPressureLevel],is(equalToFloat(75.0f)));
+}
+
+- (void) testBackgroundNoiseLevelTextFieldShowsMeasurementBackgroundNoiseLevel
+{
+    sut.measurement.backgroundSoundPressureLevel=45.0f;
+    assertThat([[self textFieldForRow:8] text], is(equalTo(@"45.0")));
+    
+}
 #pragma mark row 9
 
 - (void) testRow9HasTextLabelType
@@ -410,6 +570,58 @@
     assertThat([[self textFieldForRow:10] text], is(equalTo(@"7.0")));
 }
 
+#pragma mark row 11
+
+- (void) testRow11HasTextLabelHemisphereCorrection
+{
+    assertThat([[self textLabelForRow:11] text], is(equalTo(@"Hemi. corr.")));
+}
+
+- (void) testLabelRow11IsGreyWhenMeasurementTypeIsII3
+{
+    sut.measurement.type=@"II.3";
+    assertThat([self textLabelForRow:11].textColor, is(equalTo([UIColor grayColor])));
+}
+
+- (void) testLabelRow11IsBlackWhenMeasurementTypeIsII2
+{
+    sut.measurement.type=@"II.2";
+    assertThat([self textLabelForRow:11].textColor, is(equalTo([UIColor blackColor])));
+}
+
+- (void) testRow11SegmentedControlIsEnabledWhenMeasurementTypeIsII2
+{
+    sut.measurement.type=@"II.2";
+    UISegmentedControl * segmentedControl=(UISegmentedControl *)[[self cellForRow:11] viewWithTag:22];
+    assertThatBool(segmentedControl.enabled, is(equalToLong(YES)));
+}
+
+- (void) testRow11SegmentedControlIsDisabledWhenMeasurementTypeIsII3
+{
+    sut.measurement.type=@"II.3";
+    UISegmentedControl * segmentedControl=(UISegmentedControl *)[[self cellForRow:11] viewWithTag:22];
+    assertThatBool(segmentedControl.enabled, is(equalToLong(NO)));
+}
+
+- (void) testObjectShouldBeSetAsHemisphereCorrectionTextFieldDelegate
+{
+    assertThat([[self textFieldForRow:11] delegate], is(equalTo(sut)));
+}
+
+- (void) testChangingHemisphereCorrectionSegmentedControlUpdatesHemisphereCorrection
+{
+    UISegmentedControl * segmentedControl=(UISegmentedControl *)[[self cellForRow:11] viewWithTag:22];
+    segmentedControl.selectedSegmentIndex=1;
+    [sut measurementSegmentedControlWasUpdated:segmentedControl];
+    assertThatInt([[sut measurement] hemiSphereCorrection],is(equalToInt(-2)));
+}
+
+- (void) testHemisphereCorrectionSegmentedControlShowsHemisphereCorrection
+{
+    sut.measurement.hemiSphereCorrection=0;
+    assertThatInt((int) [(UISegmentedControl *)[[self cellForRow:11] viewWithTag:22]selectedSegmentIndex], is(equalToInt(0)));
+}
+
 #pragma mark row 12
 
 - (void) testRow12HasTextLabelMeasurementSurface
@@ -503,7 +715,7 @@
 - (void) testRow13SegmentedControlIsDisabledWhenMeasurementTypeIsII2
 {
     sut.measurement.type=@"II.2";
-    UISegmentedControl * segmentedControl=(UISegmentedControl *)[[self cellForRow:13] viewWithTag:11];
+    UISegmentedControl * segmentedControl=(UISegmentedControl *)[[self cellForRow:13] viewWithTag:21];
     assertThatBool(segmentedControl.enabled, is(equalToLong(NO)));
 }
 
@@ -524,6 +736,45 @@
 {
     sut.measurement.nearFieldCorrection=-2;
     assertThatInt((int) [(UISegmentedControl *)[[self cellForRow:13] viewWithTag:21]selectedSegmentIndex], is(equalToInt(2)));
+}
+
+# pragma mark row 14
+
+- (void) testRow14HasTextLabelMeasurementRemarks
+{
+    assertThat([[self textLabelForRow:14] text], is(equalTo(@"Remarks")));
+}
+
+- (void) testRow14HasTextFieldWithMeasurementRemarksPlaceholder
+{
+    assertThat([[self textFieldForRow:14] placeholder], is(equalTo(@"eg. measured in front of facade")));
+}
+
+- (void) testRow14HasTextFieldWithDefaultKeyboard
+{
+    assertThatInt([[self textFieldForRow:14] keyboardType], is(equalToInt(UIKeyboardTypeDefault)));
+}
+
+- (void) testRow14HasTextFieldWithReturnKeyNext
+{
+    assertThatInt([[self textFieldForRow:14]returnKeyType], is(equalToInt(UIReturnKeyNext)));
+}
+
+- (void) testObjectShouldBeSetAsMeasurementRemarksTextFieldDelegate
+{
+    assertThat([[self textFieldForRow:14] delegate], is(equalTo(sut)));
+}
+
+- (void) testChangingMeasurementRemarksTextFieldUpdatesMeasurementRemarks
+{
+    [self updateRow:14 withInsertedSampleText:@"background noise of fan"];
+    assertThat([[sut measurement] remarks],is(equalTo(@"background noise of fan")));
+}
+
+- (void) testMeasurementRemarksTextFieldShowsMeasurementRemarks
+{
+    sut.measurement.remarks=@"measured with reflections in neighbouring facade";
+    assertThat([[self textFieldForRow:14] text], is(equalTo(@"measured with reflections in neighbouring facade")));
 }
 
 #pragma mark row 15
@@ -606,6 +857,19 @@
     [self updateRow:13 withInsertedSampleText:@"-1"];
     float myValue =[[(UITextField *)[self textFieldForRow:15] text] floatValue];
     assertThatFloat(myValue, is(closeTo(59.0,0.05)));
+}
+
+- (void) testSoundPowerLevelTextFieldIsUpdatedWhenNearBackgroundNoiseLevelIsUpdated
+{
+    sut.measurement.soundPowerLevel=75.1;
+    sut.measurement.soundPressureLevel=50;
+    sut.measurement.type=@"II.3";
+    sut.measurement.distance=10;
+    sut.measurement.surfaceArea=10;
+    sut.measurement.nearFieldCorrection=-1;
+    [self updateRow:8 withInsertedSampleText:@"47"];
+    float myValue =[[(UITextField *)[self textFieldForRow:15] text] floatValue];
+    assertThatFloat(myValue, is(closeTo(56.0,0.05)));
 }
 
 - (void) testSoundPowerLevelTextFieldShowsPlaceholderWhenSPLSmallerOrEqualToZero{

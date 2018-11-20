@@ -1,16 +1,3 @@
-//date picker
-//add photo
-//rename photo attibute to thumbnail
-//add full size photo
-//debug extract results
-//mail results
-//delete measurement
-//delete session
-//sort measurements
-//add validation
-//clean up cells
-//add auto-scroll
-
 speed up scrolling (grand central dispatch?) http://stackoverflow.com/questions/14623686/loading-image-from-coredata-at-cellforrowatindexpath-slows-down-scrolling/14624875#14624875
 refactor redundant code
 update unit tests
@@ -39,24 +26,21 @@ update unit tests
 //debug mail results (zero measurements=no problem, missing images=done, empty measurements=done)
 auto fill data (id)
 
-add measurement device cell 2
-add hemispherecorrection cell 10
-add operating conditions 
-add background noise correction 7
-
-add custom remarks to measurement
-add gps coordinates cell 5
-add address cell 6
-
-
-
+generate error when Lstoor is greater than Lp
+check Lstoor is not set.
 
 add total session sound power level
 add total session number of measurements
 
 id picker
-add other measurement types
+device picker
 
+implement location
+add other measurement types
+Lambient add decimal in tableview
+fix bug new added photo only shown after scrolling out of view
+
+add example session
 add extra photos
 add sketch (to photo)
 go to next item in measurement details when pressing "next"
@@ -75,7 +59,5 @@ fix session details
 fix tests
 
 fix large keyboard
-//measurement details: select row to edit details (but don't hightlight)
-
 
 -[NSError init] called; this results in an invalid NSError instance. It will raise an exception in a future release. Please call errorWithDomain:code:userInfo: or initWithDomain:code:userInfo:. This message shown only once.

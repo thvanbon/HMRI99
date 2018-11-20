@@ -37,6 +37,7 @@
 		766036AD218E444100E1320D /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 766036AC218E444100E1320D /* Photos.framework */; };
 		76808BE71889DC370075F1BE /* todo in Resources */ = {isa = PBXBuildFile; fileRef = 76808BE61889DC370075F1BE /* todo */; };
 		76808BEA1889E3C10075F1BE /* Measurement.m in Sources */ = {isa = PBXBuildFile; fileRef = 76808BE91889E3C10075F1BE /* Measurement.m */; };
+		76A193FB21A4A5E90052D32D /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 76A193FA21A4A5E90052D32D /* Location.m */; };
 		76A7555E188DAD97007B0D27 /* TDDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 76A7555D188DAD97007B0D27 /* TDDatePicker.m */; };
 		76B07256183D3CC4003E86CB /* SessionsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC8183D3A0300A1D668 /* SessionsTableViewDataSource.m */; };
 		76B9ADBF183AD9F700A1D668 /* NoiseSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADBE183AD9F700A1D668 /* NoiseSource.m */; };
@@ -132,6 +133,8 @@
 		76808BE61889DC370075F1BE /* todo */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = todo; sourceTree = "<group>"; };
 		76808BE81889E3C00075F1BE /* Measurement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Measurement.h; sourceTree = "<group>"; };
 		76808BE91889E3C10075F1BE /* Measurement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Measurement.m; sourceTree = "<group>"; };
+		76A193F921A4A5E90052D32D /* Location.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Location.h; sourceTree = "<group>"; };
+		76A193FA21A4A5E90052D32D /* Location.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		76A7555C188DAD97007B0D27 /* TDDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDDatePicker.h; sourceTree = "<group>"; };
 		76A7555D188DAD97007B0D27 /* TDDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDDatePicker.m; sourceTree = "<group>"; };
 		76B07257183D3D09003E86CB /* SessionsTableViewDatasourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionsTableViewDatasourceTests.m; sourceTree = "<group>"; };
@@ -251,6 +254,8 @@
 				76BA198218947CF00021D15F /* Image.m */,
 				76B9ADBD183AD9F700A1D668 /* NoiseSource.h */,
 				76B9ADBE183AD9F700A1D668 /* NoiseSource.m */,
+				76A193F921A4A5E90052D32D /* Location.h */,
+				76A193FA21A4A5E90052D32D /* Location.m */,
 				76172E1E18396753000B798F /* Session.h */,
 				76172E1F18396753000B798F /* Session.m */,
 				76334E7D18736BAA00DFF15F /* SessionDetailsDataSource.h */,
@@ -449,6 +454,7 @@
 				76334E7C187369F200DFF15F /* SessionDetailsViewController.m in Sources */,
 				76334E7F18736BAA00DFF15F /* SessionDetailsDataSource.m in Sources */,
 				761A0CE61881A714004F0965 /* HMRI99Model.xcdatamodeld in Sources */,
+				76A193FB21A4A5E90052D32D /* Location.m in Sources */,
 				76808BEA1889E3C10075F1BE /* Measurement.m in Sources */,
 				76A7555E188DAD97007B0D27 /* TDDatePicker.m in Sources */,
 				76BA198318947CF10021D15F /* Image.m in Sources */,

@@ -86,6 +86,9 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
     NoiseSource *newNoiseSource=(NoiseSource*)[NSEntityDescription
                                                insertNewObjectForEntityForName:@"NoiseSource"
                                                inManagedObjectContext:[self managedObjectContext]];
+    Location *newLocation=(Location*)[NSEntityDescription
+                                               insertNewObjectForEntityForName:@"Location"
+                                               inManagedObjectContext:[self managedObjectContext]];
     Image *newImage=(Image*)[NSEntityDescription
                              insertNewObjectForEntityForName:@"Image"
                              inManagedObjectContext:[self managedObjectContext]];
@@ -93,6 +96,7 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
     newMeasurement.session=session;
     newMeasurement.noiseSource=newNoiseSource;
     newMeasurement.image=newImage;
+    newMeasurement.location=newLocation;
     NSManagedObjectContext *ctx=[self managedObjectContext];
     NSError *error=nil;
     if (![ctx save:&error]) {
