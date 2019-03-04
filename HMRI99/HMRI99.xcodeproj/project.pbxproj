@@ -38,7 +38,9 @@
 		76808BE71889DC370075F1BE /* todo in Resources */ = {isa = PBXBuildFile; fileRef = 76808BE61889DC370075F1BE /* todo */; };
 		76808BEA1889E3C10075F1BE /* Measurement.m in Sources */ = {isa = PBXBuildFile; fileRef = 76808BE91889E3C10075F1BE /* Measurement.m */; };
 		76A193FB21A4A5E90052D32D /* Location.m in Sources */ = {isa = PBXBuildFile; fileRef = 76A193FA21A4A5E90052D32D /* Location.m */; };
+		76A193FC21AF341A0052D32D /* testImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7642E2D818A7C190007E644C /* testImage.jpg */; };
 		76A7555E188DAD97007B0D27 /* TDDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 76A7555D188DAD97007B0D27 /* TDDatePicker.m */; };
+		76AEE5F7222722DA005A356E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76AEE5F6222722DA005A356E /* Images.xcassets */; };
 		76B07256183D3CC4003E86CB /* SessionsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC8183D3A0300A1D668 /* SessionsTableViewDataSource.m */; };
 		76B9ADBF183AD9F700A1D668 /* NoiseSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADBE183AD9F700A1D668 /* NoiseSource.m */; };
 		76B9ADC3183BFF8800A1D668 /* SessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC1183BFF8800A1D668 /* SessionsViewController.m */; };
@@ -137,6 +139,7 @@
 		76A193FA21A4A5E90052D32D /* Location.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Location.m; sourceTree = "<group>"; };
 		76A7555C188DAD97007B0D27 /* TDDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDDatePicker.h; sourceTree = "<group>"; };
 		76A7555D188DAD97007B0D27 /* TDDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDDatePicker.m; sourceTree = "<group>"; };
+		76AEE5F6222722DA005A356E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		76B07257183D3D09003E86CB /* SessionsTableViewDatasourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionsTableViewDatasourceTests.m; sourceTree = "<group>"; };
 		76B9ADA91839752D00A1D668 /* MeasurementTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementTests.m; sourceTree = "<group>"; };
 		76B9ADBB183AD96E00A1D668 /* NoiseSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoiseSourceTests.m; sourceTree = "<group>"; };
@@ -275,6 +278,7 @@
 				76A7555C188DAD97007B0D27 /* TDDatePicker.h */,
 				76A7555D188DAD97007B0D27 /* TDDatePicker.m */,
 				76808BE61889DC370075F1BE /* todo */,
+				76AEE5F6222722DA005A356E /* Images.xcassets */,
 			);
 			path = HMRI99;
 			sourceTree = "<group>";
@@ -297,6 +301,8 @@
 			isa = PBXGroup;
 			children = (
 				7642E2D818A7C190007E644C /* testImage.jpg */,
+				76C9DC3E218F6853003237B7 /* TestingAppDelegate.h */,
+				76C9DC3F218F6853003237B7 /* TestingAppDelegate.m */,
 				76172E0B1839634A000B798F /* HMRI99Tests-Info.plist */,
 				76172E0C1839634A000B798F /* InfoPlist.strings */,
 			);
@@ -306,8 +312,6 @@
 		76F57BF1218F20C400F2B646 /* HMRI99Tests */ = {
 			isa = PBXGroup;
 			children = (
-				76C9DC3E218F6853003237B7 /* TestingAppDelegate.h */,
-				76C9DC3F218F6853003237B7 /* TestingAppDelegate.m */,
 				76172E0A1839634A000B798F /* Supporting Files */,
 				767D5DBC1843E68C00ED7DC4 /* AppDelegateTests.m */,
 				7642E2D618A7AF02007E644C /* ImageTests.m */,
@@ -420,6 +424,7 @@
 				762B34E9185CA5D1008FD7A3 /* MeasurementsViewController.xib in Resources */,
 				762B34ED185E26B3008FD7A3 /* MeasurementSummaryStaticCell.xib in Resources */,
 				762B34F5185E545B008FD7A3 /* MeasurementDetailViewController.xib in Resources */,
+				76AEE5F7222722DA005A356E /* Images.xcassets in Resources */,
 				76334E8118736C2500DFF15F /* SessionDetailsViewController.xib in Resources */,
 				76808BE71889DC370075F1BE /* todo in Resources */,
 			);
@@ -429,6 +434,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				76A193FC21AF341A0052D32D /* testImage.jpg in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -610,6 +616,8 @@
 		76172E151839634A000B798F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
@@ -628,6 +636,8 @@
 		76172E161839634A000B798F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";

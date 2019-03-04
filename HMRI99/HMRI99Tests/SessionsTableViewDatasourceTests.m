@@ -55,6 +55,7 @@
     sampleSession.engineer=@"Alfred Brooks";
     //sampleSession.creationDate=[NSDate date];
     firstIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+    [sut tableView:sut.tableView numberOfRowsInSection:0];
     firstCell = (SessionSummaryStaticCell *)[sut tableView:sut.tableView  cellForRowAtIndexPath: firstIndexPath];
     
     [[NSNotificationCenter defaultCenter] addObserver: self

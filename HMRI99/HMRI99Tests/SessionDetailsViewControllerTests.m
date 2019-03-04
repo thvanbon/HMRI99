@@ -88,6 +88,6 @@
 //    SessionDetailsDataSource *sessionDetailsDataSource = [[SessionDetailsDataSource alloc] init];
 //    sut.dataSource = sessionDetailsDataSource;
     [sut viewDidLoad];
-    XCTAssertEqualObjects(sut.dataSource.tableView, tableView, @"Back-link to table view should be set in data source");
+    XCTAssertEqualObjects(sut.dataSource.tableView, sut.tableView, @"Back-link to table view should be set in data source");
 }
 @end

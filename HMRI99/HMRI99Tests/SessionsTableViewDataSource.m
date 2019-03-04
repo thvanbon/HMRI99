@@ -16,7 +16,7 @@ NSString * sessionsTableDidPressAccessoryDetailButtonNotification=@"sessionsTabl
     NSParameterAssert(section == 0);
     NSError *error=nil;
     if (![self.fetchedResultsController performFetch:&error]) {
-        NSLog(@"error: %@", error);
+        NSLog(@"error in performFetch: %@", error);
         abort();
     }
     

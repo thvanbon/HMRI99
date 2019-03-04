@@ -19,8 +19,8 @@
                                       reuseIdentifier:nil];
         cell.accessoryType = UITableViewCellAccessoryNone;
         if ([indexPath section] == 0) {
-            UITextField *measurementTextField = [[UITextField alloc] initWithFrame:CGRectMake(110, 10, 185, 30)];
-            UISegmentedControl *measurementTypeControl = [[UISegmentedControl alloc] initWithFrame:CGRectMake(110, 10, 185, 30)];
+            UITextField *measurementTextField = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 400, 30)];
+            UISegmentedControl *measurementTypeControl = [[UISegmentedControl alloc] initWithFrame:CGRectMake(120, 10, 185, 30)];
             measurementTextField.adjustsFontSizeToFitWidth = YES;
             measurementTextField.textColor = [UIColor blackColor];
             measurementTextField.tag = [indexPath row]+1;
@@ -78,7 +78,7 @@
                 {
                     [imageButton setImage:[UIImage imageWithData:measurement.image.thumbnail] forState: UIControlStateNormal];
                 }
-                [imageButton addTarget: self  action:@selector(imageAddButtonClicked) forControlEvents: UIControlEventTouchUpInside];
+                    [imageButton addTarget: self  action:@selector(imageAddButtonClicked:) forControlEvents: UIControlEventTouchUpInside];
                 imageButton.hidden=NO;
                 imageButton.enabled=YES;
                 break;
@@ -438,11 +438,12 @@
     //
     //}
     
--(void)imageAddButtonClicked
+-(void)imageAddButtonClicked: (UIButton *) button
     {
         UIWindow *window = [[UIApplication sharedApplication] keyWindow];
-        //UIView *topView = window.rootViewController.view;
         
+        //UIView *topView = window.rootViewController.view;
+
         UIAlertController *popupQuery = [UIAlertController alertControllerWithTitle:@"Image"
                                                                             message:@"Change measurement image."
                                                                      preferredStyle:UIAlertControllerStyleActionSheet];
@@ -477,6 +478,11 @@
         [popupQuery addAction:takePhotoAction];
         [popupQuery addAction:showPhotoAction];
         
+//        [window.rootViewController presentViewController:popupQuery animated:YES completion:nil];
+        UIPopoverPresentationController *popPresenter = [popupQuery
+                                                         popoverPresentationController];
+        popPresenter.sourceView = button;
+        popPresenter.sourceRect = button.bounds;
         [window.rootViewController presentViewController:popupQuery animated:YES completion:nil];
     }
     
@@ -597,9 +603,8 @@
             NSLog(@"Error: %@",error);
         } else
         {
-
             dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:2 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:3 inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
                [picker dismissViewControllerAnimated:YES completion:nil];
             });
         }

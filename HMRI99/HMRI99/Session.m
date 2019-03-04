@@ -1,7 +1,7 @@
 #import "Session.h"
 #import "Measurement.h"
 @implementation Session
-@dynamic name,date,location, engineer, measurements,creationDate;
+@dynamic name, date, location, engineer, measurements, creationDate, numberOfMeasurements;
 
 -(void)awakeFromInsert
 {
@@ -53,5 +53,11 @@
         }
     }
     return imagesToBeExported;
+}
+
+-(void) countMeasurements
+{
+    self.numberOfMeasurements = [self.measurements count];
+    return ;
 }
 @end
