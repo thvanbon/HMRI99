@@ -41,6 +41,8 @@
 		76A193FC21AF341A0052D32D /* testImage.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 7642E2D818A7C190007E644C /* testImage.jpg */; };
 		76A7555E188DAD97007B0D27 /* TDDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 76A7555D188DAD97007B0D27 /* TDDatePicker.m */; };
 		76AEE5F7222722DA005A356E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 76AEE5F6222722DA005A356E /* Images.xcassets */; };
+		76AEE5FD22305C94005A356E /* PhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76AEE5FB22305C94005A356E /* PhotoViewController.m */; };
+		76AEE5FE22305C94005A356E /* PhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76AEE5FC22305C94005A356E /* PhotoViewController.xib */; };
 		76B07256183D3CC4003E86CB /* SessionsTableViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC8183D3A0300A1D668 /* SessionsTableViewDataSource.m */; };
 		76B9ADBF183AD9F700A1D668 /* NoiseSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADBE183AD9F700A1D668 /* NoiseSource.m */; };
 		76B9ADC3183BFF8800A1D668 /* SessionsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 76B9ADC1183BFF8800A1D668 /* SessionsViewController.m */; };
@@ -140,6 +142,9 @@
 		76A7555C188DAD97007B0D27 /* TDDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDDatePicker.h; sourceTree = "<group>"; };
 		76A7555D188DAD97007B0D27 /* TDDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDDatePicker.m; sourceTree = "<group>"; };
 		76AEE5F6222722DA005A356E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		76AEE5FA22305C94005A356E /* PhotoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoViewController.h; sourceTree = "<group>"; };
+		76AEE5FB22305C94005A356E /* PhotoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoViewController.m; sourceTree = "<group>"; };
+		76AEE5FC22305C94005A356E /* PhotoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PhotoViewController.xib; sourceTree = "<group>"; };
 		76B07257183D3D09003E86CB /* SessionsTableViewDatasourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SessionsTableViewDatasourceTests.m; sourceTree = "<group>"; };
 		76B9ADA91839752D00A1D668 /* MeasurementTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeasurementTests.m; sourceTree = "<group>"; };
 		76B9ADBB183AD96E00A1D668 /* NoiseSourceTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoiseSourceTests.m; sourceTree = "<group>"; };
@@ -235,6 +240,9 @@
 		76172DDF1839634A000B798F /* HMRI99 */ = {
 			isa = PBXGroup;
 			children = (
+				76AEE5FA22305C94005A356E /* PhotoViewController.h */,
+				76AEE5FB22305C94005A356E /* PhotoViewController.m */,
+				76AEE5FC22305C94005A356E /* PhotoViewController.xib */,
 				76172DE81839634A000B798F /* AppDelegate.h */,
 				76172DE91839634A000B798F /* AppDelegate.m */,
 				761A0CE41881A714004F0965 /* HMRI99Model.xcdatamodeld */,
@@ -425,6 +433,7 @@
 				762B34ED185E26B3008FD7A3 /* MeasurementSummaryStaticCell.xib in Resources */,
 				762B34F5185E545B008FD7A3 /* MeasurementDetailViewController.xib in Resources */,
 				76AEE5F7222722DA005A356E /* Images.xcassets in Resources */,
+				76AEE5FE22305C94005A356E /* PhotoViewController.xib in Resources */,
 				76334E8118736C2500DFF15F /* SessionDetailsViewController.xib in Resources */,
 				76808BE71889DC370075F1BE /* todo in Resources */,
 			);
@@ -454,6 +463,7 @@
 				76FB86A41842399B009270CB /* MeasurementsTableViewDataSource.m in Sources */,
 				762B34DE185531F1008FD7A3 /* SessionSummaryStaticCell.m in Sources */,
 				762B34E51858D489008FD7A3 /* MeasurementsViewController.m in Sources */,
+				76AEE5FD22305C94005A356E /* PhotoViewController.m in Sources */,
 				762B34F0185E270F008FD7A3 /* MeasurementSummaryStaticCell.m in Sources */,
 				762B34F3185E528C008FD7A3 /* MeasurementDetailViewController.m in Sources */,
 				762B354518638CA9008FD7A3 /* MeasurementDetailTableViewDataSource.m in Sources */,

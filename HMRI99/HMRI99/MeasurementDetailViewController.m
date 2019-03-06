@@ -1,6 +1,8 @@
 #import "MeasurementDetailViewController.h"
 #import <objc/runtime.h>
 #import <Photos/Photos.h>
+#import "Measurement.h"
+#import "PhotoViewController.h"
 
 @implementation MeasurementDetailViewController
 @synthesize tableView, dataSource;
@@ -25,13 +27,19 @@
                                              selector:@selector(startCameraControllerNotification:)
                                                  name: @"startCameraControllerNotification"
                                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(showPhotoNotification:)
+                                                 name: @"showPhotoNotification"
+                                               object:nil];
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self name:@"startMediaBrowserNotification" object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"startCameraControllerNotification" object:nil];    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"startCameraControllerNotification" object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"showPhotoNotification" object:nil];
 }
 
 - (void)viewDidLoad
@@ -163,6 +171,14 @@
     return YES;
 }
 
-
+- (void)showPhotoNotification:(NSNotification *)note
+{
+    Measurement * selectedMeasurement=(Measurement*) [note object];
+    PhotoViewController * nextViewController = [[PhotoViewController alloc] init];
+    
+    nextViewController.measurement = selectedMeasurement;
+    [[self navigationController] pushViewController: nextViewController
+                                           animated: YES];
+}
 
 @end

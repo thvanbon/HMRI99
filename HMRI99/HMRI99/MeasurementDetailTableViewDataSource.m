@@ -470,6 +470,7 @@
                                                                   }];
         UIAlertAction *showPhotoAction = [UIAlertAction actionWithTitle:@"Show photo"
                                                                   style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                                      [[NSNotificationCenter defaultCenter] postNotificationName:@"showPhotoNotification" object:self->measurement];
                                                                   }];
         
         [popupQuery addAction:cancelAction];
