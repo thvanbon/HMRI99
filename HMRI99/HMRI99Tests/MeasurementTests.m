@@ -269,17 +269,23 @@
 {
     sut.noiseSource=[NSEntityDescription insertNewObjectForEntityForName:@"NoiseSource"
                                       inManagedObjectContext:ctx];
+    sut.location=[NSEntityDescription insertNewObjectForEntityForName:@"Location"
+                                                  inManagedObjectContext:ctx];
     sut.noiseSource.name=@"pump";
     sut.noiseSource.operatingConditions=@"idle";
+    sut.location.address=@"Aalsmeer";
+    sut.location.coordinates=@"54.3, 23.4";
     sut.type=@"II.2";
     sut.identification=@"R1";
     sut.soundPressureLevel=80.0f;
     sut.soundPowerLevel=100.0f;
     sut.distance=5.0f;
     sut.hemiSphereCorrection=0.0f;
+    sut.backgroundSoundPressureLevel=3.0f;
+    sut.remarks=@"some remarks";
     
     NSString *exportNoiseSource=[sut.noiseSource exportNoiseSource];
-    NSString *expectedExportString=[NSString stringWithFormat:@"%@\tR1\tII.2\t80.0\t100.0\t5.0\t0\t\t\t", exportNoiseSource];
+    NSString *expectedExportString=[NSString stringWithFormat:@"%@\t54.3, 23.4\tAalsmeer\tR1\tII.2\t80.0\t100.0\t3.0\t5.0\t0\t\t\t\tsome remarks", exportNoiseSource];
     assertThat([sut exportMeasurement],is(equalTo(expectedExportString)));
 }
 
@@ -288,18 +294,25 @@
 {
     sut.noiseSource=[NSEntityDescription insertNewObjectForEntityForName:@"NoiseSource"
                                                   inManagedObjectContext:ctx];
+    sut.location=[NSEntityDescription insertNewObjectForEntityForName:@"Location"
+                                               inManagedObjectContext:ctx];
+    
     sut.noiseSource.name=@"pump";
     sut.noiseSource.operatingConditions=@"idle";
+    sut.location.address=@"Aalsmeer";
+    sut.location.coordinates=@"54.3, 23.4";
     sut.type=@"II.3";
     sut.identification=@"R1";
     sut.soundPressureLevel=80.0f;
     sut.soundPowerLevel=100.0f;
+    sut.backgroundSoundPressureLevel=3.4f;
     sut.surfaceArea=10.0f;
     sut.nearFieldCorrection=-2.0f;
     sut.directivityIndex=0.0f;
+    sut.remarks=@"some remarks";
     
     NSString *exportNoiseSource=[sut.noiseSource exportNoiseSource];
-    NSString *expectedExportString=[NSString stringWithFormat:@"%@\tR1\tII.3\t80.0\t100.0\t\t\t10.0\t-2\t0", exportNoiseSource];
+    NSString *expectedExportString=[NSString stringWithFormat:@"%@\t54.3, 23.4\tAalsmeer\tR1\tII.3\t80.0\t100.0\t3.4\t\t\t10.0\t-2\t0\tsome remarks", exportNoiseSource];
     assertThat([sut exportMeasurement],is(equalTo(expectedExportString)));
 }
 @end

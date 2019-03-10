@@ -199,7 +199,7 @@
                 measurementTextField.placeholder = @"eg. measured in front of facade";
                 measurementTextField.keyboardType = UIKeyboardTypeDefault;
                 measurementTextField.returnKeyType = UIReturnKeyNext;
-                    measurementTextField.text=measurement.remarks;
+                measurementTextField.text=measurement.remarks;
                 break;
                 case 15:
                 cell.textLabel.text = @"Lw";
@@ -230,6 +230,16 @@
     {
         if (indexPath.row==3) {
             return 70;
+        }
+        if ([measurement.type isEqual:@"II.2"]){
+            if (indexPath.row==12 || indexPath.row==13){
+                return 0;
+            }
+        }
+        if ([measurement.type isEqual:@"II.3"]){
+            if (indexPath.row==10 || indexPath.row==11){
+                return 0;
+            }
         }
         return 44;
     }
@@ -273,7 +283,7 @@
             measurement.location.address=text;
             break;
             case 7:
-        measurement.noiseSource.operatingConditions=text;
+            measurement.noiseSource.operatingConditions=text;
             break;
             case 8:
             measurement.soundPressureLevel=[text floatValue];
@@ -364,6 +374,8 @@
         [self updateActivationOfCell:cell12 atRow:12 forType:@"II.3"];
         [self updateActivationOfCell:cell13 atRow:13 forType:@"II.3"];
         [self updateSoundPowerLevelTextFieldInCell:cell15 atRow:78];
+        [tableView beginUpdates];
+        [tableView endUpdates];
     }
     
 - (void)activateCell:(UITableViewCell*)cell atRow:(int)row
@@ -371,15 +383,18 @@
         UITextField * textField=(UITextField *) [cell viewWithTag:row+1];
         if (row!=13 && row!=11) {
             textField.enabled=YES;
+            textField.hidden=NO;
         }
         else if (row==13)
         {
             UISegmentedControl * segmentedControl=(UISegmentedControl *) [cell viewWithTag:21];
             segmentedControl.enabled=YES;
+            segmentedControl.hidden=NO;
         }
         else{
             UISegmentedControl * segmentedControl=(UISegmentedControl *) [cell viewWithTag:22];
             segmentedControl.enabled=YES;
+            segmentedControl.hidden=NO;
         }
         cell.textLabel.textColor=[UIColor blackColor];
     }
@@ -389,14 +404,17 @@
         UITextField * textField=(UITextField *) [cell viewWithTag:row+1];
         if (row!=13&& row!=11) {
             textField.enabled=NO;
+            textField.hidden=YES;
         } else if (row==13)
         {
             UISegmentedControl * segmentedControl=(UISegmentedControl *) [cell viewWithTag:21];
             segmentedControl.enabled=NO;
+            segmentedControl.hidden=YES;
         }
         else{
             UISegmentedControl * segmentedControl=(UISegmentedControl *) [cell viewWithTag:22];
             segmentedControl.enabled=NO;
+            segmentedControl.hidden=YES;
         }
         
         cell.textLabel.textColor=[UIColor grayColor];

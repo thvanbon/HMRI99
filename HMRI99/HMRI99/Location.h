@@ -15,5 +15,5 @@
 @property float longitude;
 
 @property (nonatomic, retain) Measurement * measurement;
-
+-(NSString*)exportLocation;
 @end

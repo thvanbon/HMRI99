@@ -99,7 +99,7 @@
 -(NSString*)exportMeasurement
 {
     NSString *exportNoiseSource=[self.noiseSource exportNoiseSource];
-    
+    NSString *exportLocation=[self.location exportLocation];
     NSString *exportDistance=@"";
     NSString *exportHemiSphereCorrection=@"";
     NSString *exportSurfaceArea=@"";
@@ -107,6 +107,8 @@
     NSString *exportDirectivityIndex=@"";
     NSString *exportsoundPressureLevel=[NSString stringWithFormat:@"%0.1f", self.soundPressureLevel];
     NSString *exportsoundPowerLevel=[NSString stringWithFormat:@"%0.1f", self.soundPowerLevel];
+    NSString *exportBackgroundSoundPressureLevel=[NSString stringWithFormat:@"%0.1f", self.backgroundSoundPressureLevel];
+    NSString *exportRemarks=self.remarks;
     
     if ([self.type isEqual:@"II.2"])
     {
@@ -121,21 +123,31 @@
     
     NSArray *measurementStringsArray=[NSArray arrayWithObjects:
                                 exportNoiseSource,
+                                exportLocation,
                                 self.identification,
                                 self.type,
                                 exportsoundPressureLevel,
                                 exportsoundPowerLevel,
+                                exportBackgroundSoundPressureLevel,
                                 exportDistance,
                                 exportHemiSphereCorrection,
                                 exportSurfaceArea,
                                 exportNearFieldCorrection,
                                 exportDirectivityIndex,
+                                exportRemarks,
                                 nil];
     NSString *exportString=[measurementStringsArray componentsJoinedByString:@"\t"];
     return exportString;
 }
 
++(NSString*)exportMeasurementHeader
+{
+    NSArray *exportMeasurementHeaderArray=[NSArray arrayWithObjects:@"noise source name", @"operating conditions", @"coordinates", @"address", @"identification", @"type", @"Lp", @"Lw", @"Lambient", @"distance", @"hemi. correction", @"surface area", @"near field correction", @"directivity index", @"remarks", nil];
+    NSString *exportMeasurementHeader=[exportMeasurementHeaderArray componentsJoinedByString:@"\t"];
 
+    return exportMeasurementHeader;
+}
+    
 @end
 
 

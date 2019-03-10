@@ -80,7 +80,8 @@
                      animations:^
      {
          self.pickerView.hidden = NO;
-         self.pickerView.center =(CGPoint){160,self.tableView.frame.size.height-108};
+         
+         self.pickerView.center =(CGPoint){300,self.tableView.frame.size.height-500};
      }
                      completion:nil];
 }
@@ -92,7 +93,7 @@
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^
      {
-         self.pickerView.center = (CGPoint){160, 800};
+         self.pickerView.center = (CGPoint){300, self.tableView.frame.size.height-500};
      }
                      completion:^(BOOL finished)
      {
@@ -109,7 +110,7 @@
      {
          self.datePicker.hidden = NO;
          self.datePicker.date=self.dataSource.session.date;
-         self.datePicker.center =(CGPoint){160,self.tableView.frame.size.height-108};
+         self.datePicker.center =(CGPoint){300,self.tableView.frame.size.height-500};
      }
                      completion:nil];
 }
@@ -121,7 +122,7 @@
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^
      {
-         self.datePicker.center = (CGPoint){160, 800};
+         self.datePicker.center = (CGPoint){300,self.tableView.frame.size.height-500};
      }
                      completion:^(BOOL finished)
      {

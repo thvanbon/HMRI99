@@ -30,6 +30,9 @@
 @property (nonatomic, retain) Image *image;
 @property (nonatomic, retain) Location *location;
 
++(NSString*)exportMeasurementHeader;
+
+
 -(void)calculateSoundPowerLevel;
 -(void)calculateSoundPowerLevelII2;
 -(void)calculateSoundPowerLevelII3;

@@ -92,6 +92,8 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
     Image *newImage=(Image*)[NSEntityDescription
                              insertNewObjectForEntityForName:@"Image"
                              inManagedObjectContext:[self managedObjectContext]];
+//    [[self sortMeasurements ] objectAtIndex:[indexPath row]]
+//    newMeasurement.measurementDevice=;
     newMeasurement.creationDate=[NSDate date];
     newMeasurement.session=session;
     newMeasurement.noiseSource=newNoiseSource;

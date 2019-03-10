@@ -118,7 +118,7 @@
     [formatter setDateFormat:@"dd-MM-yyyy"];
     NSString *dateString=[formatter stringFromDate:[NSDate dateWithTimeIntervalSinceReferenceDate:1]];
     NSString *exportNoiseSource=[newMeasurement.noiseSource exportNoiseSource];
-    NSString *expectedExportString=[NSString stringWithFormat:@"CARG.13.01\t%@\tZaandam\tAlfred Brooks\t%@\tR1\tII.2\t80.0\t100.0\t5.0\t0\t\t\t",dateString, exportNoiseSource];
+    NSString *expectedExportString=[NSString stringWithFormat:@"name\tdate\tlocation\tengineer\tnoise source name\toperating conditions\tcoordinates\taddress\tidentification\ttype\tLp\tLw\tLambient\tdistance\themi. correction\tsurface area\tnear field correction\tdirectivity index\tremarks\nCARG.13.01\t%@\tZaandam\tAlfred Brooks\t%@\t43.2, 45.1\tVught\tR1\tII.2\t80.0\t100.0\t2.2\t5.0\t0\t\t\t\tsome remarks",dateString, exportNoiseSource];
     assertThat([sut exportSession],is(equalTo(expectedExportString)));
 }
 
@@ -131,8 +131,11 @@
     [formatter setDateFormat:@"dd-MM-yyyy"];
     NSString *dateString=[formatter stringFromDate:[NSDate dateWithTimeIntervalSinceReferenceDate:1]];
     NSString *exportNoiseSource=[measurement1.noiseSource exportNoiseSource];
-    NSString *expectedExportString=[NSString stringWithFormat:@"CARG.13.01\t%@\tZaandam\tAlfred Brooks\t%@\tR1\tII.2\t80.0\t100.0\t5.0\t0\t\t\t",dateString, exportNoiseSource];
-    expectedExportString=[expectedExportString stringByAppendingString:[NSString stringWithFormat:@"\n%@",expectedExportString]];
+    NSString *headerString=@"name\tdate\tlocation\tengineer\tnoise source name\toperating conditions\tcoordinates\taddress\tidentification\ttype\tLp\tLw\tLambient\tdistance\themi. correction\tsurface area\tnear field correction\tdirectivity index\tremarks";
+    NSString *expectedExportMeasurementString=[NSString stringWithFormat:@"CARG.13.01\t%@\tZaandam\tAlfred Brooks\t%@\t43.2, 45.1\tVught\tR1\tII.2\t80.0\t100.0\t2.2\t5.0\t0\t\t\t\tsome remarks",dateString, exportNoiseSource];
+    NSString *expectedExportString=@"";
+    expectedExportString=[headerString stringByAppendingString:[NSString stringWithFormat:@"\n%@",expectedExportMeasurementString]];
+    expectedExportString=[expectedExportString stringByAppendingString:[NSString stringWithFormat:@"\n%@",expectedExportMeasurementString]];
                                             
     assertThat([sut exportSession],is(equalTo(expectedExportString)));
 }
@@ -173,14 +176,20 @@
     newMeasurement.session=sut;
     newMeasurement.noiseSource=[NSEntityDescription insertNewObjectForEntityForName:@"NoiseSource"
                                                              inManagedObjectContext:ctx];
+    newMeasurement.location=[NSEntityDescription insertNewObjectForEntityForName:@"Location"
+                                                             inManagedObjectContext:ctx];
+    newMeasurement.location.coordinates=@"43.2, 45.1";
+    newMeasurement.location.address=@"Vught";
     newMeasurement.noiseSource.name=@"pump";
     newMeasurement.noiseSource.operatingConditions=@"idle";
     newMeasurement.type=@"II.2";
     newMeasurement.identification=@"R1";
     newMeasurement.soundPressureLevel=80.0f;
     newMeasurement.soundPowerLevel=100.0f;
+    newMeasurement.backgroundSoundPressureLevel=2.25f;
     newMeasurement.distance=5.0f;
     newMeasurement.hemiSphereCorrection=0.0f;
+    newMeasurement.remarks=@"some remarks";
     return newMeasurement;
 }
 @end

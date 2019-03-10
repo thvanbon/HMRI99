@@ -11,7 +11,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.imageView.image = [UIImage imageWithData:self.measurement.image.imageData];
+    self.imageView.image = [UIImage imageWithData: self.measurement.image.imageData];
+    self.imageView.contentMode=UIViewContentModeScaleAspectFit;
+
 }
 
 @end

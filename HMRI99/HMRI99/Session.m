@@ -20,7 +20,12 @@
                                   self.engineer,
                                   nil];
     NSString *exportSessionString=[sessionStringsArray componentsJoinedByString:@"\t"];
+    
+    NSArray *exportSessionHeaderArray=[NSArray arrayWithObjects:@"name", @"date", @"location", @"engineer", nil];
+    NSString *exportSessionHeader=[exportSessionHeaderArray componentsJoinedByString:@"\t"];
+    
     NSMutableArray*measurementsStringArray=[[NSMutableArray alloc] init];
+    [measurementsStringArray addObject:[NSString stringWithFormat:@"%@\t%@", exportSessionHeader, [Measurement exportMeasurementHeader]]];
     for (Measurement *measurement in self.measurements)
     {
         NSString *exportMeasurementString=[measurement exportMeasurement];
