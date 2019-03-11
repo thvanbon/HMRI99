@@ -17,4 +17,7 @@ extern NSString * measurementsTableDidAddMeasurementNotification;
 @property int sortID;
 
 - (void) addMeasurement;
+- (NSString*) nextMeasurementID;
+- (NSString*) currentMeasurementDevice;
+- (NSInteger)extractNumberFromText:(NSString *)text;
 @end

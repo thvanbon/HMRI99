@@ -110,6 +110,14 @@
     NSString *exportBackgroundSoundPressureLevel=[NSString stringWithFormat:@"%0.1f", self.backgroundSoundPressureLevel];
     NSString *exportRemarks=self.remarks;
     
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yyyy hh:mm:ss"];
+    NSString *exportCreationDate = @"";
+    
+    if (self.creationDate){
+        exportCreationDate = [formatter stringFromDate:self.creationDate];
+    }
+
     if ([self.type isEqual:@"II.2"])
     {
         exportDistance=[NSString stringWithFormat:@"%0.1f", self.distance];
@@ -121,10 +129,12 @@
         exportDirectivityIndex=[NSString stringWithFormat:@"%0.0f", self.directivityIndex];
     }
     
+
     NSArray *measurementStringsArray=[NSArray arrayWithObjects:
                                 exportNoiseSource,
                                 exportLocation,
                                 self.identification,
+                                exportCreationDate,
                                 self.type,
                                 exportsoundPressureLevel,
                                 exportsoundPowerLevel,
@@ -142,7 +152,7 @@
 
 +(NSString*)exportMeasurementHeader
 {
-    NSArray *exportMeasurementHeaderArray=[NSArray arrayWithObjects:@"noise source name", @"operating conditions", @"coordinates", @"address", @"identification", @"type", @"Lp", @"Lw", @"Lambient", @"distance", @"hemi. correction", @"surface area", @"near field correction", @"directivity index", @"remarks", nil];
+    NSArray *exportMeasurementHeaderArray=[NSArray arrayWithObjects:@"noise source name", @"operating conditions", @"coordinates", @"address", @"identification", @"measurement time", @"type", @"Lp", @"Lw", @"Lambient", @"distance", @"hemi. correction", @"surface area", @"near field correction", @"directivity index", @"remarks", nil];
     NSString *exportMeasurementHeader=[exportMeasurementHeaderArray componentsJoinedByString:@"\t"];
 
     return exportMeasurementHeader;

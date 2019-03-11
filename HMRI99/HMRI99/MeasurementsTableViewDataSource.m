@@ -95,6 +95,8 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
 //    [[self sortMeasurements ] objectAtIndex:[indexPath row]]
 //    newMeasurement.measurementDevice=;
     newMeasurement.creationDate=[NSDate date];
+    newMeasurement.identification=[self nextMeasurementID];
+    newMeasurement.measurementDevice=[self currentMeasurementDevice];
     newMeasurement.session=session;
     newMeasurement.noiseSource=newNoiseSource;
     newMeasurement.image=newImage;
@@ -157,4 +159,36 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
     }
     
 }
+
+- (NSString*) nextMeasurementID
+{
+    int sortID=self.sortID;
+    self.sortID=0;
+    NSArray* measurements=[self sortMeasurements];
+    
+    Measurement* lastMeasurement=[measurements firstObject];
+    NSInteger lastID = [self extractNumberFromText:[lastMeasurement identification]];
+    
+    self.sortID=sortID;
+    return [NSString stringWithFormat: @"R%ld", lastID+1];
+}
+
+- (NSString*) currentMeasurementDevice
+{
+    int sortID=self.sortID;
+    self.sortID=0;
+    NSArray* measurements=[self sortMeasurements];
+    
+    Measurement* lastMeasurement=[measurements firstObject];
+    self.sortID=sortID;
+    return lastMeasurement.measurementDevice;
+}
+
+- (NSInteger)extractNumberFromText:(NSString *)text
+{
+    NSCharacterSet *nonDigitCharacterSet = [[NSCharacterSet decimalDigitCharacterSet] invertedSet];
+    NSString* string = [[text componentsSeparatedByCharactersInSet:nonDigitCharacterSet] componentsJoinedByString:@""];
+    return [string integerValue];
+}
+
 @end

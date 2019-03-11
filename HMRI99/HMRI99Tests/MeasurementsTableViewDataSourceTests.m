@@ -65,7 +65,7 @@
     session.date=myDate;
     session.location=@"Zaandam";
     session.engineer=@"Alfred Brooks";
-//    session.creationDate=[NSDate date];
+    session.creationDate=[NSDate date];
     newMeasurement1=[NSEntityDescription
                                  insertNewObjectForEntityForName:@"Measurement"
                                  inManagedObjectContext:ctx];

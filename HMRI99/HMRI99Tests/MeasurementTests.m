@@ -282,10 +282,16 @@
     sut.distance=5.0f;
     sut.hemiSphereCorrection=0.0f;
     sut.backgroundSoundPressureLevel=3.0f;
+    sut.creationDate=[NSDate date];
     sut.remarks=@"some remarks";
     
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yyyy hh:mm:ss"];
+    
+    NSString *exportCreationDate = [formatter stringFromDate:sut.creationDate];
+
     NSString *exportNoiseSource=[sut.noiseSource exportNoiseSource];
-    NSString *expectedExportString=[NSString stringWithFormat:@"%@\t54.3, 23.4\tAalsmeer\tR1\tII.2\t80.0\t100.0\t3.0\t5.0\t0\t\t\t\tsome remarks", exportNoiseSource];
+    NSString *expectedExportString=[NSString stringWithFormat:@"%@\t54.3, 23.4\tAalsmeer\tR1\t%@\tII.2\t80.0\t100.0\t3.0\t5.0\t0\t\t\t\tsome remarks", exportNoiseSource, exportCreationDate];
     assertThat([sut exportMeasurement],is(equalTo(expectedExportString)));
 }
 
@@ -312,7 +318,7 @@
     sut.remarks=@"some remarks";
     
     NSString *exportNoiseSource=[sut.noiseSource exportNoiseSource];
-    NSString *expectedExportString=[NSString stringWithFormat:@"%@\t54.3, 23.4\tAalsmeer\tR1\tII.3\t80.0\t100.0\t3.4\t\t\t10.0\t-2\t0\tsome remarks", exportNoiseSource];
+    NSString *expectedExportString=[NSString stringWithFormat:@"%@\t54.3, 23.4\tAalsmeer\tR1\t\tII.3\t80.0\t100.0\t3.4\t\t\t10.0\t-2\t0\tsome remarks", exportNoiseSource];
     assertThat([sut exportMeasurement],is(equalTo(expectedExportString)));
 }
 @end
