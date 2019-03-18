@@ -170,7 +170,7 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
     NSInteger lastID = [self extractNumberFromText:[lastMeasurement identification]];
     
     self.sortID=sortID;
-    return [NSString stringWithFormat: @"R%ld", lastID+1];
+    return [NSString stringWithFormat: @"R%03ld", lastID+1];
 }
 
 - (NSString*) currentMeasurementDevice

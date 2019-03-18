@@ -745,33 +745,41 @@
     assertThat([[self textLabelForRow:14] text], is(equalTo(@"Remarks")));
 }
 
-- (void) testRow14HasTextFieldWithMeasurementRemarksPlaceholder
+//- (void) testRow14HasTextViewWithMeasurementRemarksPlaceholder
+//{
+//    assertThat([[self textViewForRow:14] placeholder], is(equalTo(@"eg. measured in front of facade")));
+//}
+
+- (void) testRow14HasTextViewWithDefaultKeyboard
 {
-    assertThat([[self textFieldForRow:14] placeholder], is(equalTo(@"eg. measured in front of facade")));
+    UITextView* textView = (UITextView *) [[self cellForRow:14] viewWithTag:14+1];
+    assertThatInt([textView keyboardType], is(equalToInt(UIKeyboardTypeDefault)));
 }
 
-- (void) testRow14HasTextFieldWithDefaultKeyboard
+- (void) testRow14HasTextViewWithReturnKeyNext
 {
-    assertThatInt([[self textFieldForRow:14] keyboardType], is(equalToInt(UIKeyboardTypeDefault)));
+    UITextView* textView = (UITextView *) [[self cellForRow:14] viewWithTag:14+1];
+    assertThatInt([textView returnKeyType], is(equalToInt(UIReturnKeyNext)));
 }
 
-- (void) testRow14HasTextFieldWithReturnKeyNext
+- (void) testObjectShouldBeSetAsMeasurementRemarksTextViewDelegate
 {
-    assertThatInt([[self textFieldForRow:14]returnKeyType], is(equalToInt(UIReturnKeyNext)));
+    UITextView* textView = (UITextView *) [[self cellForRow:14] viewWithTag:14+1];
+    assertThat([textView delegate], is(equalTo(sut)));
 }
 
-- (void) testObjectShouldBeSetAsMeasurementRemarksTextFieldDelegate
-{
-    assertThat([[self textFieldForRow:14] delegate], is(equalTo(sut)));
-}
+//- (void) testChangingMeasurementRemarksTextViewUpdatesMeasurementRemarks
+//{
+//    UITextView* textView = (UITextView *) [[self cellForRow:14] viewWithTag:14+1];
+//
+//    [sut textViewDidBeginEditing:textView];
+//    textView.text=@"background noise of fan";
+//    [[NSNotificationCenter defaultCenter] postNotificationName:UITextViewTextDidChangeNotification object:textView];
+//    [sut textViewDidEndEditing:textView];
+//    assertThat([[sut measurement] remarks],is(equalTo(@"background noise of fan")));
+//}
 
-- (void) testChangingMeasurementRemarksTextFieldUpdatesMeasurementRemarks
-{
-    [self updateRow:14 withInsertedSampleText:@"background noise of fan"];
-    assertThat([[sut measurement] remarks],is(equalTo(@"background noise of fan")));
-}
-
-- (void) testMeasurementRemarksTextFieldShowsMeasurementRemarks
+- (void) testMeasurementRemarksTextViewShowsMeasurementRemarks
 {
     sut.measurement.remarks=@"measured with reflections in neighbouring facade";
     assertThat([[self textFieldForRow:14] text], is(equalTo(@"measured with reflections in neighbouring facade")));
