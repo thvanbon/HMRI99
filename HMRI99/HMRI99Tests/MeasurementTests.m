@@ -291,7 +291,7 @@
     NSString *exportCreationDate = [formatter stringFromDate:sut.creationDate];
 
     NSString *exportNoiseSource=[sut.noiseSource exportNoiseSource];
-    NSString *expectedExportString=[NSString stringWithFormat:@"%@\t54.3, 23.4\tAalsmeer\tR1\t%@\tII.2\t80.0\t100.0\t3.0\t5.0\t0\t\t\t\tsome remarks", exportNoiseSource, exportCreationDate];
+    NSString *expectedExportString=[NSString stringWithFormat:@"%@\t54.3, 23.4\tAalsmeer\tR1\t%@\tII.2\t80.0\t100.0\t3.0\t5.0\t0\t\t\t\t\"some remarks\"", exportNoiseSource, exportCreationDate];
     assertThat([sut exportMeasurement],is(equalTo(expectedExportString)));
 }
 
@@ -318,7 +318,8 @@
     sut.remarks=@"some remarks";
     
     NSString *exportNoiseSource=[sut.noiseSource exportNoiseSource];
-    NSString *expectedExportString=[NSString stringWithFormat:@"%@\t54.3, 23.4\tAalsmeer\tR1\t\tII.3\t80.0\t100.0\t3.4\t\t\t10.0\t-2\t0\tsome remarks", exportNoiseSource];
+    NSString *expectedExportString=[NSString stringWithFormat:@"%@\t54.3, 23.4\tAalsmeer\tR1\t\tII.3\t80.0\t100.0\t3.4\t\t\t10.0\t-2\t0\t\"some remarks\"", exportNoiseSource];
     assertThat([sut exportMeasurement],is(equalTo(expectedExportString)));
 }
+
 @end

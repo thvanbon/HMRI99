@@ -108,7 +108,7 @@
     NSString *exportsoundPressureLevel=[NSString stringWithFormat:@"%0.1f", self.soundPressureLevel];
     NSString *exportsoundPowerLevel=[NSString stringWithFormat:@"%0.1f", self.soundPowerLevel];
     NSString *exportBackgroundSoundPressureLevel=[NSString stringWithFormat:@"%0.1f", self.backgroundSoundPressureLevel];
-    NSString *exportRemarks=self.remarks;
+    NSString *exportRemarks=[NSString stringWithFormat:@"\"%@\"", self.remarks];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"dd-MM-yyyy hh:mm:ss"];

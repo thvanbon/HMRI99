@@ -287,7 +287,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:UITextViewTextDidChangeNotification
                                                   object:textView];
-    NSLog(@"remark: %@", textView.text);
 }
 
 -(void)UITextFieldTextDidChange:(NSNotification*)notification

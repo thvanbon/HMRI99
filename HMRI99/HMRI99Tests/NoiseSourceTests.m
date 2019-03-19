@@ -80,4 +80,12 @@
     NSString *expectedExportString=@"pump\tidle";
     assertThat([sut exportNoiseSource],is(equalTo(expectedExportString)));
 }
+- (void) testExportNoiseSourceGivesFullOutputWithMissingID
+{
+
+    sut.operatingConditions=@"idle";
+    NSString *expectedExportString=@"\tidle";
+    assertThat([sut exportNoiseSource],is(equalTo(expectedExportString)));
+}
+
 @end
