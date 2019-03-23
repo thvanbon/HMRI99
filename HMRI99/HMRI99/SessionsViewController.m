@@ -31,7 +31,7 @@
         [dataSource setValue: tableView forKey: @"tableView"];
     }
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    UIBarButtonItem *mailButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCompose target:self action:@selector(selectSessionsToSendByMail:)];
+    UIBarButtonItem *mailButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAction target:self action:@selector(selectSessionsToSendByMail:)];
     self.navigationItem.leftBarButtonItem = mailButton;
     self.navigationItem.rightBarButtonItem = addButton;
     self.navigationItem.title=@"Measurement Sessions";

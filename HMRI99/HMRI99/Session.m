@@ -26,7 +26,11 @@
     
     NSMutableArray*measurementsStringArray=[[NSMutableArray alloc] init];
     [measurementsStringArray addObject:[NSString stringWithFormat:@"%@\t%@", exportSessionHeader, [Measurement exportMeasurementHeader]]];
-    for (Measurement *measurement in self.measurements)
+    
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"creationDate" ascending:YES];
+    NSArray *exportedMeasurements = [self.measurements sortedArrayUsingDescriptors:[NSArray arrayWithObject:sortDescriptor]];
+
+    for (Measurement *measurement in exportedMeasurements)
     {
         NSString *exportMeasurementString=[measurement exportMeasurement];
         [measurementsStringArray addObject:[NSString stringWithFormat:@"%@\t%@",exportSessionString,exportMeasurementString]];
