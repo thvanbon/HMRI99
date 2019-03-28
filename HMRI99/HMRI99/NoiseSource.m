@@ -5,6 +5,7 @@
 
 -(void)awakeFromInsert
 {
+    self.name=@"";
     self.operatingConditions=@"";
 }
 -(NSString*)exportNoiseSource

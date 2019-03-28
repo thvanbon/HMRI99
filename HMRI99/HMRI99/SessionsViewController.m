@@ -125,6 +125,51 @@
 
 - (void) sendMail: (id)sender
 {
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    
+    
+    UIAlertController *popupQuery = [UIAlertController alertControllerWithTitle:@"Attach Images"
+                                                                        message:nil
+                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+                                                               // Cancel button tappped.
+                                                               [window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
+                                                           }];
+    UIAlertAction *sendWithImages = [UIAlertAction actionWithTitle:@"Send with attached images"
+                                                             style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                                 [window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
+                                                                 [self sendMailWithImages];
+                                                             }];
+    UIAlertAction *sendWithoutImages = [UIAlertAction actionWithTitle:@"Send without attached images"
+                                                                style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                                    [window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
+                                                                    [self sendMailWithoutImages];
+                                                                }];
+    
+    [popupQuery addAction:cancelAction];
+    [popupQuery addAction:sendWithImages];
+    [popupQuery addAction:sendWithoutImages];
+    
+    UIPopoverPresentationController *popPresenter = [popupQuery popoverPresentationController];
+    UIBarButtonItem *button = (UIBarButtonItem*) sender;
+    popPresenter.sourceView = window;
+    popPresenter.barButtonItem = button;
+    [window.rootViewController presentViewController:popupQuery animated:YES completion:nil];
+}
+
+- (void) sendMailWithImages
+{
+    [self sendMailWithAttachedImages:YES];
+}
+
+- (void) sendMailWithoutImages
+{
+    [self sendMailWithAttachedImages:NO];
+}
+
+- (void) sendMailWithAttachedImages:(BOOL)sendImages
+{
     NSArray *selectedRows = [self.tableView indexPathsForSelectedRows];
     if (selectedRows.count==0) {
         [self cancelMail:nil];
@@ -132,11 +177,10 @@
     else
     {
         NSMutableArray * sessionExportStringsArray=[[NSMutableArray alloc] init];
-        NSMutableArray * sessionExportImagesArray=[[NSMutableArray alloc] init];
+        
         for (NSIndexPath *indexPath in selectedRows) {
             Session * session = [(SessionsTableViewDataSource*)self.dataSource sessionForIndexPath:indexPath];
             [sessionExportStringsArray addObject:[session exportSession]];
-            [sessionExportImagesArray addObjectsFromArray:[session exportMeasurementImages]];
         }
         NSString *textFileContentsString=[sessionExportStringsArray componentsJoinedByString:@"\n"];
         if ([MFMailComposeViewController canSendMail]) {
@@ -145,21 +189,36 @@
             mailViewController.mailComposeDelegate = self;
             [mailViewController setSubject:@"Measurement results"];
             [mailViewController setMessageBody:@"results in attachment!" isHTML:NO];
-//            NSLog(textFileContentsString);
+            //            NSLog(textFileContentsString);
             NSData * textFileContentsData=[textFileContentsString dataUsingEncoding:NSASCIIStringEncoding];
-            
             [mailViewController addAttachmentData:textFileContentsData mimeType:@"text/plain" fileName:@"data.txt"];
-            for (NSArray *imageToBeExported in sessionExportImagesArray) {
-                if (![[imageToBeExported objectAtIndex:1] isEqual:nil]) {
-                    NSData *imageData = UIImageJPEGRepresentation([imageToBeExported objectAtIndex:1], 0.8);
-                    [mailViewController addAttachmentData:imageData mimeType:@"image/jpeg" fileName:[NSString stringWithFormat:@"%@.jpg",[imageToBeExported objectAtIndex:0]]];
-                }
+            
+            if (sendImages)
+            {
+                [self addAttachmentsToMailViewController:mailViewController selectedRows:selectedRows];
             }
+            
             [self presentViewController:mailViewController animated:YES completion:nil];
         }
         
         else {
             NSLog(@"Device is unable to send email in its current state.");
+            [self cancelMail:nil];
+        }
+    }
+}
+
+- (void)addAttachmentsToMailViewController:(MFMailComposeViewController *)mailViewController selectedRows:(NSArray *)selectedRows {
+    NSMutableArray * sessionExportImagesArray=[[NSMutableArray alloc] init];
+    for (NSIndexPath *indexPath in selectedRows) {
+        Session * session = [(SessionsTableViewDataSource*)self.dataSource sessionForIndexPath:indexPath];
+        [sessionExportImagesArray addObjectsFromArray:[session exportMeasurementImages]];
+    }
+    
+    for (NSArray *imageToBeExported in sessionExportImagesArray) {
+        if (![[imageToBeExported objectAtIndex:1] isEqual:nil]) {
+            NSData *imageData = UIImageJPEGRepresentation([imageToBeExported objectAtIndex:1], 0.8);
+            [mailViewController addAttachmentData:imageData mimeType:@"image/jpeg" fileName:[NSString stringWithFormat:@"%@.jpg",[imageToBeExported objectAtIndex:0]]];
         }
     }
 }
