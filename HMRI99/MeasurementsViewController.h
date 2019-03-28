@@ -4,7 +4,7 @@
 @property (strong) IBOutlet UITableView *tableView;
 @property (strong) MeasurementsTableViewDataSource <UITableViewDataSource, UITableViewDelegate> * dataSource;
 - (void)userDidSelectMeasurementNotification:(NSNotification *)note;
-- (void) insertNewObject: (id)sender;
+- (void) insertNewObjectWithSender: (id)sender;
 - (void) userDidAddMeasurementNotification:(NSNotification *)note;
 @property (strong, nonatomic) IBOutlet UIToolbar *sortBar;
 @end

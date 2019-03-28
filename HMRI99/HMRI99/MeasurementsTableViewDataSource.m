@@ -78,22 +78,21 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
     [[NSNotificationCenter defaultCenter] postNotificationName:measurementsTableDidSelectMeasurementNotification object:[[self sortMeasurements ] objectAtIndex:[indexPath row]]];
 }
 
-- (void)addMeasurement
-{
+- (Measurement*) addMeasurementNewNoiseSourceWithManagedObjectContext:(NSManagedObjectContext*) ctx {
+    
     Measurement *newMeasurement=(Measurement*)[NSEntityDescription
                                                insertNewObjectForEntityForName:@"Measurement"
-                                               inManagedObjectContext:[self managedObjectContext]];
+                                               inManagedObjectContext:ctx];
     NoiseSource *newNoiseSource=(NoiseSource*)[NSEntityDescription
                                                insertNewObjectForEntityForName:@"NoiseSource"
-                                               inManagedObjectContext:[self managedObjectContext]];
+                                               inManagedObjectContext:ctx];
     Location *newLocation=(Location*)[NSEntityDescription
-                                               insertNewObjectForEntityForName:@"Location"
-                                               inManagedObjectContext:[self managedObjectContext]];
+                                      insertNewObjectForEntityForName:@"Location"
+                                      inManagedObjectContext:ctx];
     Image *newImage=(Image*)[NSEntityDescription
                              insertNewObjectForEntityForName:@"Image"
-                             inManagedObjectContext:[self managedObjectContext]];
-//    [[self sortMeasurements ] objectAtIndex:[indexPath row]]
-//    newMeasurement.measurementDevice=;
+                             inManagedObjectContext:ctx];
+    
     newMeasurement.creationDate=[NSDate date];
     newMeasurement.identification=[self nextMeasurementID];
     newMeasurement.measurementDevice=[self currentMeasurementDevice];
@@ -103,12 +102,57 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
     newMeasurement.remarks=@"";
     newMeasurement.image=newImage;
     newMeasurement.location=newLocation;
-    NSManagedObjectContext *ctx=[self managedObjectContext];
-    NSError *error=nil;
-    if (![ctx save:&error]) {
-        NSLog(@"Error: %@", error);
-    }
-    [[NSNotificationCenter defaultCenter] postNotificationName:measurementsTableDidAddMeasurementNotification object:newMeasurement];
+    
+    return newMeasurement;
+}
+
+- (void)addMeasurementWithSender:(UIBarButtonItem*)sender
+{
+    UIWindow *window = [[UIApplication sharedApplication] keyWindow];
+    
+    UIAlertController *popupQuery = [UIAlertController alertControllerWithTitle:@"Add measurement"
+                                                                        message:nil
+                                                                 preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
+                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+                                                               // Cancel button tappped.
+                                                               [window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
+                                                           }];
+    UIAlertAction *newMeasurementAction = [UIAlertAction actionWithTitle:@"New noise source"
+                                                                style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                                    NSManagedObjectContext *ctx=[self managedObjectContext];
+                                                                    Measurement* newMeasurement = [self addMeasurementNewNoiseSourceWithManagedObjectContext:ctx];
+                                                                    NSError *error=nil;
+                                                                    if (![ctx save:&error]) {
+                                                                        NSLog(@"Error: %@", error);
+                                                                    }
+                                                                    [[NSNotificationCenter defaultCenter] postNotificationName:measurementsTableDidAddMeasurementNotification object:newMeasurement];
+                                                                    [window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
+                                                                }];
+    UIAlertAction *newMeasurementSameNoiseSourceAction = [UIAlertAction actionWithTitle:@"Same noise source"
+                                                                style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                                                                    NSManagedObjectContext *ctx=[self managedObjectContext];
+                                                                    Measurement* lastMeasurement = [self lastMeasurement];
+                                                                    Measurement* newMeasurement = [self addMeasurementNewNoiseSourceWithManagedObjectContext:ctx];
+                                                                    newMeasurement.noiseSource=lastMeasurement.noiseSource;
+                                                                    NSError *error=nil;
+                                                                    if (![ctx save:&error]) {
+                                                                        NSLog(@"Error: %@", error);
+                                                                    }
+                                                                    [[NSNotificationCenter defaultCenter] postNotificationName:measurementsTableDidAddMeasurementNotification object:newMeasurement];
+                                                                    [window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
+                                                                }];
+    
+    [popupQuery addAction:cancelAction];
+    [popupQuery addAction:newMeasurementAction];
+    [popupQuery addAction:newMeasurementSameNoiseSourceAction];
+    
+    UIPopoverPresentationController *popPresenter = [popupQuery popoverPresentationController];
+
+    //popPresenter.sourceView = window;
+    popPresenter.barButtonItem = sender;
+    [window.rootViewController presentViewController:popupQuery animated:YES completion:nil];
+
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -164,11 +208,7 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
 
 - (NSString*) nextMeasurementID
 {
-    int sortID=self.sortID;
-    self.sortID=0;
-    NSArray* measurements=[self sortMeasurements];
-    
-    Measurement* lastMeasurement=[measurements firstObject];
+    Measurement* lastMeasurement =[self lastMeasurement];
     NSInteger lastID = [self extractNumberFromText:[lastMeasurement identification]];
     
     self.sortID=sortID;
@@ -177,13 +217,19 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
 
 - (NSString*) currentMeasurementDevice
 {
+    Measurement* lastMeasurement =[self lastMeasurement];
+    return lastMeasurement.measurementDevice;
+}
+
+- (Measurement*) lastMeasurement
+{
     int sortID=self.sortID;
     self.sortID=0;
     NSArray* measurements=[self sortMeasurements];
     
     Measurement* lastMeasurement=[measurements firstObject];
     self.sortID=sortID;
-    return lastMeasurement.measurementDevice;
+    return lastMeasurement;
 }
 
 - (NSInteger)extractNumberFromText:(NSString *)text

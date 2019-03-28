@@ -30,7 +30,7 @@
     if (tableViewProperty) {
         [dataSource setValue: tableView forKey: @"tableView"];
     }
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObjectWithSender:)];
     self.navigationItem.rightBarButtonItem = addButton;
     self.navigationItem.title=@"Measurements";
     NSArray *sortItems=[NSArray arrayWithObjects:@"original", @"id", @"name", @"Lw", nil];
@@ -104,11 +104,11 @@
                                            animated: YES];
 }
 
-- (void) insertNewObject: (id)sender
+- (void) insertNewObjectWithSender:(id)sender
 {
-    if ([self.tableView.delegate respondsToSelector:@selector(addMeasurement)])
+    if ([self.tableView.delegate respondsToSelector:@selector(addMeasurementWithSender:)])
     {
-        [(id) self.tableView.delegate addMeasurement];
+        [(id) self.tableView.delegate addMeasurementWithSender:sender];
     }
 }
 
