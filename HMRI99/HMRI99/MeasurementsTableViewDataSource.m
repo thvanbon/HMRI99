@@ -106,7 +106,7 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
     return newMeasurement;
 }
 
-- (void)addMeasurementWithSender:(UIBarButtonItem*)sender
+- (void)addMeasurement:(id)sender
 {
     UIWindow *window = [[UIApplication sharedApplication] keyWindow];
     
