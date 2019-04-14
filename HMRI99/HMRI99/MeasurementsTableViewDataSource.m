@@ -78,7 +78,7 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
     [[NSNotificationCenter defaultCenter] postNotificationName:measurementsTableDidSelectMeasurementNotification object:[[self sortMeasurements ] objectAtIndex:[indexPath row]]];
 }
 
-- (Measurement*) addMeasurementNewNoiseSourceWithManagedObjectContext:(NSManagedObjectContext*) ctx {
+- (Measurement*) addMeasurementWithManagedObjectContext:(NSManagedObjectContext*) ctx {
     
     Measurement *newMeasurement=(Measurement*)[NSEntityDescription
                                                insertNewObjectForEntityForName:@"Measurement"
@@ -121,7 +121,7 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
     UIAlertAction *newMeasurementAction = [UIAlertAction actionWithTitle:@"New noise source"
                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                                                     NSManagedObjectContext *ctx=[self managedObjectContext];
-                                                                    Measurement* newMeasurement = [self addMeasurementNewNoiseSourceWithManagedObjectContext:ctx];
+                                                                    Measurement* newMeasurement = [self addMeasurementWithManagedObjectContext:ctx];
                                                                     NSError *error=nil;
                                                                     if (![ctx save:&error]) {
                                                                         NSLog(@"Error: %@", error);
@@ -132,9 +132,18 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
     UIAlertAction *newMeasurementSameNoiseSourceAction = [UIAlertAction actionWithTitle:@"Same noise source"
                                                                 style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
                                                                     NSManagedObjectContext *ctx=[self managedObjectContext];
+                                                                    
                                                                     Measurement* lastMeasurement = [self lastMeasurement];
-                                                                    Measurement* newMeasurement = [self addMeasurementNewNoiseSourceWithManagedObjectContext:ctx];
-                                                                    newMeasurement.noiseSource=lastMeasurement.noiseSource;
+                                                                    Measurement* newMeasurement = [self addMeasurementWithManagedObjectContext:ctx];
+                                                                    NSString *entityName = [[lastMeasurement.noiseSource entity] name];
+                                                                    //loop through all attributes and assign them to the clone
+                                                                    NSDictionary *attributes = [[NSEntityDescription
+                                                                                                 entityForName:entityName
+                                                                                                 inManagedObjectContext:ctx] attributesByName];
+                                                                    
+                                                                    for (NSString *attr in attributes) {
+                                                                        [newMeasurement.noiseSource setValue:[lastMeasurement.noiseSource valueForKey:attr] forKey:attr];
+                                                                    }
                                                                     NSError *error=nil;
                                                                     if (![ctx save:&error]) {
                                                                         NSLog(@"Error: %@", error);
@@ -218,7 +227,8 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
 - (NSString*) currentMeasurementDevice
 {
     Measurement* lastMeasurement =[self lastMeasurement];
-    return lastMeasurement.measurementDevice;
+    
+    return [lastMeasurement valueForKey: @"measurementDevice"];
 }
 
 - (Measurement*) lastMeasurement
