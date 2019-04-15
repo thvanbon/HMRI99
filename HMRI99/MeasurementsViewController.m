@@ -104,11 +104,11 @@
                                            animated: YES];
 }
 
-- (void) insertNewObject: (id)sender
+- (void) insertNewObject:(id)sender
 {
-    if ([self.tableView.delegate respondsToSelector:@selector(addMeasurement)])
+    if ([self.tableView.delegate respondsToSelector:@selector(addMeasurement:)])
     {
-        [(id) self.tableView.delegate addMeasurement];
+        [(id) self.tableView.delegate addMeasurement:sender];
     }
 }
 

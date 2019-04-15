@@ -16,7 +16,7 @@ extern NSString * measurementsTableDidAddMeasurementNotification;
 @property (weak) UITableView *tableView;
 @property int sortID;
 
-- (void) addMeasurement;
+- (void) addMeasurement:(id)sender;
 - (NSString*) nextMeasurementID;
 - (NSString*) currentMeasurementDevice;
 - (NSInteger)extractNumberFromText:(NSString *)text;
