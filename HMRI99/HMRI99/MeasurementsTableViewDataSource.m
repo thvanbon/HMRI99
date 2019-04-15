@@ -114,43 +114,42 @@ NSString * measurementsTableDidAddMeasurementNotification=@"measurementsTableDid
                                                                         message:nil
                                                                  preferredStyle:UIAlertControllerStyleActionSheet];
     UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel"
-                                                           style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
-                                                               // Cancel button tappped.
-                                                               [window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
-                                                           }];
+                       style:UIAlertActionStyleCancel handler:^(UIAlertAction * action) {
+                           // Cancel button tappped.
+                           [window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
+                       }];
     UIAlertAction *newMeasurementAction = [UIAlertAction actionWithTitle:@"New noise source"
-                                                                style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                                                                    NSManagedObjectContext *ctx=[self managedObjectContext];
-                                                                    Measurement* newMeasurement = [self addMeasurementWithManagedObjectContext:ctx];
-                                                                    NSError *error=nil;
-                                                                    if (![ctx save:&error]) {
-                                                                        NSLog(@"Error: %@", error);
-                                                                    }
-                                                                    [[NSNotificationCenter defaultCenter] postNotificationName:measurementsTableDidAddMeasurementNotification object:newMeasurement];
-                                                                    [window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
-                                                                }];
+                        style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                            NSManagedObjectContext *ctx=[self managedObjectContext];
+                            Measurement* newMeasurement = [self addMeasurementWithManagedObjectContext:ctx];
+                            NSError *error=nil;
+                            if (![ctx save:&error]) {
+                                NSLog(@"Error: %@", error);
+                            }
+                            [[NSNotificationCenter defaultCenter] postNotificationName:measurementsTableDidAddMeasurementNotification object:newMeasurement];
+                            [window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
+                        }];
     UIAlertAction *newMeasurementSameNoiseSourceAction = [UIAlertAction actionWithTitle:@"Same noise source"
-                                                                style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
-                                                                    NSManagedObjectContext *ctx=[self managedObjectContext];
-                                                                    
-                                                                    Measurement* lastMeasurement = [self lastMeasurement];
-                                                                    Measurement* newMeasurement = [self addMeasurementWithManagedObjectContext:ctx];
-                                                                    NSString *entityName = [[lastMeasurement.noiseSource entity] name];
-                                                                    //loop through all attributes and assign them to the clone
-                                                                    NSDictionary *attributes = [[NSEntityDescription
-                                                                                                 entityForName:entityName
-                                                                                                 inManagedObjectContext:ctx] attributesByName];
-                                                                    
-                                                                    for (NSString *attr in attributes) {
-                                                                        [newMeasurement.noiseSource setValue:[lastMeasurement.noiseSource valueForKey:attr] forKey:attr];
-                                                                    }
-                                                                    NSError *error=nil;
-                                                                    if (![ctx save:&error]) {
-                                                                        NSLog(@"Error: %@", error);
-                                                                    }
-                                                                    [[NSNotificationCenter defaultCenter] postNotificationName:measurementsTableDidAddMeasurementNotification object:newMeasurement];
-                                                                    [window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
-                                                                }];
+                        style:UIAlertActionStyleDefault handler:^(UIAlertAction * action) {
+                            NSManagedObjectContext *ctx=[self managedObjectContext];
+                            Measurement* lastMeasurement = [self lastMeasurement];
+                            Measurement* newMeasurement = [self addMeasurementWithManagedObjectContext:ctx];
+                            NSString *entityName = [[lastMeasurement.noiseSource entity] name];
+                            //loop through all attributes and assign them to the clone
+                            NSDictionary *attributes = [[NSEntityDescription
+                                                         entityForName:entityName
+                                                         inManagedObjectContext:ctx] attributesByName];
+                            
+                            for (NSString *attr in attributes) {
+                                [newMeasurement.noiseSource setValue:[lastMeasurement.noiseSource valueForKey:attr] forKey:attr];
+                            }
+                            NSError *error=nil;
+                            if (![ctx save:&error]) {
+                                NSLog(@"Error: %@", error);
+                            }
+                            [[NSNotificationCenter defaultCenter] postNotificationName:measurementsTableDidAddMeasurementNotification object:newMeasurement];
+                            [window.rootViewController dismissViewControllerAnimated:YES completion:^{}];
+                        }];
     
     [popupQuery addAction:cancelAction];
     [popupQuery addAction:newMeasurementAction];

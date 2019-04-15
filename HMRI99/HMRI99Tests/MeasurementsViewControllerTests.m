@@ -160,7 +160,7 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
     navController = [[UINavigationController alloc] initWithRootViewController: sut];
     [sut viewDidLoad];
     [sut insertNewObject:nil];
-    [verify(mockDataSource) addMeasurement];
+    [verify(mockDataSource) addMeasurement:nil];
 }
 
 - (void)testDefaultStateOfViewControllerDoesNotReceiveNotificationsForSelecting {
@@ -247,7 +247,7 @@ static const char *notificationKey = "MeasurementsViewControllerTestsAssociatedN
     dataSource.session=[NSEntityDescription insertNewObjectForEntityForName:@"Session" inManagedObjectContext:ctx];
     [sut viewDidAppear: NO];
     int numberOfRowsInSectionOne=(int) [sut.dataSource tableView:sut.tableView numberOfRowsInSection:0];
-    [dataSource addMeasurement];
+    [dataSource addMeasurement:nil];
     assertThatInt((int) [sut.dataSource tableView:sut.tableView numberOfRowsInSection:0], is(equalToInt(numberOfRowsInSectionOne+1)));
 }
 
