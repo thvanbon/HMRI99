@@ -13,6 +13,10 @@
 @property float soundPressureLevel;
 @property float soundPowerLevel;
 @property float backgroundSoundPressureLevel;
+@property NSString * backgroundLevelCorrectionType;
+@property NSString * backgroundSoundPressureLevelIdentification;
+@property float backgroundLevelCorrection;
+@property float reflectionCorrection;
 @property NSString * remarks;
 @property (nonatomic, retain) NoiseSource * noiseSource;
 @property NSString * type;
@@ -22,9 +26,12 @@
 @property float distance;
 @property float hemiSphereCorrection;
 
+@property int16_t surfaceType;
 @property float surfaceArea;
 @property float nearFieldCorrection;
 @property float directivityIndex;
+
+@property float measurementHeight;
 
 @property (nonatomic, retain) Session *session;
 @property (nonatomic, retain) Image *image;

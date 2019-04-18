@@ -62,12 +62,22 @@
     assertThat([sut name], is(equalTo(@"compressor")));
 }
 
+- (void) testNoiseSourceHasSubname
+{
+    sut.subname=@"C-100";
+    assertThat([sut subname], is(equalTo(@"C-100")));
+}
 - (void) testNoiseSourceCanHaveOperatingConditions
 {
     [sut setOperatingConditions:@"2000 rpm"];
     assertThat([sut operatingConditions], is(equalTo(@"2000 rpm")));
 }
 
+- (void) testMeasurementHasSourceHeight
+{
+    [sut setHeight:3];
+    assertThat([NSNumber numberWithFloat:[sut height]], is(equalToFloat(3)));
+}
 - (void) testNoiseSourceHasExportMethod
 {
     assertThatBool([sut respondsToSelector:@selector(exportNoiseSource)],is(equalToLong(YES)));
@@ -76,15 +86,17 @@
 - (void) testExportNoiseSourceGivesFullOutput
 {
     sut.name=@"pump";
+    sut.subname=@"P-100";
     sut.operatingConditions=@"idle";
-    NSString *expectedExportString=@"pump\tidle";
+    NSString *expectedExportString=@"pump\tP-100\tidle";
     assertThat([sut exportNoiseSource],is(equalTo(expectedExportString)));
 }
+
 - (void) testExportNoiseSourceGivesFullOutputWithMissingID
 {
 
     sut.operatingConditions=@"idle";
-    NSString *expectedExportString=@"\tidle";
+    NSString *expectedExportString=@"\t\tidle";
     assertThat([sut exportNoiseSource],is(equalTo(expectedExportString)));
 }
 

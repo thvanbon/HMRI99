@@ -152,6 +152,23 @@
     assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(62.0,0.05)));
 }
 
+- (void) testCalculateSWLForSPL40AndDistance5AndReflectionCorrection2_5Gives62_5
+{
+    [sut setType:@"II.2"];
+    [self calculateSWLForSPL:40 distance:5 hemiSphereCorrection:0 reflectionCorrection:2.5];
+    assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(62.5,0.05)));
+}
+
+- (void) testCalculateSWLForSPL40AndDistance5AndReflectionCorrection2_5AndAmbientCorrection2Gives60_5
+{
+    [sut setType:@"II.2"];
+    [sut setBackgroundLevelCorrection:2];
+    [sut setBackgroundLevelCorrectionType:@"Correction"];
+    [self calculateSWLForSPL:40 distance:5 hemiSphereCorrection:0 reflectionCorrection:2.5];
+    assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(60.5,0.05)));
+}
+
+
 - (void) testCalculateSWLForSPL50AndDistance10AndHemiSphereCorrection2Gives79
 {
     [sut setType:@"II.2"];    
@@ -175,6 +192,16 @@
     [sut setBackgroundSoundPressureLevel:lAmbient];
     [sut calculateSoundPowerLevel];
 }
+
+- (void)calculateSWLForSPL: (float)SPL distance:(float) distance hemiSphereCorrection:(float) hemiSphereCorrection reflectionCorrection:(float)reflectionCorrection
+{
+    [sut setDistance:distance];
+    [sut setSoundPressureLevel:SPL];
+    [sut setHemiSphereCorrection:hemiSphereCorrection];
+    [sut setReflectionCorrection:reflectionCorrection];
+    [sut calculateSoundPowerLevel];
+}
+
 #pragma mark II.3
 
 - (void) testMeasurementHasSurfaceArea
@@ -242,6 +269,23 @@
     assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(66.0,0.05)));
 }
 
+- (void) testCalculateSWLForSPL50AndSurface100AndNearFieldMinus1AndLambient50AndReflectionCorrection3_5Gives63_5
+{
+    [sut setType:@"II.3"];
+    [sut setReflectionCorrection:2.5];
+    [self calculateSWLForSPL:50 surfaceArea:100 nearFieldCorrection:-1 Lambient:47];
+    assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(63.5,0.05)));
+}
+
+- (void) testCalculateSWLForSPL50AndSurface100AndNearFieldMinus1AndAmbientCorrection2Gives67
+{
+    [sut setType:@"II.3"];
+    [sut setBackgroundLevelCorrectionType:@"Correction"];
+    [sut setBackgroundLevelCorrection:2];
+    [self calculateSWLForSPL:50 surfaceArea:100 nearFieldCorrection:-1];
+    assertThat([NSNumber numberWithFloat: [sut soundPowerLevel]],is(closeTo(67.0,0.05)));
+}
+
 - (void)calculateSWLForSPL: (float)SPL surfaceArea:(float) surfaceArea nearFieldCorrection:(float) nearFieldCorrection
 {
     [sut setSurfaceArea:surfaceArea];
@@ -265,13 +309,22 @@
     assertThatBool([sut respondsToSelector:@selector(exportMeasurement)],is(equalToLong(YES)));
 }
 
-- (void) testExportMeasurementGivesFullOutputForTypeII2
+
+- (void) testMeasurementHasExportMeasurementHeaderMethod
+{
+    assertThatBool([Measurement respondsToSelector:@selector(exportMeasurementHeader)],is(equalToLong(YES)));
+}
+
+
+- (void) testExportMeasurementGivesFullOutputForTypeII2ForAmbientLevelCorrection
 {
     sut.noiseSource=[NSEntityDescription insertNewObjectForEntityForName:@"NoiseSource"
                                       inManagedObjectContext:ctx];
     sut.location=[NSEntityDescription insertNewObjectForEntityForName:@"Location"
                                                   inManagedObjectContext:ctx];
     sut.noiseSource.name=@"pump";
+    sut.noiseSource.subname=@"P-2340";
+    sut.measurementHeight=4.5;
     sut.noiseSource.operatingConditions=@"idle";
     sut.location.address=@"Aalsmeer";
     sut.location.coordinates=@"54.3, 23.4";
@@ -282,6 +335,9 @@
     sut.distance=5.0f;
     sut.hemiSphereCorrection=0.0f;
     sut.backgroundSoundPressureLevel=3.0f;
+    sut.backgroundLevelCorrectionType=@"Level";
+    sut.backgroundSoundPressureLevelIdentification=@"R43";
+    sut.reflectionCorrection=3.0f;
     sut.creationDate=[NSDate date];
     sut.remarks=@"some remarks";
     
@@ -291,12 +347,12 @@
     NSString *exportCreationDate = [formatter stringFromDate:sut.creationDate];
 
     NSString *exportNoiseSource=[sut.noiseSource exportNoiseSource];
-    NSString *expectedExportString=[NSString stringWithFormat:@"%@\t54.3, 23.4\tAalsmeer\tR1\t%@\tII.2\t80.0\t100.0\t3.0\t5.0\t0\t\t\t\t\"some remarks\"", exportNoiseSource, exportCreationDate];
+    NSString *expectedExportString=[NSString stringWithFormat:@"%@\t54.3, 23.4\tAalsmeer\tR1\t%@\tII.2\t80.0\t100.0\t3.0\tR43\t\t3.0\t5.0\t4.5\t0\t\t\t\t\"some remarks\"", exportNoiseSource, exportCreationDate];
     assertThat([sut exportMeasurement],is(equalTo(expectedExportString)));
 }
 
 
-- (void) testExportMeasurementGivesFullOutputForTypeII3
+- (void) testExportMeasurementGivesFullOutputForTypeII3AmbientCorrection
 {
     sut.noiseSource=[NSEntityDescription insertNewObjectForEntityForName:@"NoiseSource"
                                                   inManagedObjectContext:ctx];
@@ -304,22 +360,68 @@
                                                inManagedObjectContext:ctx];
     
     sut.noiseSource.name=@"pump";
+    sut.noiseSource.subname=@"P-2340";
     sut.noiseSource.operatingConditions=@"idle";
     sut.location.address=@"Aalsmeer";
     sut.location.coordinates=@"54.3, 23.4";
     sut.type=@"II.3";
     sut.identification=@"R1";
     sut.soundPressureLevel=80.0f;
-    sut.soundPowerLevel=100.0f;
+    sut.soundPowerLevel=97.0f;
     sut.backgroundSoundPressureLevel=3.4f;
+    sut.backgroundLevelCorrection=3.0f;
+    sut.backgroundLevelCorrectionType=@"Correction";
+    sut.reflectionCorrection=3.0f;
     sut.surfaceArea=10.0f;
     sut.nearFieldCorrection=-2.0f;
     sut.directivityIndex=0.0f;
     sut.remarks=@"some remarks";
     
     NSString *exportNoiseSource=[sut.noiseSource exportNoiseSource];
-    NSString *expectedExportString=[NSString stringWithFormat:@"%@\t54.3, 23.4\tAalsmeer\tR1\t\tII.3\t80.0\t100.0\t3.4\t\t\t10.0\t-2\t0\t\"some remarks\"", exportNoiseSource];
+    NSString *expectedExportString=[NSString stringWithFormat:@"%@\t54.3, 23.4\tAalsmeer\tR1\t\tII.3\t80.0\t97.0\t\t\t3.0\t3.0\t\t\t\t10.0\t-2\t0\t\"some remarks\"", exportNoiseSource];
     assertThat([sut exportMeasurement],is(equalTo(expectedExportString)));
+}
+
+- (void) testMeasurementHasMeasurementHeight
+{
+    [sut setMeasurementHeight:5];
+    assertThat([NSNumber numberWithFloat:[sut measurementHeight]], is(equalToFloat(5)));
+}
+
+- (void) testMeasurementHasAmbientLevelCorrectionType
+{
+    [sut setBackgroundLevelCorrectionType:@"Level"];
+    assertThat([sut backgroundLevelCorrectionType], is(equalTo(@"Level")));
+}
+
+- (void) testMeasurementHasBackgroundSoundPressureLevelIdentification
+{
+    [sut setBackgroundSoundPressureLevelIdentification:@"R43"];
+    assertThat([sut backgroundSoundPressureLevelIdentification], is(equalTo(@"R43")));
+}
+
+- (void) testMeasurementHasBackgroundLevelCorrection
+{
+    [sut setBackgroundLevelCorrection:2.5];
+    assertThat([NSNumber numberWithFloat:[sut backgroundLevelCorrection]], is(equalToFloat(2.5)));
+}
+
+- (void) testMeasurementHasReflectionCorrection
+{
+    [sut setReflectionCorrection:2];
+    assertThat([NSNumber numberWithFloat:[sut reflectionCorrection]], is(equalToFloat(2)));
+}
+
+- (void) testMeasurementHasSurfaceType
+{
+    [sut setSurfaceType:8];
+    assertThat([NSNumber numberWithInt:[sut surfaceType]], is(equalToInt(8)));
+}
+
+- (void) testExportMeasurementHeaderGivesCompleteHeader
+{
+    NSString *expectedExportHeaderString=@"noise source name\tnoise source subname\tsource height\toperating conditions\tcoordinates\taddress\tidentification\tmeasurement time\ttype\tLp\tLw\tLambient\tLambient identification\tCambient\tCreflection\tdistance\tmeasurement height\themi. correction\tsurface area\tnear field correction\tdirectivity index\tremarks";
+    assertThat([Measurement exportMeasurementHeader],is(equalTo(expectedExportHeaderString)));
 }
 
 @end

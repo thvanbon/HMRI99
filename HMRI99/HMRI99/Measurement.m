@@ -10,6 +10,12 @@
 @dynamic session, image;
 @dynamic measurementDevice;
 @dynamic location;
+@dynamic measurementHeight, backgroundLevelCorrectionType, backgroundSoundPressureLevelIdentification, backgroundLevelCorrection, reflectionCorrection, surfaceType;
+
+-(void)awakeFromInsert
+{
+    self.backgroundLevelCorrectionType=@"Level";
+}
 
 -(void)calculateSoundPowerLevel
 {
@@ -59,7 +65,16 @@
 
 -(void)calculateSoundPowerLevelII2
 {
-    float SWL=10*log10f(pow(10,self.soundPressureLevel/10)-pow(10,lAmbient/10))+10*log10f(4*M_PI*pow(self.distance,2))+self.hemiSphereCorrection;
+    float SWL = 0.0;
+    if ([self.backgroundLevelCorrectionType isEqual:@"Level"])
+    {
+        SWL=10*log10f(pow(10,self.soundPressureLevel/10)-pow(10,lAmbient/10));
+    }
+    else if ([self.backgroundLevelCorrectionType isEqual:@"Correction"])
+    {
+        SWL=10*log10f(pow(10,self.soundPressureLevel/10))-self.backgroundLevelCorrection;
+    }
+    SWL=SWL+10*log10f(4*M_PI*pow(self.distance,2))+self.hemiSphereCorrection-self.reflectionCorrection;
     self.soundPowerLevel=SWL;
 }
 
@@ -84,15 +99,22 @@
 
 -(void)calculateSoundPowerLevelII3
 {
+    float SWL = 0.0;
     if (self.surfaceArea==0) {
         //        [NSException raise:@"error"
         //                    format:@"surface area should be greater than zero when sound power level is calculated"];
-        [self setSoundPowerLevel:0.0f];
-    }else
-    {
-        float SWL= 10*log10f(pow(10,self.soundPressureLevel/10)-pow(10,lAmbient/10))+10*log10f(self.surfaceArea)+self.nearFieldCorrection + self.directivityIndex;
-        [self setSoundPowerLevel:SWL];
+        SWL=0.0f;
     }
+    else if ([self.backgroundLevelCorrectionType isEqual:@"Level"])
+    {
+        SWL= 10*log10f(pow(10,self.soundPressureLevel/10)-pow(10,lAmbient/10));
+    }
+    else if ([self.backgroundLevelCorrectionType isEqual:@"Correction"])
+    {
+        SWL= 10*log10f(pow(10,self.soundPressureLevel/10))-self.backgroundLevelCorrection;
+    }
+    SWL = SWL +10*log10f(self.surfaceArea)+self.nearFieldCorrection + self.directivityIndex - self.reflectionCorrection;
+    [self setSoundPowerLevel:SWL];
 }
 
 #pragma mark export function
@@ -107,7 +129,11 @@
     NSString *exportDirectivityIndex=@"";
     NSString *exportsoundPressureLevel=[NSString stringWithFormat:@"%0.1f", self.soundPressureLevel];
     NSString *exportsoundPowerLevel=[NSString stringWithFormat:@"%0.1f", self.soundPowerLevel];
-    NSString *exportBackgroundSoundPressureLevel=[NSString stringWithFormat:@"%0.1f", self.backgroundSoundPressureLevel];
+    NSString *exportBackgroundSoundPressureLevel=@"";
+    NSString *exportAmbientIdentification=@"";
+    NSString *exportAmbientCorrection=@"";
+    NSString *exportReflectionCorrection=[NSString stringWithFormat:@"%0.1f", self.reflectionCorrection];
+    NSString *exportMeasurementHeight=@"";
     NSString *exportRemarks=[NSString stringWithFormat:@"\"%@\"", self.remarks];
     
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
@@ -122,6 +148,7 @@
     {
         exportDistance=[NSString stringWithFormat:@"%0.1f", self.distance];
         exportHemiSphereCorrection=[NSString stringWithFormat:@"%0.0f", self.hemiSphereCorrection];
+        exportMeasurementHeight=[NSString stringWithFormat:@"%0.1f", self.measurementHeight];
     } else if ([self.type isEqual:@"II.3"])
     {
         exportSurfaceArea=[NSString stringWithFormat:@"%0.1f", self.surfaceArea];
@@ -129,7 +156,16 @@
         exportDirectivityIndex=[NSString stringWithFormat:@"%0.0f", self.directivityIndex];
     }
     
-
+    if([self.backgroundLevelCorrectionType isEqual:@"Level"])
+    {
+        exportBackgroundSoundPressureLevel=[NSString stringWithFormat:@"%0.1f", self.backgroundSoundPressureLevel];
+        exportAmbientIdentification=self.backgroundSoundPressureLevelIdentification;
+    }
+    
+    if([self.backgroundLevelCorrectionType isEqual:@"Correction"])
+    {
+        exportAmbientCorrection= [NSString stringWithFormat:@"%0.1f", self.backgroundLevelCorrection];
+    }
     NSArray *measurementStringsArray=[NSArray arrayWithObjects:
                                 exportNoiseSource,
                                 exportLocation,
@@ -139,7 +175,11 @@
                                 exportsoundPressureLevel,
                                 exportsoundPowerLevel,
                                 exportBackgroundSoundPressureLevel,
+                                exportAmbientIdentification,
+                                exportAmbientCorrection,
+                                exportReflectionCorrection,
                                 exportDistance,
+                                exportMeasurementHeight,
                                 exportHemiSphereCorrection,
                                 exportSurfaceArea,
                                 exportNearFieldCorrection,
@@ -152,7 +192,7 @@
 
 +(NSString*)exportMeasurementHeader
 {
-    NSArray *exportMeasurementHeaderArray=[NSArray arrayWithObjects:@"noise source name", @"operating conditions", @"coordinates", @"address", @"identification", @"measurement time", @"type", @"Lp", @"Lw", @"Lambient", @"distance", @"hemi. correction", @"surface area", @"near field correction", @"directivity index", @"remarks", nil];
+    NSArray *exportMeasurementHeaderArray=[NSArray arrayWithObjects:@"noise source name", @"noise source subname", @"source height", @"operating conditions", @"coordinates", @"address", @"identification", @"measurement time", @"type", @"Lp", @"Lw", @"Lambient", @"Lambient identification", @"Cambient", @"Creflection", @"distance", @"measurement height", @"hemi. correction", @"surface area", @"near field correction", @"directivity index", @"remarks", nil];
     NSString *exportMeasurementHeader=[exportMeasurementHeaderArray componentsJoinedByString:@"\t"];
 
     return exportMeasurementHeader;
