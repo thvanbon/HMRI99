@@ -113,12 +113,12 @@
 {
     Measurement *newMeasurement;
     newMeasurement = [self addMeasurement];
-    
+    newMeasurement.backgroundLevelCorrectionType=@"Level";
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"dd-MM-yyyy"];
     NSString *dateString=[formatter stringFromDate:[NSDate dateWithTimeIntervalSinceReferenceDate:1]];
     NSString *exportNoiseSource=[newMeasurement.noiseSource exportNoiseSource];
-    NSString *expectedExportString=[NSString stringWithFormat:@"name\tdate\tlocation\tengineer\tnoise source name\toperating conditions\tcoordinates\taddress\tidentification\tmeasurement time\ttype\tLp\tLw\tLambient\tdistance\themi. correction\tsurface area\tnear field correction\tdirectivity index\tremarks\nCARG.13.01\t%@\tZaandam\tAlfred Brooks\t%@\t43.2, 45.1\tVught\tR1\t\tII.2\t80.0\t100.0\t2.2\t5.0\t0\t\t\t\t\"some remarks\"",dateString, exportNoiseSource];
+    NSString *expectedExportString=[NSString stringWithFormat:@"name\tdate\tlocation\tengineer\tnoise source name\tnoise source subname\tsource height\toperating conditions\tcoordinates\taddress\tidentification\tmeasurement time\ttype\tLp\tLw\tLambient\tLambient identification\tCambient\tCreflection\tdistance\tmeasurement height\themi. correction\tsurface area\tnear field correction\tdirectivity index\tremarks\nCARG.13.01\t%@\tZaandam\tAlfred Brooks\t%@\t43.2, 45.1\tVught\tR1\t\tII.2\t80.0\t100.0\t2.2\t\t\t0.0\t5.0\t3.5\t0\t\t\t\t\"some remarks\"",dateString, exportNoiseSource];
     assertThat([sut exportSession],is(equalTo(expectedExportString)));
 }
 
@@ -131,12 +131,40 @@
     [formatter setDateFormat:@"dd-MM-yyyy"];
     NSString *dateString=[formatter stringFromDate:[NSDate dateWithTimeIntervalSinceReferenceDate:1]];
     NSString *exportNoiseSource=[measurement1.noiseSource exportNoiseSource];
-    NSString *headerString=@"name\tdate\tlocation\tengineer\tnoise source name\toperating conditions\tcoordinates\taddress\tidentification\tmeasurement time\ttype\tLp\tLw\tLambient\tdistance\themi. correction\tsurface area\tnear field correction\tdirectivity index\tremarks";
-    NSString *expectedExportMeasurementString=[NSString stringWithFormat:@"CARG.13.01\t%@\tZaandam\tAlfred Brooks\t%@\t43.2, 45.1\tVught\tR1\t\tII.2\t80.0\t100.0\t2.2\t5.0\t0\t\t\t\t\"some remarks\"",dateString, exportNoiseSource];
+    NSString *headerString=@"name\tdate\tlocation\tengineer\tnoise source name\tnoise source subname\tsource height\toperating conditions\tcoordinates\taddress\tidentification\tmeasurement time\ttype\tLp\tLw\tLambient\tLambient identification\tCambient\tCreflection\tdistance\tmeasurement height\themi. correction\tsurface area\tnear field correction\tdirectivity index\tremarks";
+    NSString *expectedExportMeasurementString=[NSString stringWithFormat:@"CARG.13.01\t%@\tZaandam\tAlfred Brooks\t%@\t43.2, 45.1\tVught\tR1\t\tII.2\t80.0\t100.0\t2.2\t\t\t0.0\t5.0\t3.5\t0\t\t\t\t\"some remarks\"",dateString, exportNoiseSource];
     NSString *expectedExportString=@"";
     expectedExportString=[headerString stringByAppendingString:[NSString stringWithFormat:@"\n%@",expectedExportMeasurementString]];
     expectedExportString=[expectedExportString stringByAppendingString:[NSString stringWithFormat:@"\n%@",expectedExportMeasurementString]];
                                             
+    assertThat([sut exportSession],is(equalTo(expectedExportString)));
+}
+
+- (void) testExportSessionGivesFullOutputForMeasurementWithMissingSessionEngineer
+{
+    Measurement *newMeasurement;
+    newMeasurement = [self addMeasurement];
+    newMeasurement.backgroundLevelCorrectionType=@"Level";
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yyyy"];
+    sut.engineer=nil;
+    NSString *dateString=[formatter stringFromDate:[NSDate dateWithTimeIntervalSinceReferenceDate:1]];
+    NSString *exportNoiseSource=[newMeasurement.noiseSource exportNoiseSource];
+    NSString *expectedExportString=[NSString stringWithFormat:@"name\tdate\tlocation\tengineer\tnoise source name\tnoise source subname\tsource height\toperating conditions\tcoordinates\taddress\tidentification\tmeasurement time\ttype\tLp\tLw\tLambient\tLambient identification\tCambient\tCreflection\tdistance\tmeasurement height\themi. correction\tsurface area\tnear field correction\tdirectivity index\tremarks\nCARG.13.01\t%@\tZaandam\t\t%@\t43.2, 45.1\tVught\tR1\t\tII.2\t80.0\t100.0\t2.2\t\t\t0.0\t5.0\t3.5\t0\t\t\t\t\"some remarks\"",dateString, exportNoiseSource];
+    assertThat([sut exportSession],is(equalTo(expectedExportString)));
+}
+
+- (void) testExportSessionGivesFullOutputForMeasurementWithMissingSessionLocation
+{
+    Measurement *newMeasurement;
+    newMeasurement = [self addMeasurement];
+    newMeasurement.backgroundLevelCorrectionType=@"Level";
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"dd-MM-yyyy"];
+    sut.location=nil;
+    NSString *dateString=[formatter stringFromDate:[NSDate dateWithTimeIntervalSinceReferenceDate:1]];
+    NSString *exportNoiseSource=[newMeasurement.noiseSource exportNoiseSource];
+    NSString *expectedExportString=[NSString stringWithFormat:@"name\tdate\tlocation\tengineer\tnoise source name\tnoise source subname\tsource height\toperating conditions\tcoordinates\taddress\tidentification\tmeasurement time\ttype\tLp\tLw\tLambient\tLambient identification\tCambient\tCreflection\tdistance\tmeasurement height\themi. correction\tsurface area\tnear field correction\tdirectivity index\tremarks\nCARG.13.01\t%@\t\tAlfred Brooks\t%@\t43.2, 45.1\tVught\tR1\t\tII.2\t80.0\t100.0\t2.2\t\t\t0.0\t5.0\t3.5\t0\t\t\t\t\"some remarks\"",dateString, exportNoiseSource];
     assertThat([sut exportSession],is(equalTo(expectedExportString)));
 }
 
@@ -186,8 +214,9 @@
     newMeasurement.identification=@"R1";
     newMeasurement.soundPressureLevel=80.0f;
     newMeasurement.soundPowerLevel=100.0f;
-    newMeasurement.backgroundSoundPressureLevel=2.25f;
+    newMeasurement.backgroundSoundPressureLevel=2.2f;
     newMeasurement.distance=5.0f;
+    newMeasurement.measurementHeight=3.5f;
     newMeasurement.hemiSphereCorrection=0.0f;
     newMeasurement.remarks=@"some remarks";
     return newMeasurement;

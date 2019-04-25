@@ -21,8 +21,8 @@
         
         if ([indexPath section] == 0) {
             if ([indexPath row] != 21) {
-                UITextField *measurementTextField = [[UITextField alloc] initWithFrame:CGRectMake(120, 10, 400, 30)];
-                UISegmentedControl *measurementTypeControl = [[UISegmentedControl alloc] initWithFrame:CGRectMake(120, 10, 185, 30)];
+                UITextField *measurementTextField = [[UITextField alloc] initWithFrame:CGRectMake(300, 10, 400, 30)];
+                UISegmentedControl *measurementTypeControl = [[UISegmentedControl alloc] initWithFrame:CGRectMake(300, 10, 185, 30)];
                 measurementTextField.adjustsFontSizeToFitWidth = YES;
                 measurementTextField.textColor = [UIColor blackColor];
                 measurementTextField.tag = [indexPath row]+1;
@@ -33,7 +33,7 @@
                 
                 measurementTextField.clearButtonMode = UITextFieldViewModeNever; // no clear 'x' button to the right
                 [cell.contentView addSubview:measurementTextField];
-                CGRect frame=CGRectMake(110, 5, 60, 60);
+                CGRect frame=CGRectMake(300, 5, 60, 60);
                 UIButton *imageButton = [UIButton buttonWithType:UIButtonTypeCustom];
                 imageButton.frame=frame;
                 imageButton.imageView.contentMode=UIViewContentModeScaleAspectFit;
@@ -148,7 +148,6 @@
                             measurementTypeControl.selectedSegmentIndex=1;
                         }
                         measurementTypeControl.tag=337;
-//                        [self updateActivationOfCell:cell atRow:16 forType:@"II.2"];
                         break;
                     case 11:
                         cell.textLabel.text = @"Ambient noise correction";
@@ -159,6 +158,7 @@
                         if (Corr>0) {
                             measurementTextField.text=[NSString stringWithFormat:@"%0.1f", Corr];
                         }
+                        [self updateActivationOfCell: cell atRow:11 matchingBackgroundCorrectionType:@"Correction"];
                         break;
                     case 12:
                         cell.textLabel.text = @"Lambient";
@@ -169,6 +169,7 @@
                         if (Lambient>0) {
                             measurementTextField.text=[NSString stringWithFormat:@"%0.1f", Lambient];
                         }
+                        [self updateActivationOfCell: cell atRow:12 matchingBackgroundCorrectionType:@"Level"];
                         break;
                     case 13:
                         cell.textLabel.text = @"Lambient ID";
@@ -176,6 +177,7 @@
                         measurementTextField.keyboardType = UIKeyboardTypeDefault;
                         measurementTextField.returnKeyType = UIReturnKeyNext;
                         measurementTextField.text=measurement.backgroundSoundPressureLevelIdentification;
+                        [self updateActivationOfCell: cell atRow:13 matchingBackgroundCorrectionType:@"Level"];
                         break;
                     case 14:
                         measurementTextField.enabled=NO;
@@ -201,7 +203,7 @@
                         if (measurement.distance>0){
                             measurementTextField.text=[NSString stringWithFormat:@"%0.1f", measurement.distance];
                         }
-                        [self updateActivationOfCell: cell atRow:15 forType: @"II.2"];
+                        [self updateActivationOfCell: cell atRow:15 matchingType: @"II.2"];
                         break;
                     case 16:
                         measurementTextField.enabled=NO;
@@ -220,7 +222,7 @@
                             measurementTypeControl.selectedSegmentIndex=1;
                         }
                         measurementTypeControl.tag=336;
-                        [self updateActivationOfCell:cell atRow:16 forType:@"II.2"];
+                        [self updateActivationOfCell:cell atRow:16 matchingType:@"II.2"];
                         break;
                     case 17:
                         cell.textLabel.text = @"Measurement height";
@@ -230,6 +232,7 @@
                         if (measurement.measurementHeight!=0){
                             measurementTextField.text=[NSString stringWithFormat:@"%0.1f", measurement.measurementHeight];
                         }
+                        [self updateActivationOfCell:cell atRow:17 matchingType:@"II.2"];
                         break;
                     case 18:
                         break;
@@ -238,7 +241,7 @@
                         measurementTextField.placeholder = @"in m2";
                         measurementTextField.keyboardType = UIKeyboardTypeNumbersAndPunctuation;
                         measurementTextField.returnKeyType = UIReturnKeyNext;
-                        [self updateActivationOfCell:cell atRow:19 forType: @"II.3"];
+                        [self updateActivationOfCell:cell atRow:19 matchingType: @"II.3"];
                         if (measurement.surfaceArea>0){
                             measurementTextField.text=[NSString stringWithFormat:@"%0.1f", measurement.surfaceArea];
                         }
@@ -257,7 +260,7 @@
                                          forControlEvents:UIControlEventValueChanged];
                         measurementTypeControl.selectedSegmentIndex=-measurement.nearFieldCorrection;
                         measurementTypeControl.tag=335;
-                        [self updateActivationOfCell:cell atRow:20 forType:@"II.3"];
+                        [self updateActivationOfCell:cell atRow:20 matchingType:@"II.3"];
                         break;
                     case 22:
                         cell.textLabel.text = @"Lw";
@@ -506,6 +509,13 @@
         NSLog(@"Error: %@",error);
     }
     [measurement calculateSoundPowerLevel];
+    NSIndexPath * IndexPath11 = [NSIndexPath indexPathForRow:11 inSection:0];
+    UITableViewCell * cell11=[tableView cellForRowAtIndexPath:IndexPath11];
+    NSIndexPath * IndexPath12 = [NSIndexPath indexPathForRow:12 inSection:0];
+    UITableViewCell * cell12=[tableView cellForRowAtIndexPath:IndexPath12];
+    NSIndexPath * IndexPath13 = [NSIndexPath indexPathForRow:13 inSection:0];
+    UITableViewCell * cell13=[tableView cellForRowAtIndexPath:IndexPath13];
+    
     NSIndexPath * IndexPath15 = [NSIndexPath indexPathForRow:15 inSection:0];
     UITableViewCell * cell15=[tableView cellForRowAtIndexPath:IndexPath15];
     NSIndexPath * IndexPath16 = [NSIndexPath indexPathForRow:16 inSection:0];
@@ -519,11 +529,15 @@
     NSIndexPath * IndexPath22 = [NSIndexPath indexPathForRow:22 inSection:0];
     UITableViewCell * cell22=[tableView cellForRowAtIndexPath:IndexPath22];
     
-    [self updateActivationOfCell:cell15 atRow:15 forType:@"II.2"];
-    [self updateActivationOfCell:cell16 atRow:16 forType:@"II.2"];
-    [self updateActivationOfCell:cell17 atRow:17 forType:@"II.2"];
-    [self updateActivationOfCell:cell19 atRow:19 forType:@"II.3"];
-    [self updateActivationOfCell:cell20 atRow:20 forType:@"II.3"];
+    [self updateActivationOfCell:cell11 atRow:11 matchingBackgroundCorrectionType:@"Correction"];
+    [self updateActivationOfCell:cell12 atRow:12 matchingBackgroundCorrectionType:@"Level"];
+    [self updateActivationOfCell:cell13 atRow:13 matchingBackgroundCorrectionType:@"Level"];
+    
+    [self updateActivationOfCell:cell15 atRow:15 matchingType:@"II.2"];
+    [self updateActivationOfCell:cell16 atRow:16 matchingType:@"II.2"];
+    [self updateActivationOfCell:cell17 atRow:17 matchingType:@"II.2"];
+    [self updateActivationOfCell:cell19 atRow:19 matchingType:@"II.3"];
+    [self updateActivationOfCell:cell20 atRow:20 matchingType:@"II.3"];
     [self updateSoundPowerLevelTextFieldInCell:cell22 atRow:22];
     [tableView beginUpdates];
     [tableView endUpdates];
@@ -571,9 +585,17 @@
     cell.textLabel.textColor=[UIColor grayColor];
 }
 
-- (void)updateActivationOfCell:(UITableViewCell*) cell atRow:(int)row forType:(NSString *)type
+- (void)updateActivationOfCell:(UITableViewCell*) cell atRow:(int)row matchingType:(NSString *)type
 {
     if ([measurement.type isEqual:type])
+        [self activateCell:cell atRow:row];
+    else
+        [self deActivateCell:cell atRow:row];
+}
+
+- (void)updateActivationOfCell:(UITableViewCell*) cell atRow:(int)row matchingBackgroundCorrectionType:(NSString *)type
+{
+    if ([measurement.backgroundLevelCorrectionType isEqual:type])
         [self activateCell:cell atRow:row];
     else
         [self deActivateCell:cell atRow:row];

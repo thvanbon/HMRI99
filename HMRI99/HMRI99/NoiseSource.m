@@ -11,10 +11,16 @@
 }
 -(NSString*)exportNoiseSource
 {
+    NSString* exportHeight=@"";
+    if (self.height)
+    {
+        exportHeight=[NSString stringWithFormat:@"%0.1f", self.height];
+    }
+
     NSArray *noiseSourceStringsArray=[NSArray arrayWithObjects:
                                   self.name,
                                   self.subname,
-                                  self.height,
+                                  exportHeight,
                                   self.operatingConditions,
                                   nil];
     NSString *exportString=[noiseSourceStringsArray componentsJoinedByString:@"\t"];

@@ -13,11 +13,20 @@
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"dd-MM-yyyy"];
+    NSString *exportName=@"";
+    NSString *exportLocation=@"";
+    NSString *exportEngineer=@"";
+    if (self.name)
+        exportName=self.name;
+    if (self.location)
+        exportLocation=self.location;
+    if (self.engineer)
+        exportEngineer=self.engineer;
     NSArray *sessionStringsArray=[NSArray arrayWithObjects:
-                                  self.name,
+                                  exportName,
                                   [formatter stringFromDate:self.date],
-                                  self.location,
-                                  self.engineer,
+                                  exportLocation,
+                                  exportEngineer,
                                   nil];
     NSString *exportSessionString=[sessionStringsArray componentsJoinedByString:@"\t"];
     

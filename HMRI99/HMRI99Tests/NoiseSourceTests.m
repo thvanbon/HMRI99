@@ -88,7 +88,8 @@
     sut.name=@"pump";
     sut.subname=@"P-100";
     sut.operatingConditions=@"idle";
-    NSString *expectedExportString=@"pump\tP-100\tidle";
+    sut.height=3.0f;
+    NSString *expectedExportString=@"pump\tP-100\t3.0\tidle";
     assertThat([sut exportNoiseSource],is(equalTo(expectedExportString)));
 }
 
@@ -96,7 +97,7 @@
 {
 
     sut.operatingConditions=@"idle";
-    NSString *expectedExportString=@"\t\tidle";
+    NSString *expectedExportString=@"\t\t\tidle";
     assertThat([sut exportNoiseSource],is(equalTo(expectedExportString)));
 }
 

@@ -159,7 +159,10 @@
     if([self.backgroundLevelCorrectionType isEqual:@"Level"])
     {
         exportBackgroundSoundPressureLevel=[NSString stringWithFormat:@"%0.1f", self.backgroundSoundPressureLevel];
-        exportAmbientIdentification=self.backgroundSoundPressureLevelIdentification;
+        if (self.backgroundSoundPressureLevelIdentification)
+        {
+            exportAmbientIdentification=self.backgroundSoundPressureLevelIdentification;
+        }
     }
     
     if([self.backgroundLevelCorrectionType isEqual:@"Correction"])
